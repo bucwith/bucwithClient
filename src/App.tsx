@@ -1,5 +1,17 @@
 import React from "react";
 
+  // if (isServer) {
+  //   (async () => {
+  //     const { server } = await import('./mocks/server');
+  //     server.listen();
+  //   })();
+  // } else {
+  //   (async () => {
+  //     const { worker } = await import('./mocks/browser');
+  //     worker.start();
+  //   })();
+  // }
+
 function App() {
   return (
     <div className="App">

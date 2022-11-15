@@ -25,7 +25,7 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"     
+      "react-app/jest"
     ]
   },
   "browserslist": {
@@ -49,6 +49,10 @@
     "@typescript-eslint/parser": "latest",
     "eslint": "latest",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-react": "latest"
+    "eslint-plugin-react": "latest",
+    "msw": "^0.48.2"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
