@@ -1,4 +1,7 @@
 import React from "react";
+import GlobalStyle from 'styled-components'
+import { ThemeProvider } from 'styled-components';
+import theme from './styles/theme';
 
   // if (isServer) {
   //   (async () => {
@@ -15,7 +18,7 @@ import React from "react";
 function App() {
   return (
     <div className="App">
-        <h1>hello world</h1>
+      <h1>hello world</h1>
     </div>
   );
 }
