@@ -1,31 +1,43 @@
 import React from "react";
 import Main from "./pages/Main";
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
-function App() {   
- 
-  const [fruits, setFruits] = React.useState<string[]>([])
-  
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import styled from 'styled-components';
+import background from '../src/assets/bgImg.png'
+
+const StyledWrapper = styled.div`
+    width : 100%;
+    height: 100%;
+    background-color: balck;
+    `
+    // bacground-image: url(${background});
+
+function App() {
+  const [fruits, setFruits] = React.useState<string[]>([]);
+
   const getFruits = async () => {
     try {
-      const response =  await (await fetch("/fruits")).json()
+      const response = await (await fetch("/fruits")).json();
       setFruits(response);
-    } catch(error) {
+    } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   React.useEffect(() => {
-   getFruits()
-  },[])
+    getFruits();
+  }, []);
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Main />} />
-        </Routes>
-        <h1>{fruits.join(', ')}</h1>
-      </BrowserRouter>
+      <StyledWrapper>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Main />} />
+          </Routes>
+          <h1>{fruits.join(", ")}</h1>    
+        </BrowserRouter>
+      </StyledWrapper>
     </div>
   );
 }
