@@ -8,6 +8,7 @@ import background from "../src/assets/bgImg.png";
 const StyledWrapper = styled.div`
   width: 100%;
   height: 100vh;
+  padding: 20px;
   background-image: url(${background});
   background-size: cover;
   background-repeat: no-repeat;
