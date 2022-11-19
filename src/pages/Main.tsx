@@ -1,28 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../components/Button'
-import Title from '../components/main/Title';
+import Title from '../components/Title';
+import InputBox from '../components/main/InputBox';
 
 const TitleWrap = styled.div`
-    padding: 127px 30px 40px;
+    padding: 127px 0px 40px 0px;
 `
 
 const Main = () => {
     return (
         <div>
             <TitleWrap>
-                <Title text="소현님이"></Title>
-                <Title text="꿈꾸는 버킷리스트를 "></Title>
-                <Title text="적어주세요."></Title>
+                <Title primary={`소현님이\n꿈꾸는 버킷리스트를\n적어주세요.`}></Title>
             </TitleWrap>
-            <Button
-            onClick={()=>{
-                console.log('동작')
-            }}
-            isRound={true}
-            disabled={false}
-            text="응원 메시지 보러가기"
-            />
+            <InputBox></InputBox>
         </div>
     );
 };
