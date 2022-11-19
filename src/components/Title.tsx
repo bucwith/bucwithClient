@@ -13,6 +13,7 @@ const PrimaryText = styled.h1`
   font-size: 26px;
   white-space: pre-wrap;
   color: ${theme.colors.whiteColor};
+  line-height: 30px;
 `;
 
 const SecondaryText = styled.h2`

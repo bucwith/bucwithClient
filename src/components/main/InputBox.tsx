@@ -1,35 +1,48 @@
-import React from 'react';
-import styled from 'styled-components';
-import SubTitle from './SubTitle';
-import TextArea from './TextArea';
-import Button  from '../Button';
+import React from "react";
+import styled from "styled-components";
+import SubTitle from "./SubTitle";
+import TextArea from "./TextArea";
+import Button from "../Button";
+import { ButtonColor } from "../../@types/enums";
 
-const Wrap = styled.div`
-padding: 30px 20px;
-background: rgba(52, 55, 68, 0.5);
-backdrop-filter: blur(15px);
-border-radius: 30px;
-`;
-
-const Padding = styled.div`
-    padding: 20px 0;
-`
-export default function InputBox() {
-  return (
-    <Wrap>
-        <SubTitle text={"어떤 종류의 버킷리스트인가요?"}></SubTitle>
-        <Padding>
-            <TextArea></TextArea>
-        </Padding>
-        <Button
-            onClick={()=>{
-                console.log('동작')
-            }}
-            isRound={true}
-            disabled={false}
-            text="응원 메시지 보러가기"
-            />
-    </Wrap>
-  )
+interface InputBoxProps {
+  title?: string;
+  placeholder: string;
+  buttonText: string;
+  onClickButton?: () => void;
+  textarea?: boolean;
 }
 
+export default function InputBox({
+  title,
+  placeholder,
+  buttonText,
+  onClickButton,
+  textarea,
+}: InputBoxProps) {
+  return (
+    <Wrap gap="20px">
+      {title && <SubTitle text={title}></SubTitle>}
+      <TextArea placeholder={placeholder} textarea={textarea} />
+      <Button
+        onClick={onClickButton}
+        disabled={false}
+        text={buttonText}
+        color={ButtonColor.Primary}
+      />
+    </Wrap>
+  );
+}
+
+interface WrapProps {
+  gap: string;
+}
+const Wrap = styled.div<WrapProps>`
+  padding: 30px 20px;
+  background: rgba(52, 55, 68, 0.5);
+  backdrop-filter: blur(15px);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.gap};
+`;
