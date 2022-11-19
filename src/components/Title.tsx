@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import theme from "../styles/theme";
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -11,12 +12,14 @@ const PrimaryText = styled.h1`
   font-weight: 700;
   font-size: 26px;
   white-space: pre-wrap;
+  color: ${theme.colors.whiteColor};
 `;
 
 const SecondaryText = styled.h2`
   font-weight: 400;
   font-size: 16px;
   white-space: pre-wrap;
+  color: ${theme.colors.whiteColor};
 `;
 
 interface TitleProps {
