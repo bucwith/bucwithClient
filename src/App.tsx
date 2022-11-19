@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import styled from "styled-components";
 import background from "../src/assets/bgImg.png";
+import Login from "./pages/Login";
+import SetNickname from "./pages/SetNickname";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -35,7 +37,10 @@ function App() {
       <StyledWrapper>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/" element={<Login />} />
+            {/* <Route path="/login" element={<Login />} /> */}
+            <Route path="/nickname" element={<SetNickname />} />
           </Routes>
           <h1>{fruits.join(", ")}</h1>
         </BrowserRouter>
