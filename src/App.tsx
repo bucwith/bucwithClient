@@ -6,11 +6,12 @@ import styled from 'styled-components';
 import background from '../src/assets/bgImg.png'
 
 const StyledWrapper = styled.div`
-    width : 100%;
-    height: 100%;
-    background-color: balck;
-    `
-    // bacground-image: url(${background});
+  width : 100%;
+  height: 100vh;
+  background-image: url(${background}); 
+  background-size: cover;
+  background-repeat: no-repeat;
+`
 
 function App() {
   const [fruits, setFruits] = React.useState<string[]>([]);
