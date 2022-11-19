@@ -1,13 +1,13 @@
 import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset"
-import theme from './theme';
+import reset from "styled-reset";
+import theme from "./theme";
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
   html {
         font-size: 62.5%;
         color: ${theme.colors.mainColor};
-        font-family: Pretendard Variable;
+        font-family: Roboto, -apple-system;
         background-color: ${theme.colors.bgColor};
     }
     * {
