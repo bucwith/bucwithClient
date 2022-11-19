@@ -1,5 +1,6 @@
 import React from "react";
-
+import Main from "./pages/Main";
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 function App() {   
  
   const [fruits, setFruits] = React.useState<string[]>([])
@@ -19,7 +20,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1>{fruits.join(', ')}</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Main />} />
+        </Routes>
+        <h1>{fruits.join(', ')}</h1>
+      </BrowserRouter>
     </div>
   );
 }
