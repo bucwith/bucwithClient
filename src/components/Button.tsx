@@ -1,32 +1,62 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import { ButtonColor } from "../@types/enums";
+import theme from "../styles/theme";
+interface ButtomProps {
+  disabled?: boolean;
+  text: string;
+  onClick?: () => void;
+  color: ButtonColor;
+}
 
-interface BtnPatternProps {
-    isRound: boolean;
-    disabled: boolean;
+export default function Button({
+  text,
+  disabled,
+  onClick,
+  color,
+}: ButtomProps) {
+  {
+    switch (color) {
+      case ButtonColor.Primary:
+        return (
+          <PrimaryButton disabled={disabled} onClick={onClick}>
+            {text}
+          </PrimaryButton>
+        );
+      case ButtonColor.Google:
+        return (
+          <GoogleButton disabled={disabled} onClick={onClick}>
+            {text}
+          </GoogleButton>
+        );
+    }
   }
-  
-  interface ButtomProps extends BtnPatternProps {
-    text: string;
-    onClick: () => void;
+}
+
+const PrimaryButton = styled.button`
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 1.7rem;
+  line-height: 2.9rem;
+  background-color: #7958fc;
+  color: #fff;
+  border-radius: 1.8rem;
+
+  /* active = pressed */
+  &:active {
+    background-color: #4f35b6;
   }
-  
-  export default function Button({ text, isRound, disabled, onClick }: ButtomProps) {
-    return (
-      <StyledButton isRound={isRound} disabled={disabled} onClick={onClick}>
-        {text}
-      </StyledButton>
-    );
+`;
+
+const GoogleButton = styled.button`
+  width: 100%;
+  color: #6280ea;
+  font-size: 1.6rem;
+  padding: 1.7rem;
+  line-height: 2.9rem;
+  background-color: ${theme.colors.whiteColor};
+  border-radius: 1.8rem;
+  &:active {
+    background-color: #eaeef5;
   }
-  
-  const StyledButton = styled.button<BtnPatternProps>`
-    width: 100%;
-    color: black;
-    font-size: 2.4rem;
-    padding: 1.7rem;
-    line-height: 2.9rem;
-    background-color: #7958fc;
-    color: #fff;
-    border-radius: 1.8rem;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    `
+`;
