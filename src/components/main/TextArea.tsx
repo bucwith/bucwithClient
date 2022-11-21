@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 import styled from "styled-components";
 import iconPencil from "../../assets/icon-pencil.png";
 
@@ -9,6 +9,8 @@ const inputCss = `
   border: none;
   padding: 20px;
   color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  font-size: 16px;
   &::placeholder {
     padding: 0 0 0 30px;
     line-height: top;
@@ -17,8 +19,6 @@ const inputCss = `
     color: rgba(255, 255, 255, 0.8);
     font-family: "Roboto";
     font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
     line-height: 19px;
   }
 `;
@@ -33,17 +33,24 @@ const InputArea = styled.textarea`
   resize: none;
 `;
 
-interface TextAreaProps {
+export interface TextAreaProps {
   placeholder: string;
   textarea?: boolean;
+  onInputChange?: ChangeEventHandler<HTMLInputElement>;
+  onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
 }
-export default function TextArea({ placeholder, textarea }: TextAreaProps) {
+export default function TextArea({
+  placeholder,
+  textarea,
+  onInputChange,
+  onTextAreaChange,
+}: TextAreaProps) {
   return (
     <div>
       {textarea ? (
-        <InputArea placeholder={placeholder} />
+        <InputArea placeholder={placeholder} onChange={onTextAreaChange} />
       ) : (
-        <Input placeholder={placeholder} />
+        <Input placeholder={placeholder} onChange={onInputChange} />
       )}
     </div>
   );

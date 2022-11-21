@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import SubTitle from "./SubTitle";
-import TextArea from "./TextArea";
+import TextArea, { TextAreaProps } from "./TextArea";
 import Button from "../Button";
 import { ButtonColor } from "../../@types/enums";
 
-interface InputBoxProps {
+interface InputBoxProps extends TextAreaProps {
   title?: string;
   placeholder: string;
   buttonText: string;
@@ -19,11 +19,18 @@ export default function InputBox({
   buttonText,
   onClickButton,
   textarea,
+  onInputChange,
+  onTextAreaChange,
 }: InputBoxProps) {
   return (
     <Wrap gap="20px">
       {title && <SubTitle text={title}></SubTitle>}
-      <TextArea placeholder={placeholder} textarea={textarea} />
+      <TextArea
+        placeholder={placeholder}
+        textarea={textarea}
+        onInputChange={onInputChange}
+        onTextAreaChange={onTextAreaChange}
+      />
       <Button
         onClick={onClickButton}
         disabled={false}
