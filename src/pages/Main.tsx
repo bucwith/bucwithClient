@@ -3,7 +3,7 @@ import Title from "../components/Title";
 import InputBox from "../components/main/InputBox";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
 
-const Main = () => {
+const AddList = () => {
   return (
     <ImagedWrapper>
       <VerticalCentered gap="40px">
@@ -19,4 +19,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default AddList;
