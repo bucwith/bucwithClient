@@ -6,7 +6,7 @@ import SetNickname from "./pages/SetNickname";
 import { QueryClient, QueryClientProvider } from "react-query";
 import List from "./pages/List";
 import Me from "./pages/Me";
-import AddList from "./pages/Main";
+import AddList from "./pages/AddList";
 
 function App() {
   const queryClient = new QueryClient();

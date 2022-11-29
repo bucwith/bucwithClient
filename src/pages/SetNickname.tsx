@@ -31,7 +31,7 @@ const SetNickname = () => {
 
   const handleButtonClick = () => {
     putUserNameMutation.mutate;
-    navigate("/main");
+    navigate("/me/add");
   };
   return (
     <ImagedWrapper>
