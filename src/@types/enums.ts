@@ -1,4 +1,5 @@
 export enum ButtonColor {
   Primary,
-  Google,
+  Kakao,
+  Black,
 }
