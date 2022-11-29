@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import SetNickname from "./pages/SetNickname";
 import { QueryClient, QueryClientProvider } from "react-query";
 import List from "./pages/List";
+import Me from "./pages/Me";
 import AddList from "./pages/AddList";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/nickname" element={<SetNickname />} />
             <Route path="/me/add" element={<AddList />} />
             <Route path="/me/list" element={<List />} />
+            <Route path="/me" element={<Me />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
