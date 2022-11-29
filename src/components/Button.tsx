@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { ButtonColor } from "../@types/enums";
-import theme from "../styles/theme";
+import kakaoLogin from "../assets/kakao_login_large_wide.png";
+
 interface ButtomProps {
   disabled?: boolean;
   text: string;
@@ -23,11 +24,11 @@ export default function Button({
             {text}
           </PrimaryButton>
         );
-      case ButtonColor.Google:
+      case ButtonColor.Kakao:
         return (
-          <GoogleButton disabled={disabled} onClick={onClick}>
+          <KakaoButton disabled={disabled} onClick={onClick}>
             {text}
-          </GoogleButton>
+          </KakaoButton>
         );
     }
   }
@@ -48,13 +49,20 @@ const PrimaryButton = styled.button`
   }
 `;
 
-const GoogleButton = styled.button`
+const KakaoButton = styled.button`
   width: 100%;
-  color: #6280ea;
-  font-size: 1.6rem;
+  height: 60px;
+  color: black;
+  background-image: url(${kakaoLogin});
+  background-color: #FEE500;
+  background-position: center;
+  background-size: contain;
+  background-repeat : no-repeat;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
   padding: 1.7rem;
   line-height: 2.9rem;
-  background-color: ${theme.colors.whiteColor};
   border-radius: 1.8rem;
   &:active {
     background-color: #eaeef5;
