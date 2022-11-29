@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SubTitle from "./SubTitle";
 import TextArea, { TextAreaProps } from "./TextArea";
 import Button from "../Button";
+import Chip from '..//Chip'
 import { ButtonColor } from "../../@types/enums";
 
 interface InputBoxProps extends TextAreaProps {
@@ -25,6 +26,7 @@ export default function InputBox({
   return (
     <Wrap gap="20px">
       {title && <SubTitle text={title}></SubTitle>}
+      <Chip text="가보자고" isFocus={ false }></Chip>
       <TextArea
         placeholder={placeholder}
         textarea={textarea}
