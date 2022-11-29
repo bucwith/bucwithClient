@@ -2,10 +2,11 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Login from "./pages/Login";
-import SetNickname from "./pages/SetNickname";
+import SetNickname from "./pages/SetList";
 import { QueryClient, QueryClientProvider } from "react-query";
 import List from "./pages/List";
 import AddList from "./pages/AddList";
+import SetList from "./pages/SetList";
 
 function App() {
   const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ function App() {
             <Route path="/nickname" element={<SetNickname />} />
             <Route path="/me/add" element={<AddList />} />
             <Route path="/me/list" element={<List />} />
+            <Route path="/me/setList" element={<SetList />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

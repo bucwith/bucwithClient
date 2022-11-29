@@ -30,6 +30,12 @@ export default function Button({
             {text}
           </KakaoButton>
         );
+      case ButtonColor.Black:
+      return (
+        <PrimaryBlackButton disabled={disabled} onClick={onClick}>
+          {text}
+        </PrimaryBlackButton>
+      );
     }
   }
 }
@@ -66,5 +72,19 @@ const KakaoButton = styled.button`
   border-radius: 1.8rem;
   &:active {
     background-color: #eaeef5;
+  }
+`;
+
+const PrimaryBlackButton = styled.button`
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 1.7rem;
+  line-height: 2.9rem;
+  color: #fff;
+  border-radius: 1.8rem;
+  background-color: rgba( 255, 255, 255, 0.1 );
+  /* active = pressed */
+  &:active {
+    background-color: #4f35b6;
   }
 `;
