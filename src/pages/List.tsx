@@ -11,9 +11,7 @@ const List = () => {
         <ListTitle>내 리스트 보관함</ListTitle>
         <StyledImg src={mockListImg} />
         <FlexBox gap="20px">
-          <BucketItem 
-          onClick = {}
-          />
+          <BucketItem />
         </FlexBox>
       </HorizonCentered>
     </DarkWrapper>

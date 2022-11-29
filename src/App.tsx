@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Login from "./pages/Login";
-import SetNickname from "./pages/SetList";
+import SetNickname from "./pages/SetNickname";
 import { QueryClient, QueryClientProvider } from "react-query";
 import List from "./pages/List";
 import Me from "./pages/Me";
