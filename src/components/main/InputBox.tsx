@@ -44,9 +44,9 @@ export default function InputBox({
 }
 
 interface WrapProps {
-  gap: string;
+  gap?: string;
 }
-const Wrap = styled.div<WrapProps>`
+export const Wrap = styled.div<WrapProps>`
   padding: 30px 20px;
   background: rgba(52, 55, 68, 0.5);
   backdrop-filter: blur(15px);

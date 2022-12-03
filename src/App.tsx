@@ -27,7 +27,6 @@ function App() {
             <Route path="/me/list" element={<List />} />
             <Route path="/me/setList" element={<SetList />} />
             <Route path="/me" element={<Me />} />
-
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

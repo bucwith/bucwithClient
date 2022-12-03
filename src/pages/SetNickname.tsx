@@ -17,14 +17,15 @@ const SetNickname = () => {
     try {
       const response = await fetch("/user/name", {
         method: "put",
-        headers: { bearer: "1234" },
         body: JSON.stringify(data),
+        headers: { bearer: "1234" },
       });
       return response.json();
     } catch (error) {
       console.error(error);
     }
   };
+
   const putUserNameMutation = useMutation({
     mutationFn: () => putUserName({ name: userNameValue }),
   });
