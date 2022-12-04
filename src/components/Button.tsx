@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { ButtonColor } from "../@types/enums";
-import kakaoLogin from "../assets/kakao_login_large_wide.png";
+import kakaoIcon from "../assets/kakao_icon.png";
 
 interface ButtomProps {
   disabled?: boolean;
   text: string;
   onClick?: () => void;
   color: ButtonColor;
+  icon?: string;
 }
 
 export default function Button({
@@ -15,6 +16,7 @@ export default function Button({
   disabled,
   onClick,
   color,
+  icon,
 }: ButtomProps) {
   {
     switch (color) {
@@ -27,8 +29,15 @@ export default function Button({
       case ButtonColor.Kakao:
         return (
           <KakaoButton disabled={disabled} onClick={onClick}>
+            <img src={kakaoIcon} />
             {text}
           </KakaoButton>
+        );
+      case ButtonColor.Black:
+        return (
+          <PrimaryBlackButton disabled={disabled} onClick={onClick}>
+            {text}
+          </PrimaryBlackButton>
         );
     }
   }
@@ -53,18 +62,35 @@ const KakaoButton = styled.button`
   width: 100%;
   height: 60px;
   color: black;
-  background-image: url(${kakaoLogin});
-  background-color: #FEE500;
+  background-color: #fee500;
   background-position: center;
   background-size: contain;
-  background-repeat : no-repeat;
-  font-size: 2rem;
-  font-weight: bold;
+  background-repeat: no-repeat;
+  font-size: 1.6rem;
   cursor: pointer;
   padding: 1.7rem;
   line-height: 2.9rem;
   border-radius: 1.8rem;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
   &:active {
     background-color: #eaeef5;
+  }
+`;
+
+const PrimaryBlackButton = styled.button`
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 1.7rem;
+  line-height: 2.9rem;
+  color: #fff;
+  border-radius: 1.8rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  /* active = pressed */
+  &:active {
+    background-color: #4f35b6;
   }
 `;
