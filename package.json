@@ -50,7 +50,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://bucwith.github.io/bucwithClient/",
+  "homepage" : "https://bucwith.github.io/bucwithClient/",
   "packageManager": "yarn@3.2.4",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
