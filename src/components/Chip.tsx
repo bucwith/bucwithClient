@@ -8,7 +8,7 @@ interface Chiptypes {
 
 function Chip( { text, isFocus }: Chiptypes) {
     return (
-        <div>
+        <li>
             {isFocus ? 
                 <ChipFocusButton>
                     { text }
@@ -16,7 +16,7 @@ function Chip( { text, isFocus }: Chiptypes) {
                 <ChipButton>
                     { text }
                 </ChipButton> }
-        </div>
+        </li>
     );
 }
 

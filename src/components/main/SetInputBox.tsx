@@ -3,7 +3,6 @@ import styled from "styled-components";
 import SubTitle from "./SubTitle";
 import TextArea, { TextAreaProps } from "./TextArea";
 import Button from "../Button";
-import Chip from '../Chip'
 import { ButtonColor } from "../../@types/enums";
 
 interface InputBoxProps extends TextAreaProps {
@@ -26,7 +25,6 @@ export default function InputBox({
   return (
     <Wrap gap="20px">
       {title && <SubTitle text={title}></SubTitle>}
-      <Chip text="가보자고" isFocus={ false }></Chip>
       <TextArea
         placeholder={placeholder}
         textarea={textarea}
@@ -47,15 +45,6 @@ interface WrapProps {
   gap?: string;
 }
 export const Wrap = styled.div<WrapProps>`
-  padding: 30px 20px;
-  background: rgba(52, 55, 68, 0.5);
-  backdrop-filter: blur(15px);
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: ${(props) => props.gap};
-`;
-export const chipWrap = styled.ul<WrapProps>`
   padding: 30px 20px;
   background: rgba(52, 55, 68, 0.5);
   backdrop-filter: blur(15px);
