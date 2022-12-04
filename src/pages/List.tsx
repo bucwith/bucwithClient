@@ -13,6 +13,7 @@ export interface BucketListType {
   userId: number;
   type: string;
   registDate?: Date;
+  isFinished?: boolean;
 }
 
 const List = () => {

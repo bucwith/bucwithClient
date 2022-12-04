@@ -19,7 +19,7 @@ const CompleteBucket = () => {
     <ImagedWrapper>
       <MainWrap>
         <MainLight src={MainLightImg} />
-        <SecondaryText>{`‘닉네임'님의 버킷리스트는`}</SecondaryText>
+        <SecondaryText>{`소현님의 버킷리스트는`}</SecondaryText>
         <PrimaryText>{`“${location.state.contents}”`}</PrimaryText>
         <ButtonWrap>
           <Button

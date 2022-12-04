@@ -1,6 +1,8 @@
 import React from "react";
+import { useMutation } from "react-query";
 import styled from "styled-components";
 import { BucketTypeEnum } from "../../@types/enums";
+import { checkBucket } from "../../api/my-api";
 import lightIcon from "../../assets/icon_lantern.png";
 import { BucketListType } from "../../pages/List";
 import theme from "../../styles/theme";
@@ -16,6 +18,20 @@ type ChipDataType = {
 
 const BucketItem = ({ data }: BucketItemProps) => {
   const renderChip = () => {
+    if (data.isFinished === undefined) {
+      return null;
+    }
+
+    const checkboxMutation = useMutation(() =>
+      checkBucket(data.bucketId ?? -1)
+    );
+
+    const handleCheckClick = () => {
+      setIsChecked((prev) => !prev);
+      checkboxMutation.mutate();
+    };
+
+    const [isChecked, setIsChecked] = React.useState(data.isFinished);
     const getData = () => {
       switch (data.type) {
         default:
@@ -28,11 +44,18 @@ const BucketItem = ({ data }: BucketItemProps) => {
           return { text: "오랫동안", color: "#63BC77" };
       }
     };
+
     const chipData: ChipDataType = getData();
 
     return (
       <FlexBox gap="8px" style={{ margin: "10px 0 20px" }}>
-        <ChipCheckBox color={chipData.color} />
+        <ChipCheckBox
+          color={chipData.color}
+          isFinished={isChecked}
+          onClick={() => handleCheckClick()}
+        >
+          {isChecked && "✔"}
+        </ChipCheckBox>
         <Chip color={chipData.color}>{chipData.text}</Chip>;
       </FlexBox>
     );
@@ -73,11 +96,16 @@ const Chip = styled.span<{ color: string }>`
   font-size: 1.2rem;
 `;
 
-const ChipCheckBox = styled.div<{ color: string }>`
+const ChipCheckBox = styled.div<{ color: string; isFinished: boolean }>`
   width: 26px;
   height: 26px;
   margin: 0;
-  background-color: inherit;
+  background-color: ${(props) => (props.isFinished ? props.color : "inherit")};
+  color: white;
   border: 1px solid ${(props) => props.color};
   border-radius: 8px;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

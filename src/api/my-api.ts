@@ -26,3 +26,17 @@ export const getBucketList = async () => {
     console.error(err);
   }
 };
+
+export const checkBucket = async (bucketId: number) => {
+  try {
+    if (bucketId === -1) {
+      throw new Error("there is no bucketId.");
+    }
+    const response = await axios.post(
+      `http://61.97.184.195:8080/bucket/finish/${bucketId}`
+    );
+    return response.data.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
