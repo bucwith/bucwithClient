@@ -34,7 +34,11 @@ const CheerStarModal = () => {
             <Color key={index} color={color} />
           ))}
         </FlexBox>
-        <FlexBox gap="10px" direction="column">
+        <FlexBox
+          gap="10px"
+          direction="column"
+          style={{ alignItems: "stretch" }}
+        >
           <TextArea placeholder="응원 메세지를 작성해보세요." textarea />
           <TextArea placeholder="닉네임을 입력해 주세요." />
         </FlexBox>
