@@ -22,17 +22,20 @@ const List = () => {
     return null;
   }
 
-  console.log(data);
   return (
     <DarkWrapper padding="30px 20px">
       <HorizonCentered direction="column">
-        <ListTitle>내 리스트 보관함</ListTitle>
-        <StyledImg src={mockListImg} />
-        <FlexBox gap="20px" direction="column">
-          {data.map((bucket: BucketListType, index: number) => (
-            <BucketItem key={index} data={bucket} />
-          ))}
-        </FlexBox>
+        <ListTitle style={{ paddingBottom: "10px" }}>
+          내 리스트 보관함
+        </ListTitle>
+        <ScrollWrapper>
+          <StyledImg src={mockListImg} />
+          <FlexBox gap="20px" direction="column">
+            {data.map((bucket: BucketListType, index: number) => (
+              <BucketItem key={index} data={bucket} />
+            ))}
+          </FlexBox>
+        </ScrollWrapper>
       </HorizonCentered>
     </DarkWrapper>
   );
@@ -47,4 +50,8 @@ const ListTitle = styled.h1`
 
 const StyledImg = styled.img`
   padding: 10px 0 30px;
+`;
+
+const ScrollWrapper = styled.div`
+  overflow: scroll;
 `;

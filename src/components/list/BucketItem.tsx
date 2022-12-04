@@ -1,16 +1,47 @@
 import React from "react";
 import styled from "styled-components";
+import { BucketTypeEnum } from "../../@types/enums";
 import lightIcon from "../../assets/icon_lantern.png";
 import { BucketListType } from "../../pages/List";
 import theme from "../../styles/theme";
+import { FlexBox } from "../Wrapper";
 interface BucketItemProps {
   data: BucketListType;
 }
+
+type ChipDataType = {
+  text: string;
+  color: string;
+};
+
 const BucketItem = ({ data }: BucketItemProps) => {
+  const renderChip = () => {
+    const getData = () => {
+      switch (data.type) {
+        default:
+          return { text: "꾸준히", color: "#D47F7F" };
+
+        case BucketTypeEnum.BT002:
+          return { text: "일년동안", color: "#3D9EBC" };
+
+        case BucketTypeEnum.BT003:
+          return { text: "오랫동안", color: "#D47F7F" };
+      }
+    };
+    const chipData: ChipDataType = getData();
+
+    return (
+      <FlexBox gap="8px" style={{ margin: "10px 0 20px" }}>
+        <ChipCheckBox color={chipData.color} />
+        <Chip color={chipData.color}>{chipData.text}</Chip>;
+      </FlexBox>
+    );
+  };
+
   return (
     <ItemBox>
       <img src={lightIcon} />
-      <Chip>꾸준히</Chip>
+      {renderChip()}
       <ItemTitle>{data.contents}</ItemTitle>
     </ItemBox>
   );
@@ -28,16 +59,25 @@ const ItemBox = styled.div`
   align-items: flex-start;
 `;
 
-const Chip = styled.span`
-  border: 1px solid #d47f7f;
-  color: #d47f7f;
-  padding: 6px 10px;
-  border-radius: 8px;
-  margin: 10px 0 20px;
-`;
-
 const ItemTitle = styled.h2`
   font-weight: 400;
   font-size: 1.6rem;
   color: ${theme.colors.whiteColor};
+`;
+
+const Chip = styled.span<{ color: string }>`
+  border: 1px solid ${(props) => props.color};
+  color: ${(props) => props.color};
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+`;
+
+const ChipCheckBox = styled.div<{ color: string }>`
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  background-color: inherit;
+  border: 1px solid ${(props) => props.color};
+  border-radius: 8px;
 `;

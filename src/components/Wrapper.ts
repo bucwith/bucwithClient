@@ -47,6 +47,7 @@ export const FlexBox = styled.div<WrapperProps>`
   display: flex;
   flex-direction: ${(props) => props.direction};
   justify-content: ${(props) => props.justify};
+  align-items: center;
   padding: ${(props) => props.padding};
   gap: ${(props) => props.gap};
 `;
