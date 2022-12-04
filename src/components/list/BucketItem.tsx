@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import lightIcon from "../../assets/icon_lantern.png";
+import { BucketListType } from "../../pages/List";
 import theme from "../../styles/theme";
-const BucketItem = () => {
+interface BucketItemProps {
+  data: BucketListType;
+}
+const BucketItem = ({ data }: BucketItemProps) => {
   return (
     <ItemBox>
       <img src={lightIcon} />
       <Chip>꾸준히</Chip>
-      <ItemTitle>올해 10kg 감량하기.</ItemTitle>
+      <ItemTitle>{data.contents}</ItemTitle>
     </ItemBox>
   );
 };

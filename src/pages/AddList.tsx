@@ -16,7 +16,7 @@ const AddList = () => {
         <InputBox
           title="어떤 종류의 버킷리스트인가요?"
           buttonText="응원 메시지 보러가기"
-          onClickButton = {handleButtonClick}
+          onClickButton={handleButtonClick}
           placeholder="예) 매일 운동하기 / 술 끊기"
           textarea
         />

@@ -8,6 +8,7 @@ import List from "./pages/List";
 import Me from "./pages/Me";
 import AddList from "./pages/AddList";
 import SetList from "./pages/SetList";
+import Guest from "./pages/Guest";
 
 function App() {
   const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ function App() {
             <Route path="/me/list" element={<List />} />
             <Route path="/me/setList" element={<SetList />} />
             <Route path="/me" element={<Me />} />
+            <Route path="/guest" element={<Guest />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
