@@ -26,7 +26,11 @@ export default function InputBox({
   return (
     <Wrap gap="20px">
       {title && <SubTitle text={title}></SubTitle>}
-      <Chip text="가보자고" isFocus={ false }></Chip>
+      <ChipWrap>
+        <Chip text="꾸준히!" isFocus={ true }></Chip>
+        <Chip text="일년안에!" isFocus={ false }></Chip>
+        <Chip text="오랫동안!" isFocus={ false }></Chip>
+      </ChipWrap>
       <TextArea
         placeholder={placeholder}
         textarea={textarea}
@@ -55,12 +59,7 @@ export const Wrap = styled.div<WrapProps>`
   flex-direction: column;
   gap: ${(props) => props.gap};
 `;
-export const chipWrap = styled.ul<WrapProps>`
-  padding: 30px 20px;
-  background: rgba(52, 55, 68, 0.5);
-  backdrop-filter: blur(15px);
-  border-radius: 30px;
+export const ChipWrap = styled.ul`
   display: flex;
-  flex-direction: column;
-  gap: ${(props) => props.gap};
+  gap: 8px;
 `;

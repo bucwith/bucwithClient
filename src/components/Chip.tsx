@@ -8,21 +8,29 @@ interface Chiptypes {
 
 function Chip( { text, isFocus }: Chiptypes) {
     return (
-        <li>
-            {isFocus ? 
+        <ListItem>
+            { isFocus ? 
                 <ChipFocusButton>
                     { text }
                 </ChipFocusButton> :
                 <ChipButton>
                     { text }
                 </ChipButton> }
-        </li>
+        </ListItem>
     );
 }
+const ListItem = styled.li`
+    list-style: none;
+    margin:0px; 
+    padding:0px;
+`
 
 const ChipButton = styled.button`
     padding: 10px 16px;
     border-radius: 30px;
+    color: white;
+    background-color: rgba( 255, 255, 255, 0.1 );
+    border: 1px solid white;
 `
 
 const ChipFocusButton = styled.button`
