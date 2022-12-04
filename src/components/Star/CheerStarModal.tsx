@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ButtonColor } from "../../@types/enums";
 import Button from "../Button";
 import { Wrap } from "../main/InputBox";
@@ -7,23 +7,46 @@ import SubTitle from "../main/SubTitle";
 import TextArea from "../main/TextArea";
 import { FlexBox, ModalWrapper } from "../Wrapper";
 import Star from "../../assets/icon-star-01.png";
+import { pinkIcons } from "./icons";
 
 const Colors = {
-  WhiteStar: "#ffffff",
-  YellowStar: "#FFE922",
-  GreenStar: "#00B2A8",
-  BlueStar: "#007BED",
-  OrangeStar: "#ED8E00",
+  pink: "#FF6BDE",
+  yellow: "#F5E148",
+  blue: "#007BED",
 };
 
+const activeIconStyle = css`
+  width: 68px;
+`;
+const inActiveIconStyle = css`
+  width: 30px;
+`;
 const CheerStarModal = () => {
-  const [color, setColor] = React.useState(Colors.WhiteStar);
+  const [color, setColor] = React.useState(Colors.pink);
+
+  const [iconIndex, setIconIndex] = React.useState(0);
+  const [icons, setIcons] = React.useState(pinkIcons);
   return (
     <ModalWrapper>
       <ModalBox gap="30px">
         <SubTitle text="응원 별 달기" isCentered />
         <FlexBox justify="center">
-          <StarImg src={Star} />
+          <div style={{ width: "68px", height: "68px", position: "relative" }}>
+            <IconList gap="40px">
+              {icons.map((icon, index) => (
+                <img
+                  src={icon}
+                  key={index}
+
+                  // style={
+                  //   iconIndex === index
+                  //     ?  activeIconStyle
+                  //     :  inActiveIconStyle
+                  // }
+                />
+              ))}
+            </IconList>
+          </div>
           <ArrowBox justify="space-around">
             <Arrow>‹</Arrow>
             <Arrow>›</Arrow>
@@ -69,10 +92,6 @@ const Color = styled.div<Colorprops>`
   background-color: ${(props) => props.color};
 `;
 
-const StarImg = styled.img`
-  width: 90px;
-`;
-
 const Arrow = styled.div`
   font-size: 40px;
   color: white;
@@ -81,5 +100,11 @@ const Arrow = styled.div`
 const ArrowBox = styled(FlexBox)`
   position: absolute;
   top: 110px;
+  left: 0;
+`;
+
+const IconList = styled(FlexBox)`
+  position: absolute;
+  top: 0;
   left: 0;
 `;
