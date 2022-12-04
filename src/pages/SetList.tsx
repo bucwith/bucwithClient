@@ -40,10 +40,9 @@ const SetList = () => {
 export default SetList;
 
 const MainLight = styled.img`
-  width: 200px;
-  height: 260px;
+  height: 280px;
   display: block;
-  margin: 0 auto 30px;
+  margin: 0 auto;
 `;
 
 const MainWrap = styled.div`
