@@ -7,13 +7,13 @@ import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
 import { getBucketList } from "../api/my-api";
 
-export type BucketListType = {
-  bucketId: number;
+export interface BucketListType {
+  bucketId?: number;
   contents: string;
   userId: number;
   type: string;
-  registDate: Date;
-};
+  registDate?: Date;
+}
 
 const List = () => {
   const { data } = useQuery(["getData"], () => getBucketList());

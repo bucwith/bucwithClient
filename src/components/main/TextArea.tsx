@@ -38,19 +38,29 @@ export interface TextAreaProps {
   textarea?: boolean;
   onInputChange?: ChangeEventHandler<HTMLInputElement>;
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
+  value?: string;
 }
 export default function TextArea({
   placeholder,
   textarea,
   onInputChange,
   onTextAreaChange,
+  value,
 }: TextAreaProps) {
   return (
     <div>
       {textarea ? (
-        <InputArea placeholder={placeholder} onChange={onTextAreaChange} />
+        <InputArea
+          placeholder={placeholder}
+          onChange={onTextAreaChange}
+          value={value}
+        />
       ) : (
-        <Input placeholder={placeholder} onChange={onInputChange} />
+        <Input
+          placeholder={placeholder}
+          onChange={onInputChange}
+          value={value}
+        />
       )}
     </div>
   );

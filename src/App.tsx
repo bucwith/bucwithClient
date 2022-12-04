@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import List from "./pages/List";
 import Me from "./pages/Me";
 import AddList from "./pages/AddList";
-import SetList from "./pages/SetList";
+import CompleteBucket from "./pages/CompleteBucket";
 import Guest from "./pages/Guest";
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
             <Route path="/nickname" element={<SetNickname />} />
             <Route path="/me/add" element={<AddList />} />
             <Route path="/me/list" element={<List />} />
-            <Route path="/me/setList" element={<SetList />} />
+            <Route path="/me/completion" element={<CompleteBucket />} />
             <Route path="/me" element={<Me />} />
             <Route path="/guest" element={<Guest />} />
           </Routes>

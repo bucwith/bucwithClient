@@ -1,22 +1,21 @@
+import { BucketListType } from "./../pages/List";
 import axios from "axios";
 
-import { response } from "msw";
-
-const data = {
-  userId: 2,
-  contents: "등록 테스트",
-  type: "BT001",
-};
-
-export const postBucWith = async () => {
-  // try {
-  //   const response = await axios.post("http://61.97.184.195:8080/bucket", {
-  //     data,
-  //   });
-  //   return response;
-  // } catch (error) {
-  //   console.error(error);
-  // }
+export const postBucket = async ({
+  userId,
+  contents,
+  type,
+}: BucketListType) => {
+  try {
+    const response = await axios.post("http://61.97.184.195:8080/bucket", {
+      userId: userId,
+      contents: contents,
+      type: type,
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getBucketList = async () => {

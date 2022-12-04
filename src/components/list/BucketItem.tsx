@@ -25,7 +25,7 @@ const BucketItem = ({ data }: BucketItemProps) => {
           return { text: "일년동안", color: "#3D9EBC" };
 
         case BucketTypeEnum.BT003:
-          return { text: "오랫동안", color: "#D47F7F" };
+          return { text: "오랫동안", color: "#63BC77" };
       }
     };
     const chipData: ChipDataType = getData();

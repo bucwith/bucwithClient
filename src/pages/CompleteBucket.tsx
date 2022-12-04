@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import MainLightImg from "../assets/main_light.png"
+import MainLightImg from "../assets/main_light.png";
 import theme from "../styles/theme";
 import { ImagedWrapper } from "../components/Wrapper";
 import Button from "../components/Button";
 import { ButtonColor } from "../@types/enums";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const SetList = () => {
+const CompleteBucket = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const handleMeListClick = () => {
     return navigate("/me/list");
   };
@@ -16,14 +18,14 @@ const SetList = () => {
   return (
     <ImagedWrapper>
       <MainWrap>
-        <MainLight src = {MainLightImg}/>
+        <MainLight src={MainLightImg} />
         <SecondaryText>{`‘닉네임'님의 버킷리스트는`}</SecondaryText>
-        <PrimaryText>{`“올해안에 자격증 따기”`}</PrimaryText>
+        <PrimaryText>{`“${location.state.contents}”`}</PrimaryText>
         <ButtonWrap>
           <Button
-          disabled={false}
-          text={`내 버킷 공유하기`}
-          color={ButtonColor.Primary}
+            disabled={false}
+            text={`내 버킷 공유하기`}
+            color={ButtonColor.Primary}
           />
           <Button
             disabled={false}
@@ -37,7 +39,7 @@ const SetList = () => {
   );
 };
 
-export default SetList;
+export default CompleteBucket;
 
 const MainLight = styled.img`
   height: 280px;
@@ -47,8 +49,7 @@ const MainLight = styled.img`
 
 const MainWrap = styled.div`
   margin: 130px 0;
-  
-`
+`;
 
 const PrimaryText = styled.h1`
   font-weight: 700;
@@ -73,4 +74,4 @@ const ButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`
+`;
