@@ -4,6 +4,8 @@ import SetInputBox from "../components/main/SetInputBox";
 import Title from "../components/Title";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
 import { useMutation } from "react-query";
+import { putNickName } from "../api/my-api"
+import { BucketTypeEnum } from "../@types/enums";
 
 const SetNickname = () => {
   const navigate = useNavigate();
@@ -13,27 +15,31 @@ const SetNickname = () => {
     setUserNameValue(event.target.value);
   };
 
-  const putUserName = async (data: any) => {
-    try {
-      const response = await fetch("/user/name", {
-        method: "put",
-        body: JSON.stringify(data),
-        headers: { bearer: "1234" },
-      });
-      return response.json();
-    } catch (error) {
-      console.error(error);
+  const setNickNameMutation = useMutation(
+    () =>
+    putNickName({
+        userId: 1,
+        contents: userNameValue,
+        type: BucketTypeEnum.BT001,
+      }),
+    {
+      onSuccess: () =>
+        navigate("/me/add", {
+          state: {
+            contents: userNameValue,
+          },
+        }),
     }
-  };
+  );
 
-  const putUserNameMutation = useMutation({
-    mutationFn: () => putUserName({ name: userNameValue }),
-  });
+  React.useEffect(() => {
+    console.log(userNameValue);
+  }, [userNameValue]);
 
-  const handleButtonClick = () => {
-    putUserNameMutation.mutate;
-    navigate("/me/add");
-  };
+  // const handleButtonClick = () => {
+  //   // putUserNameMutation.mutate;
+  //   navigate("/me/add");
+  // };
   return (
     <ImagedWrapper>
       <VerticalCentered gap="40px">
@@ -42,9 +48,10 @@ const SetNickname = () => {
           secondary="어떤 닉네임으로 할까요?"
         />
         <SetInputBox
+          onTextAreaChange={(e) => setUserNameValue(e.target.value)}
           buttonText="다음"
           placeholder="닉네임을 입력해 주세요."
-          onClickButton={handleButtonClick}
+          onClickButton={() => setNickNameMutation.mutate()}
           onInputChange={handleInputChange}
         />
       </VerticalCentered>
