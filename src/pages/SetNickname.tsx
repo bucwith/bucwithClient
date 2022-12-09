@@ -5,6 +5,7 @@ import Title from "../components/Title";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
 import { useMutation } from "react-query";
 import { putNickName } from "../api/api/my-api"
+import NavigationBar from "../components/NavigationBar/NavigationBar";
 // import { BucketTypeEnum } from "../@types/enums";
 
 const SetNickname = () => {
@@ -54,6 +55,7 @@ const SetNickname = () => {
           onClickButton={() => setNickNameMutation.mutate()}
           onInputChange={handleInputChange}
         />
+        <NavigationBar></NavigationBar>
       </VerticalCentered>
     </ImagedWrapper>
   );

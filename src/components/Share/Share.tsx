@@ -7,7 +7,6 @@ import fbIcon from "../../assets/icon_fb.png";
 import twitterIcon from "../../assets/icon_twitter.png";
 import arrowIcon from "../../assets/icon_arrow_R.png";
 import downloadIcon from "../../assets/icon_download.png";
-import { motion } from "framer-motion";
 
 
 const ShareWarp = styled.div`
@@ -24,7 +23,6 @@ const ShareInnerWarp = styled.div`
   background-color: #24252C;
   border-radius: 30px 30px 0 0;
   padding: 30px 20px;
-  top: 540px;
   bottom: 0;
   left: 0;
   right: 0;
