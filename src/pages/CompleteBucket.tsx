@@ -13,6 +13,10 @@ const CompleteBucket = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isShare, setIsShare] = useState(false)
+  const modalClose = (e:any) => {
+    if (e.target !== e.currentTarget) return;
+    setIsShare(false)
+  }
   // const { data } = useQuery(["getData"], () => (console.log("test")));
 
   // if (!data) {
@@ -26,7 +30,7 @@ const CompleteBucket = () => {
   return (
     <ImagedWrapper>
       <MainWrap>
-        {isShare? <Share></Share> : null}
+        {isShare? <Share modalClose = {modalClose}></Share> : null}
         <MainLight src={MainLightImg} />
         <SecondaryText>{`소현님의 버킷리스트는`}</SecondaryText>
         <PrimaryText>{`“${location.state.contents}”`}</PrimaryText>

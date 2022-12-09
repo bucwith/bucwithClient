@@ -86,12 +86,12 @@ export interface TextAreaProps {
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
   value?: string;
 }
-export default function Share() {
+export default function Share({modalClose}:any) {
   return (
-    <ShareWarp>
+    <ShareWarp onClick={modalClose}>
       <ShareInnerWarp>
         <Title primary={`내 버킷 공유하기`}></Title>
-        <CloseButton></CloseButton>
+        <CloseButton onClick={modalClose}></CloseButton>
         <FlexWrapper>
           <Items>
             <Click>
