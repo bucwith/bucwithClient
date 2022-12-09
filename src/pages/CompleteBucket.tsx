@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MainLightImg from "../assets/main_light.png";
 import theme from "../styles/theme";
@@ -12,7 +12,7 @@ import Share from "../components/Share/Share";
 const CompleteBucket = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [isShare, setIsShare] = useState(false)
   // const { data } = useQuery(["getData"], () => (console.log("test")));
 
   // if (!data) {
@@ -26,7 +26,7 @@ const CompleteBucket = () => {
   return (
     <ImagedWrapper>
       <MainWrap>
-        <Share></Share>
+        {isShare? <Share></Share> : null}
         <MainLight src={MainLightImg} />
         <SecondaryText>{`소현님의 버킷리스트는`}</SecondaryText>
         <PrimaryText>{`“${location.state.contents}”`}</PrimaryText>
@@ -35,6 +35,7 @@ const CompleteBucket = () => {
             disabled={false}
             text={`내 버킷 공유하기`}
             color={ButtonColor.Primary}
+            onClick={() => setIsShare(true)}
           />
           <Button
             disabled={false}
