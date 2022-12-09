@@ -4,8 +4,8 @@ import SetInputBox from "../components/main/SetInputBox";
 import Title from "../components/Title";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
 import { useMutation } from "react-query";
-import { putNickName } from "../api/my-api"
-import { BucketTypeEnum } from "../@types/enums";
+import { putNickName } from "../api/api/my-api"
+// import { BucketTypeEnum } from "../@types/enums";
 
 const SetNickname = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const SetNickname = () => {
     putNickName({
         userId: 1,
         contents: userNameValue,
-        type: BucketTypeEnum.BT001,
+        // type: BucketTypeEnum.BT001,
       }),
     {
       onSuccess: () =>

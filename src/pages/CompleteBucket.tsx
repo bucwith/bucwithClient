@@ -6,10 +6,18 @@ import { ImagedWrapper } from "../components/Wrapper";
 import Button from "../components/Button";
 import { ButtonColor } from "../@types/enums";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import Share from "../components/Share/Share";
 
 const CompleteBucket = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  // const { data } = useQuery(["getData"], () => (console.log("test")));
+
+  // if (!data) {
+  //   return null;
+  // }
 
   const handleMeListClick = () => {
     return navigate("/me/list");
@@ -18,6 +26,7 @@ const CompleteBucket = () => {
   return (
     <ImagedWrapper>
       <MainWrap>
+        <Share></Share>
         <MainLight src={MainLightImg} />
         <SecondaryText>{`소현님의 버킷리스트는`}</SecondaryText>
         <PrimaryText>{`“${location.state.contents}”`}</PrimaryText>
