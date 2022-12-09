@@ -7,6 +7,7 @@ import fbIcon from "../../assets/icon_fb.png";
 import twitterIcon from "../../assets/icon_twitter.png";
 import arrowIcon from "../../assets/icon_arrow_R.png";
 import downloadIcon from "../../assets/icon_download.png";
+import { motion } from "framer-motion";
 
 
 const ShareWarp = styled.div`
