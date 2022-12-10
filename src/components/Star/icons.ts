@@ -13,11 +13,11 @@ import blueStar from "../../assets/main_icons/blue_star.png";
 import blueRocket from "../../assets/main_icons/blue_rocket.png";
 import bluePlanet from "../../assets/main_icons/blue_planet.png";
 
-export const pinkIcons = [pinkComet, pinkStar, pinkPlanet, pinkRocket];
+export const pinkIcons = [pinkStar, pinkRocket, pinkPlanet, pinkComet];
 export const yellowIcons = [
-  yellowComet,
   yellowStar,
   yellowRocket,
   yellowPlanet,
+  yellowComet,
 ];
-export const blueIcons = [blueComet, blueStar, blueRocket, bluePlanet];
+export const blueIcons = [blueStar, blueRocket, bluePlanet, blueComet];
