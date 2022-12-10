@@ -1,46 +1,30 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import SetInputBox from "../components/main/SetInputBox";
 import Title from "../components/Title";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
 import { useMutation } from "react-query";
-import { putNickName } from "../api/api/my-api"
 import NavigationBar from "../components/NavigationBar/NavigationBar";
+import { putNickName } from "../api/my-api";
 // import { BucketTypeEnum } from "../@types/enums";
 
 const SetNickname = () => {
   const navigate = useNavigate();
   const [userNameValue, setUserNameValue] = React.useState("");
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserNameValue(event.target.value);
-  };
-
-  const setNickNameMutation = useMutation(
-    () =>
-    putNickName({
-        userId: 1,
-        contents: userNameValue,
-        // type: BucketTypeEnum.BT001,
+  const setNickNameMutation = useMutation(() => putNickName(userNameValue), {
+    onSuccess: () =>
+      navigate("/me/add", {
+        state: {
+          contents: userNameValue,
+        },
       }),
-    {
-      onSuccess: () =>
-        navigate("/me/add", {
-          state: {
-            contents: userNameValue,
-          },
-        }),
-    }
-  );
+  });
 
   React.useEffect(() => {
     console.log(userNameValue);
   }, [userNameValue]);
 
-  // const handleButtonClick = () => {
-  //   // putUserNameMutation.mutate;
-  //   navigate("/me/add");
-  // };
   return (
     <ImagedWrapper>
       <VerticalCentered gap="40px">
@@ -53,7 +37,7 @@ const SetNickname = () => {
           buttonText="다음"
           placeholder="닉네임을 입력해 주세요."
           onClickButton={() => setNickNameMutation.mutate()}
-          onInputChange={handleInputChange}
+          onInputChange={(e) => setUserNameValue(e.target.value)}
         />
         <NavigationBar></NavigationBar>
       </VerticalCentered>

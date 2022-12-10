@@ -40,12 +40,9 @@ export const checkBucket = async (bucketId: number) => {
   }
 };
 
-export const putNickName = async (bucketId: number) => {
+export const putNickName = async (name: string) => {
   try {
-    if (bucketId === -1) {
-      throw new Error("there is no bucketId.");
-    }
-    const response = await axios.put(`http://61.97.184.195:8080/user/name`);
+    const response = await axios.put(BASE_URL + "/user/name", { name: name });
     return response.data.name;
   } catch (err) {
     console.error(err);
