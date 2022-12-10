@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { ButtonColor } from "../../@types/enums";
 import Button from "../Button";
 import { Wrap } from "../main/InputBox";
@@ -11,7 +11,8 @@ import { yellowIcons } from "./icons";
 import { blueIcons } from "./icons";
 import { useMutation } from "react-query";
 import { putCheerStar } from "../../api/my-api";
-
+import warningIcon from "../../assets/icon_warning.png";
+import closeIcon from "../../assets/icon_close.png";
 const Colors = [
   { color: "#FF6BDE", icons: pinkIcons, code: "P" },
   { color: "#F5E148", icons: yellowIcons, code: "Y" },
@@ -33,9 +34,7 @@ const CheerStarModal = () => {
   };
 
   const clickPrev = () => {
-    if (iconIndex > 0) {
-      setIconIndex((prev) => prev - 1);
-    }
+    setIconIndex((prev) => prev - 1);
   };
 
   const cheerStar = useMutation({
@@ -43,10 +42,6 @@ const CheerStarModal = () => {
       putCheerStar({ bucketId, nickname, contents, iconColor, iconIndex }),
   });
 
-  const check = () => {
-    console.log(name);
-    console.log(contents);
-  };
   return (
     <ModalWrapper>
       <ModalBox gap="30px">
@@ -71,8 +66,15 @@ const CheerStarModal = () => {
             </IconList>
           </div>
           <ArrowBox justify="center" gap="120px">
-            <Arrow onClick={() => clickPrev()}>‹</Arrow>
-            <Arrow onClick={() => clickNext()}>›</Arrow>
+            <Arrow onClick={() => clickPrev()} disabled={iconIndex === 0}>
+              ‹
+            </Arrow>
+            <Arrow
+              onClick={() => clickNext()}
+              disabled={iconIndex === icons.length - 1}
+            >
+              ›
+            </Arrow>
           </ArrowBox>
         </FlexBox>
         <FlexBox gap="20px" justify="center">
@@ -102,12 +104,24 @@ const CheerStarModal = () => {
             onInputChange={(e) => setNickname(e.target.value)}
           />
         </FlexBox>
-        <Button
-          disabled={false}
-          text="응원 별 달기"
-          color={ButtonColor.Primary}
-          // onClick={() => check()}
-          onClick={() => cheerStar.mutate()}
+        <FlexBox gap="10px" direction="column">
+          <FlexBox justify="center" gap="4px">
+            <img src={warningIcon} alt="" />
+            <WarningMsg>
+              응원별은 등록 후 수정 또는 삭제가 불가능해요.
+            </WarningMsg>
+          </FlexBox>
+          <Button
+            disabled={false}
+            text="응원 별 달기"
+            color={ButtonColor.Primary}
+            onClick={() => cheerStar.mutate()}
+          />
+        </FlexBox>
+        <CloseIcon
+          src={closeIcon}
+          alt="닫기 버튼"
+          onClick={() => "닫히는 event"}
         />
       </ModalBox>
     </ModalWrapper>
@@ -122,6 +136,7 @@ interface Colorprops {
 const ModalBox = styled(Wrap)`
   width: 100%;
   background-color: #24252c;
+  position: relative;
 `;
 
 const Color = styled.div<Colorprops>`
@@ -131,9 +146,13 @@ const Color = styled.div<Colorprops>`
   background-color: ${(props) => props.color};
 `;
 
-const Arrow = styled.div`
+const Arrow = styled.button`
   font-size: 40px;
   color: white;
+  background-color: inherit;
+  :disabled {
+    opacity: 0.3;
+  }
 `;
 
 const ArrowBox = styled(FlexBox)`
@@ -148,11 +167,51 @@ const IconList = styled(FlexBox)<{ iconIndex: number }>`
   left: ${(props) => -(props.iconIndex * 90 + 34)}px;
 `;
 
+const dungdung = keyframes`
+ 0%{
+  margin-bottom: 0;
+ }
+ 50% {
+  margin-bottom: 4px;
+ }
+  100%{
+  margin-bottom: 0;
+ }
+`;
+
 const IconImage = styled.img`
   width: 30px;
   opacity: 0.33;
+  position: relative;
   &.active {
-    opacity: 1;
+    animation: ${dungdung} 1s linear infinite;
     width: 68px;
+    opacity: 1;
   }
+`;
+// ::after {
+//   content: "";
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 90px;
+//   height: 90px;
+//   background-color: white;
+//   /* background: rgba(205, 203, 255, 0.6); */
+//   opacity: 0.5;
+//   /* filter: blur(15px); */
+//   z-index: 3000;
+// }
+
+const WarningMsg = styled.span`
+  font-weight: 400;
+  font-size: 12px;
+  color: #dbdcdd;
+`;
+
+const CloseIcon = styled.img`
+  width: 20px;
+  position: absolute;
+  top: 30px;
+  right: 20px;
 `;

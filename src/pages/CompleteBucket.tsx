@@ -6,17 +6,16 @@ import { ImagedWrapper } from "../components/Wrapper";
 import Button from "../components/Button";
 import { ButtonColor } from "../@types/enums";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
 import Share from "../components/Share/Share";
 
 const CompleteBucket = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isShare, setIsShare] = useState(false)
-  const modalClose = (e:any) => {
+  const [isShare, setIsShare] = useState(false);
+  const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
-    setIsShare(false)
-  }
+    setIsShare(false);
+  };
   // const { data } = useQuery(["getData"], () => (console.log("test")));
 
   // if (!data) {
@@ -30,7 +29,7 @@ const CompleteBucket = () => {
   return (
     <ImagedWrapper>
       <MainWrap>
-        {isShare? <Share modalClose = {modalClose}></Share> : null}
+        {isShare ? <Share modalClose={modalClose}></Share> : null}
         <MainLight src={MainLightImg} />
         <SecondaryText>{`소현님의 버킷리스트는`}</SecondaryText>
         <PrimaryText>{`“${location.state.contents}”`}</PrimaryText>
