@@ -26,6 +26,7 @@ function App() {
             <Route path="/nickname" element={<SetNickname />} />
             <Route path="/me/add" element={<AddList />} />
             <Route path="/me/list" element={<List />} />
+            <Route path="/me/list/1" element={<List />} />
             <Route path="/me/completion" element={<CompleteBucket />} />
             <Route path="/me" element={<Me />} />
             <Route path="/guest" element={<Guest />} />

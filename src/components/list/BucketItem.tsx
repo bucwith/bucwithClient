@@ -7,6 +7,7 @@ import lightIcon from "../../assets/icon_lantern.png";
 import { BucketListType } from "../../pages/List";
 import theme from "../../styles/theme";
 import { FlexBox } from "../Wrapper";
+import DetailButton from "./DetailButton";
 interface BucketItemProps {
   data: BucketListType;
 }
@@ -57,6 +58,7 @@ const BucketItem = ({ data }: BucketItemProps) => {
           {isChecked && "✔"}
         </ChipCheckBox>
         <Chip color={chipData.color}>{chipData.text}</Chip>;
+        <DetailButton></DetailButton>
       </FlexBox>
     );
   };

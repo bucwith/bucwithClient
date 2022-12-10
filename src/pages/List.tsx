@@ -5,7 +5,8 @@ import theme from "../styles/theme";
 import mainImage from "../assets/list_image.png";
 import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
-import { getBucketList } from "../api/my-api";
+import { getBucketList } from "../api/api/my-api";
+import NavigationBar from "../components/NavigationBar/NavigationBar";
 
 export interface BucketListType {
   bucketId?: number;
@@ -38,6 +39,7 @@ const List = () => {
           </FlexBox>
         </ScrollWrapper>
       </HorizonCentered>
+      <NavigationBar></NavigationBar>
     </DarkWrapper>
   );
 };
