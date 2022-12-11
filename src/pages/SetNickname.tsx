@@ -6,13 +6,12 @@ import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
 import { useMutation } from "react-query";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { putNickName } from "../api/my-api";
-// import { BucketTypeEnum } from "../@types/enums";
 
 const SetNickname = () => {
   const navigate = useNavigate();
   const [userNameValue, setUserNameValue] = React.useState("");
 
-  const setNickNameMutation = useMutation(() => putNickName(userNameValue), {
+  const { mutate } = useMutation(() => putNickName(userNameValue), {
     onSuccess: () =>
       navigate("/me/add", {
         state: {
@@ -20,10 +19,6 @@ const SetNickname = () => {
         },
       }),
   });
-
-  React.useEffect(() => {
-    console.log(userNameValue);
-  }, [userNameValue]);
 
   return (
     <ImagedWrapper>
@@ -36,10 +31,11 @@ const SetNickname = () => {
           onTextAreaChange={(e) => setUserNameValue(e.target.value)}
           buttonText="다음"
           placeholder="닉네임을 입력해 주세요."
-          onClickButton={() => setNickNameMutation.mutate()}
+          onClickButton={() => mutate()}
           onInputChange={(e) => setUserNameValue(e.target.value)}
         />
-        <NavigationBar></NavigationBar>
+
+        <NavigationBar />
       </VerticalCentered>
     </ImagedWrapper>
   );

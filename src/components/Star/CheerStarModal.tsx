@@ -6,13 +6,13 @@ import { Wrap } from "../main/InputBox";
 import SubTitle from "../main/SubTitle";
 import TextArea from "../main/TextArea";
 import { FlexBox, ModalWrapper } from "../Wrapper";
-import { pinkIcons } from "./icons";
-import { yellowIcons } from "./icons";
-import { blueIcons } from "./icons";
+import { pinkIcons, yellowIcons, blueIcons } from "../../assets/icons";
+
 import { useMutation } from "react-query";
 import { putCheerStar } from "../../api/my-api";
 import warningIcon from "../../assets/icon_warning.png";
 import closeIcon from "../../assets/icon_close.png";
+
 const Colors = [
   { color: "#FF6BDE", icons: pinkIcons, code: "P" },
   { color: "#F5E148", icons: yellowIcons, code: "Y" },

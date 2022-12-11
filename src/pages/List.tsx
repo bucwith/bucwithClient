@@ -5,8 +5,8 @@ import theme from "../styles/theme";
 import mainImage from "../assets/list_image.png";
 import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
-import { getBucketList } from "../api/api/my-api";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
+import { getBucketList } from "../api/my-api";
 
 export interface BucketListType {
   bucketId?: number;

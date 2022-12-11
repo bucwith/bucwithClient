@@ -43,11 +43,21 @@ export const checkBucket = async (bucketId: number) => {
 export const putNickName = async (name: string) => {
   try {
     const response = await axios.put(BASE_URL + "/user/name", { name: name });
-    return response.data.name;
+    return response.data.data;
   } catch (err) {
     console.error(err);
   }
 };
+
+export const getCheerStar = async (id: number) => {
+  try {
+    const response = await axios.get(BASE_URL + `/star/${44}`);
+    return response.data.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 interface PutCheerStarProps {
   bucketId: number;
   nickname: string;
