@@ -9,6 +9,7 @@ import Me from "./pages/Me";
 import AddList from "./pages/AddList";
 import CompleteBucket from "./pages/CompleteBucket";
 import Guest from "./pages/Guest";
+import DetailList from "./pages/DetailList";
 
 function App() {
   const queryClient = new QueryClient();
@@ -26,7 +27,7 @@ function App() {
             <Route path="/nickname" element={<SetNickname />} />
             <Route path="/me/add" element={<AddList />} />
             <Route path="/me/list" element={<List />} />
-            <Route path="/me/list/1" element={<List />} />
+            <Route path="/me/bucket/1" element={<DetailList />} />
             <Route path="/me/completion" element={<CompleteBucket />} />
             <Route path="/me" element={<Me />} />
             <Route path="/guest" element={<Guest />} />
