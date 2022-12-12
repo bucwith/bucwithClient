@@ -58,7 +58,7 @@ const BucketItem = ({ data }: BucketItemProps) => {
           {isChecked && "✔"}
         </ChipCheckBox>
         <Chip color={chipData.color}>{chipData.text}</Chip>;
-        <DetailButton></DetailButton>
+        <DetailButton data={data} />
       </FlexBox>
     );
   };
