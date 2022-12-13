@@ -39,6 +39,7 @@ export interface TextAreaProps {
   onInputChange?: ChangeEventHandler<HTMLInputElement>;
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
   value?: string;
+  disabled?: boolean;
 }
 export default function TextArea({
   placeholder,

@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import SetInputBox from "../components/main/SetInputBox";
 import Title from "../components/Title";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { putNickName } from "../api/my-api";
+import axios from "axios";
+import { BASE_URL } from "../constant";
 
 const SetNickname = () => {
   const navigate = useNavigate();
@@ -19,6 +21,9 @@ const SetNickname = () => {
         },
       }),
   });
+  // const { data } = useQuery("token", () =>
+  //   axios.get(BASE_URL + "/test/token/3")
+  // );
 
   return (
     <ImagedWrapper>
@@ -28,11 +33,11 @@ const SetNickname = () => {
           secondary="어떤 닉네임으로 할까요?"
         />
         <SetInputBox
-          onTextAreaChange={(e) => setUserNameValue(e.target.value)}
           buttonText="다음"
           placeholder="닉네임을 입력해 주세요."
           onClickButton={() => mutate()}
           onInputChange={(e) => setUserNameValue(e.target.value)}
+          buttonDisabled={!userNameValue}
         />
 
         <NavigationBar />

@@ -48,6 +48,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["framer-motion", "virtual:f6ab862373c058eaa34c56e247366b286e7f38d80e6894bc142cb12795c27eb59d85f90600ba92e28736057f1bb77c78be17cd01cf017eb4f5226e3cb33ccb65#npm:7.6.19"],\
             ["gh-pages", "npm:4.0.0"],\
             ["gh-pages-deploy", "npm:0.5.1"],\
+            ["html-to-image", "npm:1.11.1"],\
             ["msw", "virtual:f6ab862373c058eaa34c56e247366b286e7f38d80e6894bc142cb12795c27eb59d85f90600ba92e28736057f1bb77c78be17cd01cf017eb4f5226e3cb33ccb65#npm:0.48.2"],\
             ["qs", "npm:6.11.0"],\
             ["react", "npm:18.2.0"],\
@@ -6626,6 +6627,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["framer-motion", "virtual:f6ab862373c058eaa34c56e247366b286e7f38d80e6894bc142cb12795c27eb59d85f90600ba92e28736057f1bb77c78be17cd01cf017eb4f5226e3cb33ccb65#npm:7.6.19"],\
             ["gh-pages", "npm:4.0.0"],\
             ["gh-pages-deploy", "npm:0.5.1"],\
+            ["html-to-image", "npm:1.11.1"],\
             ["msw", "virtual:f6ab862373c058eaa34c56e247366b286e7f38d80e6894bc142cb12795c27eb59d85f90600ba92e28736057f1bb77c78be17cd01cf017eb4f5226e3cb33ccb65#npm:0.48.2"],\
             ["qs", "npm:6.11.0"],\
             ["react", "npm:18.2.0"],\
@@ -10429,6 +10431,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["param-case", "npm:3.0.4"],\
             ["relateurl", "npm:0.2.7"],\
             ["terser", "npm:5.15.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["html-to-image", [\
+        ["npm:1.11.1", {\
+          "packageLocation": "./.yarn/cache/html-to-image-npm-1.11.1-01f4f9d180-1d604e1b33.zip/node_modules/html-to-image/",\
+          "packageDependencies": [\
+            ["html-to-image", "npm:1.11.1"]\
           ],\
           "linkType": "HARD"\
         }]\

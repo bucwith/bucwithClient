@@ -10,7 +10,8 @@ import { BucketTypeEnum } from "../@types/enums";
 const AddList = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = React.useState("");
-
+  localStorage.setItem("name", "양꼬치");
+  const name = localStorage.getItem("name");
   const addBucketMutation = useMutation(
     () =>
       postBucket({
@@ -20,7 +21,7 @@ const AddList = () => {
       }),
     {
       onSuccess: () =>
-        navigate("/me/completion", {
+        navigate("/me", {
           state: {
             contents: inputValue,
           },
@@ -35,7 +36,7 @@ const AddList = () => {
   return (
     <ImagedWrapper>
       <VerticalCentered gap="40px">
-        <Title primary={`소현님이\n꿈꾸는 버킷리스트를\n적어주세요.`}></Title>
+        <Title primary={`${name}님이\n꿈꾸는 버킷리스트를\n적어주세요.`} />
         <InputBox
           onTextAreaChange={(e) => setInputValue(e.target.value)}
           title="어떤 종류의 버킷리스트인가요?"

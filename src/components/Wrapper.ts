@@ -45,7 +45,7 @@ export const HorizonCentered = styled.div<WrapperProps>`
 export const FlexBox = styled.div<WrapperProps>`
   width: 100%;
   display: flex;
-  flex-direction: ${(props) => props.direction};
+  flex-direction: ${(props) => props.direction || "column"};
   justify-content: ${(props) => props.justify};
   align-items: center;
   padding: ${(props) => props.padding};
