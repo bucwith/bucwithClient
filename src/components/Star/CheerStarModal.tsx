@@ -46,7 +46,7 @@ const CheerStarModal = () => {
     <ModalWrapper>
       <ModalBox gap="30px">
         <SubTitle text="응원 별 달기" isCentered />
-        <FlexBox justify="center">
+        <FlexBox justify="center" direction="row">
           <div
             style={{
               width: "248px",
@@ -77,7 +77,7 @@ const CheerStarModal = () => {
             </Arrow>
           </ArrowBox>
         </FlexBox>
-        <FlexBox gap="20px" justify="center">
+        <FlexBox gap="20px" justify="center" direction="row">
           {Object.values(Colors).map((data, index) => (
             <Color
               key={index}
@@ -89,11 +89,7 @@ const CheerStarModal = () => {
             />
           ))}
         </FlexBox>
-        <FlexBox
-          gap="10px"
-          direction="column"
-          style={{ alignItems: "stretch" }}
-        >
+        <FlexBox gap="10px" style={{ alignItems: "stretch" }}>
           <TextArea
             placeholder="응원 메세지를 작성해보세요."
             textarea
@@ -104,8 +100,8 @@ const CheerStarModal = () => {
             onInputChange={(e) => setNickname(e.target.value)}
           />
         </FlexBox>
-        <FlexBox gap="10px" direction="column">
-          <FlexBox justify="center" gap="4px">
+        <FlexBox gap="10px">
+          <FlexBox justify="center" gap="4px" direction="row">
             <img src={warningIcon} alt="" />
             <WarningMsg>
               응원별은 등록 후 수정 또는 삭제가 불가능해요.

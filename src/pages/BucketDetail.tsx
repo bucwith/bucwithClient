@@ -37,13 +37,15 @@ const BucketDetail = () => {
 
   const { bucketId } = useParams();
   const [isShare, setIsShare] = useState(false);
+  const name = localStorage.getItem("name");
 
   const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
     setIsShare(false);
   };
   const contents = location.state.contents;
-  const getIconUrl = (iconCode: string) => {
+
+  const getIconSrc = (iconCode: string) => {
     const color = iconCode.slice(-1);
     const shapeIndex = Number(iconCode.slice(-2, -1)) - 1;
 
@@ -60,7 +62,7 @@ const BucketDetail = () => {
   };
 
   const { data: cheerStarData } = useQuery(["getCheerStar"], () =>
-    getCheerStar(Number(bucketId))
+    bucketId ? getCheerStar(Number(bucketId)) : null
   );
 
   const handleMeListClick = () => {
@@ -93,10 +95,10 @@ const BucketDetail = () => {
         }
       }}
     >
-      <MainWrap direction="column" justify="space-between">
+      <MainWrap justify="space-between">
         {isShare ? <Share modalClose={modalClose} /> : null}
-        <FlexBox direction="column">
-          <SecondaryText>{`소현님의 버킷리스트는`}</SecondaryText>
+        <FlexBox>
+          <SecondaryText>{`${name}님의 버킷리스트는`}</SecondaryText>
           <PrimaryText>{contents}</PrimaryText>
         </FlexBox>
         <LanternContainer>
@@ -106,21 +108,22 @@ const BucketDetail = () => {
             }}
             src={MainLightImg}
           />
-          {/* 
-          {cheerStarData.map((star: StarType, index: number) => {
-            return (
-              <img
-                key={index}
-                src={getIconUrl(star.iconCode)}
-                style={{
-                  width: "60px",
-                  position: "absolute",
-                  top: `${CHEER_STAR_LOCATION[index].top}px`,
-                  left: `${CHEER_STAR_LOCATION[index].left}px`,
-                }}
-              />
-            );
-          })} */}
+
+          {cheerStarData &&
+            cheerStarData.map((star: StarType, index: number) => {
+              return (
+                <img
+                  key={index}
+                  src={getIconSrc(star.iconCode)}
+                  style={{
+                    width: "60px",
+                    position: "absolute",
+                    top: `${CHEER_STAR_LOCATION[index].top}px`,
+                    left: `${CHEER_STAR_LOCATION[index].left}px`,
+                  }}
+                />
+              );
+            })}
         </LanternContainer>
         <FlexBox gap="10px" direction="row">
           <Button

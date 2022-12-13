@@ -7,6 +7,8 @@ import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { getBucketList } from "../api/my-api";
+import { TOKEN } from "../constant";
+import CongratModal from "../components/list/CongratModal";
 
 export interface BucketListType {
   bucketId?: number;
@@ -18,6 +20,13 @@ export interface BucketListType {
 }
 
 const List = () => {
+  if (localStorage.getItem("token")) {
+    localStorage.setItem("token", TOKEN);
+    localStorage.setItem("name", "양꼬치");
+  }
+
+  const [congratModal, setCongratModal] = React.useState(true);
+
   const { data } = useQuery(["getData"], () => getBucketList());
 
   if (!data) {
@@ -32,14 +41,19 @@ const List = () => {
         </ListTitle>
         <ScrollWrapper>
           <StyledImg src={mainImage} />
-          <FlexBox gap="20px" direction="column">
+          <FlexBox gap="20px">
             {data.map((bucket: BucketListType, index: number) => (
-              <BucketItem key={index} data={bucket} />
+              <BucketItem
+                key={index}
+                data={bucket}
+                setCongratModal={setCongratModal}
+              />
             ))}
           </FlexBox>
         </ScrollWrapper>
       </HorizonCentered>
-      <NavigationBar></NavigationBar>
+      <NavigationBar />
+      {congratModal && <CongratModal setCongratModal={setCongratModal} />}
     </DarkWrapper>
   );
 };

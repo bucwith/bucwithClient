@@ -10,6 +10,7 @@ import { FlexBox } from "../Wrapper";
 import DetailButton from "./DetailButton";
 interface BucketItemProps {
   data: BucketListType;
+  setCongratModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 type ChipDataType = {
@@ -17,7 +18,7 @@ type ChipDataType = {
   color: string;
 };
 
-const BucketItem = ({ data }: BucketItemProps) => {
+const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
   const renderChip = () => {
     if (data.isFinished === undefined) {
       return null;
@@ -28,8 +29,12 @@ const BucketItem = ({ data }: BucketItemProps) => {
     );
 
     const handleCheckClick = () => {
-      setIsChecked((prev) => !prev);
       checkboxMutation.mutate();
+
+      if (checkboxMutation.isSuccess) {
+        setCongratModal(true);
+        setIsChecked((prev) => !prev);
+      }
     };
 
     const [isChecked, setIsChecked] = React.useState(data.isFinished);
@@ -49,7 +54,7 @@ const BucketItem = ({ data }: BucketItemProps) => {
     const chipData: ChipDataType = getData();
 
     return (
-      <FlexBox gap="8px" style={{ margin: "10px 0 20px" }}>
+      <FlexBox gap="8px" style={{ margin: "10px 0 20px" }} direction="row">
         <ChipCheckBox
           color={chipData.color}
           isFinished={isChecked}
