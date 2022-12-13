@@ -56,6 +56,9 @@ const PrimaryButton = styled.button`
   &:active {
     background-color: #4f35b6;
   }
+  &:disabled {
+    opacity: 0.5;
+  }
 `;
 
 const KakaoButton = styled.button`
