@@ -23,7 +23,7 @@ const List = () => {
   if (!data) {
     return null;
   }
-
+  
   return (
     <DarkWrapper padding="30px 20px">
       <HorizonCentered direction="column">

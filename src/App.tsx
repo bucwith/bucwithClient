@@ -10,11 +10,12 @@ import AddList from "./pages/AddList";
 import Guest from "./pages/Guest";
 import BucketDetail from "./pages/BucketDetail";
 
+
 function App() {
   const queryClient = new QueryClient();
 
   // 로컬에서 유저정보 가져오고 없으면 로그인창으로 redirect.
-  const isAuthorized = localStorage.getItem("");
+  // const isAuthorized = localStorage.getItem("");
 
   return (
     <div className="App">
@@ -22,7 +23,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
-            {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/nickname" element={<SetNickname />} />
             <Route path="/me/add" element={<AddList />} />
             <Route path="/me/list" element={<List />} />

@@ -1,13 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { ButtonColor } from "../@types/enums";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
-const Login = () => {
-  const navigate = useNavigate();
-  const handleLoginClick = () => {
-    return navigate("/nickname");
+  const Login = () => {
+  const BACK_URL = `http://61.97.184.195:8080/oauth2/authorization/kakao`
+  const handleRedirect = () => {
+    return location.href=(BACK_URL);
   };
 
   return (
@@ -17,7 +16,7 @@ const Login = () => {
         <Button
           text="카카오로 간편 로그인"
           color={ButtonColor.Kakao}
-          onClick={handleLoginClick}
+          onClick={handleRedirect}
         />
       </VerticalCentered>
     </ImagedWrapper>
