@@ -97,3 +97,7 @@ export const putCheerStar = async ({
     console.error(err);
   }
 };
+
+export const getToken = async () => {
+  const reponse = await axios.get(BASE_URL + "/test/token/3");
+};

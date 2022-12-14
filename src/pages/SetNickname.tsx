@@ -21,9 +21,6 @@ const SetNickname = () => {
         },
       }),
   });
-  // const { data } = useQuery("token", () =>
-  //   axios.get(BASE_URL + "/test/token/3")
-  // );
 
   return (
     <ImagedWrapper>
