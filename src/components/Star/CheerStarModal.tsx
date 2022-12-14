@@ -153,11 +153,13 @@ const Arrow = styled.button`
 
 const ArrowBox = styled(FlexBox)`
   position: absolute;
+  flex-direction: row;
   top: 100px;
 `;
 
 const IconList = styled(FlexBox)<{ iconIndex: number }>`
   position: absolute;
+  flex-direction: row;
   top: 0;
   transform: translate(50%, 0);
   left: ${(props) => -(props.iconIndex * 90 + 34)}px;
@@ -180,7 +182,7 @@ const IconImage = styled.img`
   opacity: 0.33;
   position: relative;
   &.active {
-    animation: ${dungdung} 1s linear infinite;
+    /* animation: ${dungdung} 1s linear infinite; */
     width: 68px;
     opacity: 1;
   }
