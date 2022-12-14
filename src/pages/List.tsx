@@ -26,13 +26,12 @@ const List = () => {
   }
 
   const [congratModal, setCongratModal] = React.useState(true);
-
   const { data } = useQuery(["getData"], () => getBucketList());
 
   if (!data) {
     return null;
   }
-  
+
   return (
     <DarkWrapper padding="30px 20px">
       <HorizonCentered direction="column">
@@ -42,13 +41,13 @@ const List = () => {
         <ScrollWrapper>
           <StyledImg src={mainImage} />
           <FlexBox gap="20px">
-            {data.map((bucket: BucketListType, index: number) => (
+            {/* {data.map((bucket: BucketListType, index: number) => (
               <BucketItem
                 key={index}
                 data={bucket}
                 setCongratModal={setCongratModal}
               />
-            ))}
+            ))} */}
           </FlexBox>
         </ScrollWrapper>
       </HorizonCentered>
