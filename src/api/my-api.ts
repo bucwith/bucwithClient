@@ -1,6 +1,17 @@
 import { BucketListType } from "./../pages/List";
 import axios from "axios";
-import { BASE_URL, TOKEN } from "../constant";
+import { BASE_URL } from "../constant";
+import { tokenAtom } from "../store/atoms";
+import { useRecoilValue } from "recoil";
+
+const TOKEN = useRecoilValue(tokenAtom);
+
+const checkToken = () => {
+  if (TOKEN !== "") {
+    return null;
+  }
+  throw new Error("There is no token.");
+};
 
 export const postBucket = async ({
   userId,
@@ -8,6 +19,7 @@ export const postBucket = async ({
   type,
 }: BucketListType) => {
   try {
+    checkToken();
     const response = await axios.post(
       BASE_URL + "/bucket",
       {
@@ -25,9 +37,12 @@ export const postBucket = async ({
 
 export const getBucketList = async () => {
   try {
+    checkToken();
+
     const response = await axios.get(BASE_URL + "/bucket", {
       headers: { Authorization: TOKEN },
     });
+
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -39,6 +54,9 @@ export const checkBucket = async (bucketId: number) => {
     if (bucketId === -1) {
       throw new Error("there is no bucketId.");
     }
+
+    checkToken();
+
     const response = await axios.post(BASE_URL + `/bucket/finish/${bucketId}`, {
       headers: { Authorization: TOKEN },
     });
@@ -50,6 +68,7 @@ export const checkBucket = async (bucketId: number) => {
 
 export const putNickName = async (name: string) => {
   try {
+    checkToken();
     const response = await axios.put(
       BASE_URL + "/user/name",
       { name: name },
@@ -99,5 +118,20 @@ export const putCheerStar = async ({
 };
 
 export const getToken = async () => {
-  const reponse = await axios.get(BASE_URL + "/test/token/3");
+  const response = await axios.get(BASE_URL + "/test/token/3");
+  return response;
+};
+
+export const getUserData = async () => {
+  try {
+    checkToken();
+
+    const response = await axios.get(BASE_URL + "/user/info", {
+      headers: { Authorization: TOKEN },
+    });
+
+    return response;
+  } catch (err) {
+    console.error(err);
+  }
 };

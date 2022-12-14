@@ -9,6 +9,8 @@ import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { getBucketList } from "../api/my-api";
 import { TOKEN } from "../constant";
 import CongratModal from "../components/list/CongratModal";
+import { tokenAtom } from "../store/atoms";
+import { useSetRecoilState } from "recoil";
 
 export interface BucketListType {
   bucketId?: number;
@@ -20,12 +22,18 @@ export interface BucketListType {
 }
 
 const List = () => {
-  if (localStorage.getItem("token")) {
-    localStorage.setItem("token", TOKEN);
-    localStorage.setItem("name", "양꼬치");
-  }
+  // url에서 토큰 뽑아 atom에 저장
+  const URLSearch = new URLSearchParams(location.search);
+  const token = URLSearch.get("token");
 
-  const [congratModal, setCongratModal] = React.useState(true);
+  if (!token) {
+    // 임시로 만든 에러 페이지. 후에 default로 사용되는 이미지 있음 좋겠다.
+    return <p>잘못된 접근입니다.</p>;
+  }
+  const setToken = useSetRecoilState(tokenAtom);
+  setToken(token);
+
+  const [congratModal, setCongratModal] = React.useState(false);
   const { data } = useQuery(["getData"], () => getBucketList());
 
   if (!data) {
