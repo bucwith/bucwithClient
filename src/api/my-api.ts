@@ -36,11 +36,12 @@ export const postBucket = async ({
 };
 
 export const getBucketList = async () => {
+  const TOKEN = await getToken()
   try {
     checkToken();
 
     const response = await axios.get(BASE_URL + "/bucket", {
-      headers: { Authorization: TOKEN },
+      headers: { Authorization: TOKEN as any },
     });
 
     return response.data.data;
@@ -116,6 +117,7 @@ export const putCheerStar = async ({
     console.error(err);
   }
 };
+
 
 export const getToken = async () => {
   const response = await axios.get(BASE_URL + "/test/token/3");
