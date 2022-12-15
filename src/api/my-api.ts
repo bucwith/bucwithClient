@@ -1,17 +1,6 @@
 import { BucketListType } from "./../pages/List";
 import axios from "axios";
 import { BASE_URL } from "../constant";
-import { tokenAtom } from "../store/atoms";
-import { useRecoilValue } from "recoil";
-
-const TOKEN = useRecoilValue(tokenAtom);
-
-const checkToken = () => {
-  if (TOKEN !== "") {
-    return null;
-  }
-  throw new Error("There is no token.");
-};
 
 export const postBucket = async ({
   userId,
@@ -19,16 +8,11 @@ export const postBucket = async ({
   type,
 }: BucketListType) => {
   try {
-    checkToken();
-    const response = await axios.post(
-      BASE_URL + "/bucket",
-      {
-        userId: userId,
-        contents: contents,
-        type: type,
-      },
-      { headers: { Authorization: TOKEN } }
-    );
+    const response = await axios.post(BASE_URL + "/bucket", {
+      userId: userId,
+      contents: contents,
+      type: type,
+    });
     return response.data.data;
   } catch (error) {
     console.error(error);
@@ -36,13 +20,8 @@ export const postBucket = async ({
 };
 
 export const getBucketList = async () => {
-  const TOKEN = await getToken()
   try {
-    checkToken();
-
-    const response = await axios.get(BASE_URL + "/bucket", {
-      headers: { Authorization: TOKEN as any },
-    });
+    const response = await axios.get("/bucket");
 
     return response.data.data;
   } catch (err) {
@@ -56,11 +35,7 @@ export const checkBucket = async (bucketId: number) => {
       throw new Error("there is no bucketId.");
     }
 
-    checkToken();
-
-    const response = await axios.post(BASE_URL + `/bucket/finish/${bucketId}`, {
-      headers: { Authorization: TOKEN },
-    });
+    const response = await axios.post(`/bucket/finish/${bucketId}`);
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -69,12 +44,7 @@ export const checkBucket = async (bucketId: number) => {
 
 export const putNickName = async (name: string) => {
   try {
-    checkToken();
-    const response = await axios.put(
-      BASE_URL + "/user/name",
-      { name: name },
-      { headers: { Authorization: TOKEN } }
-    );
+    const response = await axios.put("/user/name", { name: name });
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -83,7 +53,7 @@ export const putNickName = async (name: string) => {
 
 export const getCheerStar = async (id: number) => {
   try {
-    const response = await axios.get(BASE_URL + `/star/${id}`);
+    const response = await axios.get(`/star/${id}`);
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -106,7 +76,7 @@ export const putCheerStar = async ({
   iconIndex,
 }: PutCheerStarProps) => {
   try {
-    const response = await axios.post(BASE_URL + "/star", {
+    const response = await axios.post("/star", {
       bucketId: bucketId,
       nickname: nickname,
       contents: contents,
@@ -118,19 +88,14 @@ export const putCheerStar = async ({
   }
 };
 
-
 export const getToken = async () => {
-  const response = await axios.get(BASE_URL + "/test/token/3");
+  const response = await axios.get("/test/token/3");
   return response;
 };
 
 export const getUserData = async () => {
   try {
-    checkToken();
-
-    const response = await axios.get(BASE_URL + "/user/info", {
-      headers: { Authorization: TOKEN },
-    });
+    const response = await axios.get("/user/info");
 
     return response;
   } catch (err) {

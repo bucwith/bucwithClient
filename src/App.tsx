@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { RecoilRoot } from "recoil";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { RecoilRoot, useRecoilValue } from "recoil";
 import Login from "./pages/Login";
 import SetNickname from "./pages/SetNickname";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -9,12 +9,27 @@ import Me from "./pages/Me";
 import AddList from "./pages/AddList";
 import Guest from "./pages/Guest";
 import BucketDetail from "./pages/BucketDetail";
+import { tokenAtom } from "./store/atoms";
+import axios from "axios";
+import { BASE_URL } from "./constant";
 
 function App() {
   const queryClient = new QueryClient();
+  const token = localStorage.getItem("token");
+  const URLSearch = new URLSearchParams(location.search);
+  const TOKEN = URLSearch.get("token");
 
-  // 로컬에서 유저정보 가져오고 없으면 로그인창으로 redirect.
-  // const isAuthorized = localStorage.getItem("");
+  if (TOKEN !== null) {
+    localStorage.setItem("token", TOKEN);
+  }
+
+  if (!token) {
+    window.open(BASE_URL);
+  }
+
+  axios.defaults.baseURL = BASE_URL;
+  axios.defaults.headers.common["Authorization"] =
+    localStorage.getItem("token");
 
   return (
     <div className="App">

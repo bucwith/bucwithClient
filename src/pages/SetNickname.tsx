@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom";
 import SetInputBox from "../components/main/SetInputBox";
 import Title from "../components/Title";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { putNickName } from "../api/my-api";
-import axios from "axios";
-import { BASE_URL } from "../constant";
 
 const SetNickname = () => {
   const navigate = useNavigate();
