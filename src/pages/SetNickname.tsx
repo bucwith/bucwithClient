@@ -34,7 +34,6 @@ const SetNickname = () => {
           onInputChange={(e) => setUserNameValue(e.target.value)}
           buttonDisabled={!userNameValue}
         />
-
         <NavigationBar />
       </VerticalCentered>
     </ImagedWrapper>

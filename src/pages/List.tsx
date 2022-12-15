@@ -11,6 +11,7 @@ import { TOKEN } from "../constant";
 import CongratModal from "../components/list/CongratModal";
 import { tokenAtom } from "../store/atoms";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
 export interface BucketListType {
   bucketId?: number;
@@ -23,8 +24,12 @@ export interface BucketListType {
 
 const List = () => {
   // url에서 토큰 뽑아 atom에 저장
-  const URLSearch = new URLSearchParams(location.search);
-  const tokenInAtom = useRecoilValue(tokenAtom);
+  const [searchParams, setSerchParams] = useSearchParams();
+  const token = searchParams.get('token')
+  // const URLSearch = new URLSearchParams(location.search);
+  // const tokenInAtom = useRecoilValue(token as any);
+  console.log(token)
+
 
   const [congratModal, setCongratModal] = React.useState(false);
   const { data } = useQuery(["getData"], () => getBucketList());
