@@ -11,7 +11,9 @@ import { useQuery } from "react-query";
 import { getCheerStar } from "../api/my-api";
 import { toPng } from "html-to-image";
 import { pinkIcons, yellowIcons, blueIcons } from "../assets/icons";
-
+import arrow from "../assets/icon_arrow-right.png";
+import { useRecoilValue } from "recoil";
+import { userDataAtom } from "../store/atoms";
 type StarType = {
   bucketId: number;
   contents: string;
@@ -37,8 +39,8 @@ const BucketDetail = () => {
 
   const { bucketId } = useParams();
   const [isShare, setIsShare] = useState(false);
-  const name = localStorage.getItem("name");
 
+  const nickname = useRecoilValue(userDataAtom).name;
   const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
     setIsShare(false);
@@ -95,10 +97,11 @@ const BucketDetail = () => {
         }
       }}
     >
+      {bucketId && <Arrow src={arrow} />}
       <MainWrap justify="space-between">
         {isShare ? <Share modalClose={modalClose} /> : null}
         <FlexBox>
-          <SecondaryText>{`${name}님의 버킷리스트는`}</SecondaryText>
+          <SecondaryText>{`${nickname}님의 버킷리스트는`}</SecondaryText>
           <PrimaryText>{contents}</PrimaryText>
         </FlexBox>
         <LanternContainer>
@@ -174,4 +177,12 @@ const SecondaryText = styled.h2`
   margin-bottom: 8px;
   text-align: center;
   color: ${theme.colors.whiteColor};
+`;
+
+const Arrow = styled.img`
+  width: 26px;
+  position: absolute;
+  top: 55px;
+  left: 20px;
+  transform: rotate(180deg);
 `;

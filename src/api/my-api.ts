@@ -89,7 +89,8 @@ export const putCheerStar = async ({
 };
 
 export const getToken = async () => {
-  const response = await axios.get("/test/token/3");
+  const response = await axios.get("/test/token/1");
+  localStorage.setItem("token", response.data.data);
   return response;
 };
 
@@ -97,7 +98,7 @@ export const getUserData = async () => {
   try {
     const response = await axios.get("/user/info");
 
-    return response;
+    return response.data.data;
   } catch (err) {
     console.error(err);
   }

@@ -10,7 +10,6 @@ import { BucketTypeEnum } from "../@types/enums";
 const AddList = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = React.useState("");
-  localStorage.setItem("name", "양꼬치");
   const name = localStorage.getItem("name");
   const addBucketMutation = useMutation(
     () =>
@@ -21,17 +20,13 @@ const AddList = () => {
       }),
     {
       onSuccess: () =>
-        navigate("/me", {
+        navigate("/me/completion", {
           state: {
             contents: inputValue,
           },
         }),
     }
   );
-
-  React.useEffect(() => {
-    console.log(inputValue);
-  }, [inputValue]);
 
   return (
     <ImagedWrapper>

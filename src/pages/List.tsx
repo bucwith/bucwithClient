@@ -6,12 +6,10 @@ import mainImage from "../assets/list_image.png";
 import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
-import { getBucketList } from "../api/my-api";
-import { TOKEN } from "../constant";
+import { getBucketList, getToken, getUserData } from "../api/my-api";
 import CongratModal from "../components/list/CongratModal";
-import { tokenAtom } from "../store/atoms";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userDataAtom } from "../store/atoms";
 
 export interface BucketListType {
   bucketId?: number;
@@ -23,20 +21,25 @@ export interface BucketListType {
 }
 
 const List = () => {
-  // url에서 토큰 뽑아 atom에 저장
-  const [searchParams, setSerchParams] = useSearchParams();
-  const token = searchParams.get('token')
-  // const URLSearch = new URLSearchParams(location.search);
-  // const tokenInAtom = useRecoilValue(token as any);
-  console.log(token)
-
-
+  // const { data: token } = useQuery(["token"], () => getToken());
+  const [userData, setUserData] = useRecoilState(userDataAtom);
   const [congratModal, setCongratModal] = React.useState(false);
   const { data } = useQuery(["getData"], () => getBucketList());
 
-  if (!data) {
-    return null;
-  }
+  const { data: userRawData } = useQuery(
+    ["getUserData"],
+    () => (userData.userId === -1 ? getUserData() : null),
+    {
+      onSuccess: (data) => {
+        console.log("successData : ", data);
+        if (data) {
+          setUserData(data);
+        }
+      },
+    }
+  );
+
+  console.log(userData);
 
   return (
     <DarkWrapper padding="30px 20px">
@@ -47,13 +50,13 @@ const List = () => {
         <ScrollWrapper>
           <StyledImg src={mainImage} />
           <FlexBox gap="20px">
-            {/* {data.map((bucket: BucketListType, index: number) => (
+            {data?.map((bucket: BucketListType, index: number) => (
               <BucketItem
                 key={index}
                 data={bucket}
                 setCongratModal={setCongratModal}
               />
-            ))} */}
+            ))}
           </FlexBox>
         </ScrollWrapper>
       </HorizonCentered>
