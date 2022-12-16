@@ -5,7 +5,7 @@ export const TOKEN =
 export const CHEER_STAR_LOCATION = [
   { top: -70, left: 110 },
   { top: -10, left: 230 },
-  { top: 100, left: 250 },
+  { top: 120, left: 250 },
   { top: 250, left: 200 },
   { top: 280, left: 60 },
   { top: 180, left: -30 },
