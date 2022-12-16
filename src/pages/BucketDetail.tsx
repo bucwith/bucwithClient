@@ -14,6 +14,7 @@ import arrow from "../assets/icon_arrow-right.png";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../store/atoms";
 import getIconSrc from "../utils/getIconSrc";
+import { CHEER_STAR_LOCATION } from "../constant";
 type StarType = {
   bucketId: number;
   contents: string;
@@ -22,16 +23,6 @@ type StarType = {
   registDate: Date;
   starId: number;
 };
-
-const CHEER_STAR_LOCATION = [
-  { top: -70, left: 110 },
-  { top: -10, left: 230 },
-  { top: 100, left: 250 },
-  { top: 250, left: 200 },
-  { top: 280, left: 60 },
-  { top: 180, left: -30 },
-  { top: 10, left: -30 },
-];
 
 const BucketDetail = () => {
   const navigate = useNavigate();
@@ -73,12 +64,12 @@ const BucketDetail = () => {
     });
   };
 
-  const saveImg = (setIsShare:any) => {
-    if(isShare) {
-      setIsShare(false)
+  const saveImg = (setIsShare: any) => {
+    if (isShare) {
+      setIsShare(false);
     }
-    exportElementAsPNG(captureRef.current, "test")
-  }
+    exportElementAsPNG(captureRef.current, "test");
+  };
 
   return (
     <ImagedWrapper
@@ -90,7 +81,13 @@ const BucketDetail = () => {
     >
       {bucketId && <Arrow src={arrow} />}
       <MainWrap justify="space-between">
-        {isShare ? <Share modalClose={modalClose} saveImg={saveImg} setIsShare={setIsShare}/> : null}
+        {isShare ? (
+          <Share
+            modalClose={modalClose}
+            saveImg={saveImg}
+            setIsShare={setIsShare}
+          />
+        ) : null}
         <FlexBox>
           <SecondaryText>{`${nickname}님의 버킷리스트는`}</SecondaryText>
           <PrimaryText>{contents}</PrimaryText>

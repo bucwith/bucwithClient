@@ -43,7 +43,7 @@ export default function Button({
   }
 }
 
-const PrimaryButton = styled.button`
+export const PrimaryButton = styled.button`
   width: 100%;
   font-size: 1.6rem;
   padding: 1.7rem;
@@ -84,16 +84,16 @@ const KakaoButton = styled.button`
   }
 `;
 
-const PrimaryBlackButton = styled.button`
+export const PrimaryBlackButton = styled.button`
   width: 100%;
   font-size: 1.6rem;
   padding: 1.7rem;
   line-height: 2.9rem;
   color: #fff;
   border-radius: 1.8rem;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #303451;
   /* active = pressed */
   &:active {
-    background-color: #4f35b6;
+    background-color: #292c45;
   }
 `;

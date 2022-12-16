@@ -11,8 +11,10 @@ import { getBucketData, getCheerStar } from "../api/my-api";
 import arrow from "../assets/icon_arrow-right.png";
 import CheerStarModal from "../components/Star/CheerStarModal";
 import getIconSrc from "../utils/getIconSrc";
+import CheerStarDetailModal from "../components/Star/CheerStarDetailModal";
+import { CHEER_STAR_LOCATION } from "../constant";
 
-type StarType = {
+type StarDataType = {
   bucketId: number;
   contents: string;
   iconCode: string;
@@ -20,16 +22,6 @@ type StarType = {
   registDate: Date;
   starId: number;
 };
-
-const CHEER_STAR_LOCATION = [
-  { top: -70, left: 110 },
-  { top: -10, left: 230 },
-  { top: 100, left: 250 },
-  { top: 250, left: 200 },
-  { top: 280, left: 60 },
-  { top: 180, left: -30 },
-  { top: 10, left: -30 },
-];
 
 const Guest = () => {
   const navigate = useNavigate();
@@ -44,16 +36,25 @@ const Guest = () => {
     bucketId ? getCheerStar(Number(bucketId)) : null
   );
 
+  const [isCheerStarDetailShow, setIsCheerStartDetailShow] =
+    React.useState(false);
+  const [starData, setStarData] = React.useState<StarDataType | undefined>();
+
   const handleMeListClick = () => {
     return navigate("/me/list");
+  };
+
+  const handleStarClick = (index: number) => {
+    setStarData(stars[index]);
+    setIsCheerStartDetailShow(true);
   };
 
   return (
     <ImagedWrapper>
       <MainWrap justify="space-between">
         <FlexBox>
-          <SecondaryText>{`${bucket.userName}님의 버킷리스트는`}</SecondaryText>
-          <PrimaryText>{bucket.bucket.contents}</PrimaryText>
+          <SecondaryText>{`${bucket?.userName}님의 버킷리스트는`}</SecondaryText>
+          <PrimaryText>{bucket?.bucket.contents}</PrimaryText>
         </FlexBox>
         <LanternContainer>
           <img
@@ -64,7 +65,7 @@ const Guest = () => {
           />
 
           {stars &&
-            stars.map((star: StarType, index: number) => {
+            stars.map((star: StarDataType, index: number) => {
               return (
                 <img
                   key={index}
@@ -75,6 +76,7 @@ const Guest = () => {
                     top: `${CHEER_STAR_LOCATION[index].top}px`,
                     left: `${CHEER_STAR_LOCATION[index].left}px`,
                   }}
+                  onClick={() => handleStarClick(index)}
                 />
               );
             })}
@@ -96,6 +98,12 @@ const Guest = () => {
       </MainWrap>
       {isCheerStarShow && (
         <CheerStarModal setIsCheerStartShow={setIsCheerStartShow} />
+      )}
+      {isCheerStarDetailShow && starData && (
+        <CheerStarDetailModal
+          starData={starData}
+          setIsCheerStartDetailShow={setIsCheerStartDetailShow}
+        />
       )}
     </ImagedWrapper>
   );

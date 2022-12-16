@@ -4,7 +4,6 @@ const getIconSrc = (iconCode: string) => {
   const color = iconCode.slice(-1);
   const shapeIndex = Number(iconCode.slice(-2, -1)) - 1;
 
-  console.log(iconCode, color, shapeIndex);
   switch (color) {
     case "B":
       return blueIcons[shapeIndex];
