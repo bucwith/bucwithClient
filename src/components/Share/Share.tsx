@@ -82,7 +82,7 @@ export interface TextAreaProps {
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
   value?: string;
 }
-export default function Share({ modalClose }: any) {
+export default function Share({ modalClose, saveImg, setIsShare }: any) {
   return (
     <ShareWarp onClick={modalClose}>
       <ShareInnerWarp>
@@ -114,7 +114,7 @@ export default function Share({ modalClose }: any) {
             </Click>
           </Items>
         </FlexWrapper>
-        <SaveButton>내 앨범에 이미지 저장하기</SaveButton>
+        <SaveButton onClick={() => saveImg(setIsShare)}>내 앨범에 이미지 저장하기</SaveButton>
       </ShareInnerWarp>
     </ShareWarp>
   );
