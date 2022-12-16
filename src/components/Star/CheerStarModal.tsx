@@ -12,6 +12,7 @@ import { useMutation } from "react-query";
 import { putCheerStar } from "../../api/my-api";
 import warningIcon from "../../assets/icon_warning.png";
 import closeIcon from "../../assets/icon_close.png";
+import { useParams } from "react-router-dom";
 
 const Colors = [
   { color: "#FF6BDE", icons: pinkIcons, code: "P" },
@@ -19,10 +20,13 @@ const Colors = [
   { color: "#007BED", icons: blueIcons, code: "B" },
 ];
 
-const CheerStarModal = () => {
+interface CheerStarModalProps {
+  setIsCheerStartShow: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const CheerStarModal = ({ setIsCheerStartShow }: CheerStarModalProps) => {
+  const { bucketId } = useParams();
   const [contents, setContents] = React.useState("");
   const [nickname, setNickname] = React.useState("");
-  const bucketId = 44;
   const [iconIndex, setIconIndex] = React.useState<number>(0);
   const [icons, setIcons] = React.useState(pinkIcons);
   const [iconColor, setIconColor] = React.useState("P");
@@ -37,10 +41,18 @@ const CheerStarModal = () => {
     setIconIndex((prev) => prev - 1);
   };
 
-  const cheerStar = useMutation({
-    mutationFn: () =>
-      putCheerStar({ bucketId, nickname, contents, iconColor, iconIndex }),
-  });
+  const cheerStar = useMutation(
+    ["getCheerStar"],
+    () =>
+      putCheerStar({
+        bucketId: Number(bucketId),
+        nickname,
+        contents,
+        iconColor,
+        iconIndex,
+      }),
+    { onSuccess: () => setIsCheerStartShow(false) }
+  );
 
   return (
     <ModalWrapper>
@@ -117,7 +129,7 @@ const CheerStarModal = () => {
         <CloseIcon
           src={closeIcon}
           alt="닫기 버튼"
-          onClick={() => "닫히는 event"}
+          onClick={() => setIsCheerStartShow(false)}
         />
       </ModalBox>
     </ModalWrapper>

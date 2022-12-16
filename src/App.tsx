@@ -8,8 +8,6 @@ import Me from "./pages/Me";
 import AddList from "./pages/AddList";
 import Guest from "./pages/Guest";
 import BucketDetail from "./pages/BucketDetail";
-import axios from "axios";
-import { BASE_URL } from "./constant";
 
 function App() {
   const pathname = window.location.pathname;
@@ -17,17 +15,16 @@ function App() {
   const TOKEN = URLSearch.get("token");
   const hasTokenUrl = pathname === "/me/list" || pathname === "/nickname";
   const localToken = localStorage.getItem("token");
-  axios.defaults.baseURL = BASE_URL;
 
-  if (pathname !== "/" && localToken === null) {
-    console.log("is null");
+  if (pathname !== "/" && !pathname.includes("guest") && localToken === null) {
+    console.log("token is null");
     window.location.href = "http://localhost:3000/";
   }
 
   if (hasTokenUrl && TOKEN) {
     localStorage.setItem("token", TOKEN);
   }
-  axios.defaults.headers.common.Authorization = TOKEN || localToken;
+
   return (
     <div className="App">
       <RecoilRoot>
@@ -40,7 +37,7 @@ function App() {
             <Route path="/me/bucket/:bucketId" element={<BucketDetail />} />
             <Route path="/me/completion" element={<BucketDetail />} />
             <Route path="/me" element={<Me />} />
-            <Route path="/guest" element={<Guest />} />
+            <Route path="/guest/:bucketId" element={<Guest />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

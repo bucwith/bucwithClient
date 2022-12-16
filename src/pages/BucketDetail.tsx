@@ -10,10 +10,10 @@ import Share from "../components/Share/Share";
 import { useQuery } from "react-query";
 import { getCheerStar } from "../api/my-api";
 import { toPng } from "html-to-image";
-import { pinkIcons, yellowIcons, blueIcons } from "../assets/icons";
 import arrow from "../assets/icon_arrow-right.png";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../store/atoms";
+import getIconSrc from "../utils/getIconSrc";
 type StarType = {
   bucketId: number;
   contents: string;
@@ -46,22 +46,6 @@ const BucketDetail = () => {
     setIsShare(false);
   };
   const contents = location.state.contents;
-
-  const getIconSrc = (iconCode: string) => {
-    const color = iconCode.slice(-1);
-    const shapeIndex = Number(iconCode.slice(-2, -1)) - 1;
-
-    switch (color) {
-      case "B":
-        return blueIcons[shapeIndex];
-
-      case "Y":
-        return yellowIcons[shapeIndex];
-
-      default:
-        return pinkIcons[shapeIndex];
-    }
-  };
 
   const { data: cheerStarData } = useQuery(["getCheerStar"], () =>
     bucketId ? getCheerStar(Number(bucketId)) : null

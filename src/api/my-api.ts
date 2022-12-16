@@ -2,13 +2,19 @@ import { BucketListType } from "./../pages/List";
 import axios from "axios";
 import { BASE_URL } from "../constant";
 
+const token = localStorage.getItem("token");
+const axiosWithToken = axios.create({
+  baseURL: BASE_URL,
+  headers: { Authorization: token },
+});
+
 export const postBucket = async ({
   userId,
   contents,
   type,
 }: BucketListType) => {
   try {
-    const response = await axios.post(BASE_URL + "/bucket", {
+    const response = await axiosWithToken.post(BASE_URL + "/bucket", {
       userId: userId,
       contents: contents,
       type: type,
@@ -21,7 +27,7 @@ export const postBucket = async ({
 
 export const getBucketList = async () => {
   try {
-    const response = await axios.get("/bucket");
+    const response = await axiosWithToken.get("/bucket");
 
     return response.data.data;
   } catch (err) {
@@ -35,7 +41,7 @@ export const checkBucket = async (bucketId: number) => {
       throw new Error("there is no bucketId.");
     }
 
-    const response = await axios.post(`/bucket/finish/${bucketId}`);
+    const response = await axiosWithToken.post(`/bucket/finish/${bucketId}`);
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -44,7 +50,7 @@ export const checkBucket = async (bucketId: number) => {
 
 export const putNickName = async (name: string) => {
   try {
-    const response = await axios.put("/user/name", { name: name });
+    const response = await axiosWithToken.put("/user/name", { name: name });
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -80,7 +86,7 @@ export const putCheerStar = async ({
       bucketId: bucketId,
       nickname: nickname,
       contents: contents,
-      iconCode: `CS00${iconColor}${iconIndex + 1}`,
+      iconCode: `CS00${iconIndex + 1}${iconColor}`,
     });
     return response.data.data;
   } catch (err) {
@@ -96,7 +102,17 @@ export const getToken = async () => {
 
 export const getUserData = async () => {
   try {
-    const response = await axios.get("/user/info");
+    const response = await axiosWithToken.get("/user/info");
+
+    return response.data.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getBucketData = async (bucketId: number) => {
+  try {
+    const response = await axios.get(`/bucket/id/${bucketId}`);
 
     return response.data.data;
   } catch (err) {
