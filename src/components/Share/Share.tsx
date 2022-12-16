@@ -7,6 +7,7 @@ import fbIcon from "../../assets/icon_fb.png";
 import twitterIcon from "../../assets/icon_twitter.png";
 import closeIcon from "../../assets/icon_close.png";
 import downloadIcon from "../../assets/icon_download.png";
+import { BASE_URL } from "../../constant";
 
 const ShareWarp = styled.div`
   position: absolute;
@@ -82,6 +83,30 @@ export interface TextAreaProps {
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
   value?: string;
 }
+const BUCKET_URL = (BASE_URL + '/me/completion')
+const shareItems = [
+  {
+    'imgURL': kakaoIcon,
+    'title': '카카오톡',
+    'link' : "https://www.kakaocorp.com/page/service/service/KakaoTalk?lang=ko"
+  },
+  {
+    'imgURL': fbIcon,
+    'title': '페이스북',
+    'link' : "https://www.facebook.com/"
+  },
+  {
+    'imgURL': twitterIcon,
+    'title': 'twitter',
+    'link' : "https://twitter.com/"
+  },
+  {
+    'imgURL': linkIcon,
+    'title': '링크 복사',
+    'link' : BUCKET_URL
+  },
+]
+
 export default function Share({ modalClose, saveImg, setIsShare }: any) {
   return (
     <ShareWarp onClick={modalClose}>
@@ -89,30 +114,14 @@ export default function Share({ modalClose, saveImg, setIsShare }: any) {
         <Title primary={`내 버킷 공유하기`}></Title>
         <CloseButton onClick={modalClose}></CloseButton>
         <FlexWrapper>
-          <Items>
-            <Click>
-              <img src={kakaoIcon} />
-              <Sub>카카오톡</Sub>
-            </Click>
-          </Items>
-          <Items>
-            <Click>
-              <img src={fbIcon} />
-              <Sub>페이스북</Sub>
-            </Click>
-          </Items>
-          <Items>
-            <Click>
-              <img src={twitterIcon} />
-              <Sub>twitter</Sub>
-            </Click>
-          </Items>
-          <Items>
-            <Click>
-              <img src={linkIcon} />
-              <Sub>링크 복사</Sub>
-            </Click>
-          </Items>
+          { shareItems.map((item)=> (
+              <Items key={item.title}>
+                <Click onClick={()=>{window.open(item.link)}}>
+                  <img src={item.imgURL} />
+                  <Sub>{item.title}</Sub>
+                </Click>
+              </Items>
+          ))}
         </FlexWrapper>
         <SaveButton onClick={() => saveImg(setIsShare)}>내 앨범에 이미지 저장하기</SaveButton>
       </ShareInnerWarp>

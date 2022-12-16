@@ -118,7 +118,6 @@ const BucketDetail = () => {
             }}
             src={MainLightImg}
           />
-
           {cheerStarData &&
             cheerStarData.map((star: StarType, index: number) => {
               return (
@@ -146,7 +145,6 @@ const BucketDetail = () => {
             disabled={false}
             text={`내 버킷 공유하기`}
             color={ButtonColor.Primary}
-            // onClick={() => exportElementAsPNG(captureRef.current, "test")}
             onClick={() => setIsShare(true)}
           />
         </FlexBox>
