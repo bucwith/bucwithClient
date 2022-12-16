@@ -59,6 +59,7 @@ export default function TextArea({
       ) : (
         <Input
           placeholder={placeholder}
+          minLength = {2}
           onChange={onInputChange}
           value={value}
         />
