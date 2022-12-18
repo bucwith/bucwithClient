@@ -63,3 +63,8 @@ export const ModalWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const ModalBlackWrapper = styled(ModalWrapper)`
+  opacity: 0.7;
+  background-color: black;
+`;

@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { ButtonColor } from "../../@types/enums";
 import getIconSrc from "../../utils/getIconSrc";
-import Button, { PrimaryBlackButton, PrimaryButton } from "../Button";
-import { FlexBox, ModalWrapper } from "../Wrapper";
+import { PrimaryBlackButton, PrimaryButton } from "../Button";
+import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
 import { ModalBox } from "./style";
 
 type StarDataType = {
@@ -18,14 +17,21 @@ type StarDataType = {
 interface CheerStarDetailModalProps {
   starData: StarDataType;
   setIsCheerStartDetailShow: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRemoveModalShow?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const CheerStarDetailModal = ({
   starData,
   setIsCheerStartDetailShow,
+  setIsRemoveModalShow,
 }: CheerStarDetailModalProps) => {
   if (Object.keys(starData).length === 0) {
     return null;
   }
+
+  const handleRemoveButton = () => {
+    setIsCheerStartDetailShow(false);
+    setIsRemoveModalShow(true);
+  };
 
   return (
     <ModalWrapper>
@@ -35,7 +41,10 @@ const CheerStarDetailModal = ({
           <Title>{`${starData.nickname}님의 응원 별`}</Title>
           <Contents>{starData.contents}</Contents>
           <FlexBox gap="10px" direction="row">
-            <PrimaryBlackButton style={{ width: "100px" }}>
+            <PrimaryBlackButton
+              onClick={() => handleRemoveButton()}
+              style={{ width: "100px" }}
+            >
               삭제
             </PrimaryBlackButton>
             <PrimaryButton onClick={() => setIsCheerStartDetailShow(false)}>
@@ -44,7 +53,7 @@ const CheerStarDetailModal = ({
           </FlexBox>
         </FlexBox>
       </ModalBox>
-      <ModalWrapper style={{ opacity: "0.7", backgroundColor: "black" }} />
+      <ModalBlackWrapper />
     </ModalWrapper>
   );
 };

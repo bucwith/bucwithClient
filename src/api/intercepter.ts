@@ -4,10 +4,10 @@ import { BASE_URL } from "../constant";
 const axios = Axios.create({ baseURL: BASE_URL });
 
 axios.interceptors.request.use((config) => {
-  if (
-    !config?.url?.startsWith("/bucket/id") &&
-    !config?.url?.startsWith("/star")
-  ) {
+  const isDeleteStar =
+    config?.url?.startsWith("/star") && config.method == "delete";
+
+  if (!config?.url?.startsWith("/bucket/id") && isDeleteStar) {
     const accessToken = localStorage.getItem("accessToken");
     config.headers = {
       Authorization: accessToken,
@@ -33,7 +33,6 @@ axios.interceptors.response.use(
     }
 
     // access token이 만료되어 발생하는 에러인 경우
-    console.log(errResponseStatus);
     if (
       (error.message === "Network Error" || errResponseStatus === 401) &&
       !originalRequest.retry
@@ -54,7 +53,7 @@ axios.interceptors.response.use(
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
 
-            originalRequest.headers.authorization = `Bearer ${accessToken}`;
+            originalRequest.headers.authorization = accessToken;
             return axios(originalRequest);
           })
           .catch(() => {

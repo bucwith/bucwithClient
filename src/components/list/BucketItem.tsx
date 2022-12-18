@@ -32,7 +32,7 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
       checkboxMutation.mutate();
       setIsChecked((prev) => !prev);
 
-      if (checkboxMutation.isSuccess && data.isFinished === false) {
+      if (checkboxMutation.isSuccess && !isChecked) {
         setCongratModal(true);
       }
     };

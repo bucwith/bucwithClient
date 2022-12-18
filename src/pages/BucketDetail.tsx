@@ -16,9 +16,10 @@ import getIconSrc from "../utils/getIconSrc";
 import { CHEER_STAR_LOCATION } from "../constant";
 import lanternRising from "../assets/lanternRising.png";
 import { AnimationBox, AnimationContexts } from "../lib/animation";
+import CheerStarDetailModal from "../components/Star/CheerStarDetailModal";
+import CheerStarRemove from "../components/Star/CheerStarRemove";
 
-
-type StarType = {
+type StarDataType = {
   bucketId: number;
   contents: string;
   iconCode: string;
@@ -33,15 +34,20 @@ const BucketDetail = () => {
 
   const { bucketId } = useParams();
   const [isShare, setIsShare] = useState(false);
+  const [isCheerStarDetailShow, setIsCheerStartDetailShow] =
+    React.useState(false);
+  const [isRemoveModalShow, setIsRemoveModalShow] = React.useState(false);
+  const [starData, setStarData] = React.useState<StarDataType | undefined>();
 
-  const nickname = useRecoilValue(userDataAtom).name;
+  const userData = useRecoilValue(userDataAtom);
+
   const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
     setIsShare(false);
   };
   const contents = location.state.contents;
 
-  const { data: cheerStarData } = useQuery(["getCheerStar"], () =>
+  const { data: stars } = useQuery(["getCheerStar"], () =>
     bucketId ? getCheerStar(Number(bucketId)) : null
   );
 
@@ -74,6 +80,11 @@ const BucketDetail = () => {
     exportElementAsPNG(captureRef.current, "test");
   };
 
+  const handleStarClick = (index: number) => {
+    setStarData(stars[index]);
+    setIsCheerStartDetailShow(true);
+  };
+
   return (
     <ImagedWrapper
       ref={(ref) => {
@@ -93,21 +104,19 @@ const BucketDetail = () => {
         ) : null}
         <AnimationContexts>
           <FlexBox>
-            <SecondaryText>{`${nickname}님의 버킷리스트는`}</SecondaryText>
+            <SecondaryText>{`${userData.name}님의 버킷리스트는`}</SecondaryText>
             <PrimaryText>{contents}</PrimaryText>
           </FlexBox>
         </AnimationContexts>
-        <LanternContainer>
-          <AnimationBox>
-            <img
-              style={{
-                height: "280px",
-              }}
-              src={lanternRising}
-              />
-          </AnimationBox>
-          {/* {cheerStarData &&
-            cheerStarData.map((star: StarType, index: number) => {
+        <AnimationBox>
+          <img
+            style={{
+              height: "280px",
+            }}
+            src={lanternRising}
+          />
+          {stars &&
+            stars.map((star: StarDataType, index: number) => {
               return (
                 <img
                   key={index}
@@ -118,12 +127,14 @@ const BucketDetail = () => {
                     top: `${CHEER_STAR_LOCATION[index].top}px`,
                     left: `${CHEER_STAR_LOCATION[index].left}px`,
                   }}
+                  onClick={() => handleStarClick(index)}
                 />
               );
-            })} */}
-        </LanternContainer>
+            })}
+        </AnimationBox>
+
         <AnimationContexts>
-          <FlexBox gap="10px" direction="row" style={{flexGrow: 1}}>
+          <FlexBox gap="10px" direction="row" style={{ flexGrow: 1 }}>
             <Button
               disabled={false}
               text={`내 리스트 보러가기`}
@@ -139,6 +150,19 @@ const BucketDetail = () => {
           </FlexBox>
         </AnimationContexts>
       </MainWrap>
+      {isCheerStarDetailShow && starData && (
+        <CheerStarDetailModal
+          starData={starData}
+          setIsCheerStartDetailShow={setIsCheerStartDetailShow}
+          setIsRemoveModalShow={setIsRemoveModalShow}
+        />
+      )}
+      {starData && isRemoveModalShow && (
+        <CheerStarRemove
+          setIsRemoveModalShow={setIsRemoveModalShow}
+          starId={starData.starId}
+        />
+      )}
     </ImagedWrapper>
   );
 };

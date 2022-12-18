@@ -2,8 +2,6 @@ import { BucketListType } from "./../pages/List";
 import { BASE_URL } from "../constant";
 import axios from "./intercepter";
 
-const token = localStorage.getItem("token");
-
 axios.interceptors.request.use(
   (response) => response,
   (error) => {
@@ -95,6 +93,14 @@ export const putCheerStar = async ({
     return response.data.data;
   } catch (err) {
     console.error(err);
+  }
+};
+
+export const DeleteCheerStar = async (starId: number) => {
+  try {
+    await axios.delete(`/star/${starId}`);
+  } catch (error) {
+    console.log(error);
   }
 };
 

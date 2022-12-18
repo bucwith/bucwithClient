@@ -9,6 +9,7 @@ export const ModalBox = styled(Wrap)`
   width: 100%;
   background-color: #24252c;
   position: relative;
+  z-index: 100;
 `;
 
 export const Color = styled.div<Colorprops>`

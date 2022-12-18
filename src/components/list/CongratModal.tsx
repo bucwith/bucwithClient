@@ -11,12 +11,7 @@ const CongratModal = ({ setCongratModal }: CongratModalProps) => {
   return (
     <ModalWrapper>
       <Container>
-        <img
-          src={fanfare}
-          width="130px"
-          alt=""
-          style={{ marginBottom: "20px" }}
-        />
+        <Star src={fanfare} alt="축하 별 이미지" />
         <FlexBox gap="8px">
           <Title>버킷 완료를 축하해요!</Title>
           <Description>다른 버킷리스트 달성도 응원할게요.</Description>
@@ -38,7 +33,7 @@ const Container = styled(FlexBox)`
   background-color: #24252c;
   border-radius: 30px;
   z-index: 200;
-  padding: 30px 20px;
+  padding: 250px 20px 30px;
   gap: 20px;
 `;
 
@@ -52,4 +47,12 @@ const Description = styled.div`
   font-weight: 500;
   font-size: 16px;
   color: white;
+`;
+
+const Star = styled.img`
+  width: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;

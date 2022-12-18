@@ -8,7 +8,6 @@ import { ButtonColor } from "../@types/enums";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getBucketData, getCheerStar } from "../api/my-api";
-import arrow from "../assets/icon_arrow-right.png";
 import CheerStarModal from "../components/Star/CheerStarModal";
 import getIconSrc from "../utils/getIconSrc";
 import CheerStarDetailModal from "../components/Star/CheerStarDetailModal";
