@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import styled from "styled-components";
 import { DeleteCheerStar } from "../../api/my-api";
 import { PrimaryBlackButton, PrimaryButton } from "../Button";
@@ -15,13 +15,18 @@ const CheerStarRemove = ({
   setIsRemoveModalShow,
   starId,
 }: CheerStarRemoveProps) => {
+  const queryClient = useQueryClient();
+
   const { mutate: removeStar } = useMutation(["removeStar"], () =>
     DeleteCheerStar(starId)
   );
+
   const handleRemoveButton = () => {
     removeStar();
     setIsRemoveModalShow(false);
+    queryClient.invalidateQueries(["removeStar"]);
   };
+
   return (
     <ModalWrapper>
       <ModalBox gap="30px">

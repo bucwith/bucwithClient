@@ -36,6 +36,7 @@ const BucketDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const path = location.pathname;
   const { bucketId } = useParams();
   const [isShare, setIsShare] = useState(false);
   const [isCheerStarDetailShow, setIsCheerStartDetailShow] =
@@ -97,8 +98,16 @@ const BucketDetail = () => {
         }
       }}
     >
-      {bucketId && <Arrow src={arrow} />}
-      <MainWrap justify="space-between">
+      {bucketId && (
+        <Arrow
+          src={arrow}
+          onClick={() => {
+            console.log("back");
+            navigate(-1);
+          }}
+        />
+      )}
+      <MainWrap animation={path.includes("completion")} justify="space-between">
         {isShare ? (
           <Share
             modalClose={modalClose}
@@ -174,11 +183,14 @@ const BucketDetail = () => {
 
 export default BucketDetail;
 
-const MainWrap = styled(FlexBox)`
+const MainWrap = styled(FlexBox)<{ animation: boolean }>`
   position: relative;
   padding-top: 60px;
   height: 100%;
-  z-index: 1000;
+  z-index: 300;
+  > * {
+    ${(props) => (props.animation ? null : `animation : none;`)}
+  }
 `;
 
 const PrimaryText = styled.h1`
@@ -205,6 +217,7 @@ const Arrow = styled.img`
   top: 55px;
   left: 20px;
   transform: rotate(180deg);
+  z-index: 1000;
 `;
 
 const wrapperKeyframe = keyframes`
