@@ -7,7 +7,11 @@ axios.interceptors.request.use((config) => {
   const isDeleteStar =
     config?.url?.startsWith("/star") && config.method == "delete";
 
-  if (!config?.url?.startsWith("/bucket/id") && isDeleteStar) {
+  if (
+    isDeleteStar ||
+    !config?.url?.startsWith("/star") ||
+    !config?.url?.startsWith("/bucket/id")
+  ) {
     const accessToken = localStorage.getItem("accessToken");
     config.headers = {
       Authorization: accessToken,
@@ -19,7 +23,6 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use(
   (response) => {
-    console.log(response);
     return response;
   },
   (error) => {

@@ -10,21 +10,29 @@ import Guest from "./pages/Guest";
 import BucketDetail from "./pages/BucketDetail";
 
 function App() {
-  const pathname = window.location.pathname;
+  const url = window.location;
   const URLSearch = new URLSearchParams(location.search);
 
-  const refreshToken = URLSearch.get("refreshToken");
-  const accessToken = URLSearch.get("accessToken");
-  const hasTokenUrl = pathname === "/me/list" || pathname === "/nickname";
+  let refreshToken = URLSearch.get("refreshToken");
+  let accessToken = URLSearch.get("accessToken");
+  const hasTokenUrl =
+    url.pathname === "/me/list" || url.pathname === "/nickname";
   const localToken = localStorage.getItem("accessToken");
 
   if (hasTokenUrl && accessToken && refreshToken) {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
+
+    accessToken = URLSearch.get("accessToken");
+    refreshToken = URLSearch.get("refreshToken");
   }
 
-  if (pathname !== "/" && !pathname.includes("guest") && localToken === null) {
-    window.location.href = "http://localhost:3000/";
+  if (
+    url.pathname !== "/" &&
+    !url.pathname.includes("guest") &&
+    localToken === null
+  ) {
+    window.location.href = `${url.protocol}//${url.host}`;
   }
 
   return (

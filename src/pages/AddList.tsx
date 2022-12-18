@@ -6,11 +6,13 @@ import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
 import { useMutation } from "react-query";
 import { postBucket } from "../api/my-api";
 import { BucketTypeEnum } from "../@types/enums";
+import { useRecoilValue } from "recoil";
+import { userDataAtom } from "../store/atoms";
 
 const AddList = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = React.useState("");
-  const name = localStorage.getItem("name");
+  const userData = useRecoilValue(userDataAtom);
   const addBucketMutation = useMutation(
     () =>
       postBucket({
@@ -31,7 +33,9 @@ const AddList = () => {
   return (
     <ImagedWrapper>
       <VerticalCentered gap="40px">
-        <Title primary={`${name}님이\n꿈꾸는 버킷리스트를\n적어주세요.`} />
+        <Title
+          primary={`${userData?.name}님이\n꿈꾸는 버킷리스트를\n적어주세요.`}
+        />
         <InputBox
           onTextAreaChange={(e) => setInputValue(e.target.value)}
           title="어떤 종류의 버킷리스트인가요?"

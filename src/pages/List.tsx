@@ -25,13 +25,15 @@ const List = () => {
   const [congratModal, setCongratModal] = React.useState(false);
   const { data } = useQuery(["getData"], () => getBucketList());
 
-  const { data: userRawData } = useQuery(
-    ["getUserData"],
-    () => (userData.userId === -1 ? getUserData() : null),
-    {
-      onSuccess: (data) => setUserData(data),
-    }
+  const { data: userRawData } = useQuery(["getUserData"], () =>
+    userData.userId === -1 ? getUserData() : null
   );
+
+  React.useEffect(() => {
+    if (userRawData) {
+      setUserData(userRawData);
+    }
+  }, [userRawData]);
 
   return (
     <DarkWrapper padding="30px 20px">

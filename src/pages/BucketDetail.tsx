@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import theme from "../styles/theme";
-import { FlexBox, ImagedWrapper } from "../components/Wrapper";
+import {
+  FlexBox,
+  ImagedWrapper,
+  ModalBlackWrapper,
+} from "../components/Wrapper";
 import Button from "../components/Button";
 import { ButtonColor } from "../@types/enums";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -104,7 +108,7 @@ const BucketDetail = () => {
         ) : null}
         <AnimationContexts>
           <FlexBox>
-            <SecondaryText>{`${userData.name}님의 버킷리스트는`}</SecondaryText>
+            <SecondaryText>{`${userData?.name}님의 버킷리스트는`}</SecondaryText>
             <PrimaryText>{contents}</PrimaryText>
           </FlexBox>
         </AnimationContexts>
@@ -163,21 +167,18 @@ const BucketDetail = () => {
           starId={starData.starId}
         />
       )}
+      <AnimationBlack />
     </ImagedWrapper>
   );
 };
 
 export default BucketDetail;
 
-const LanternContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-`;
-
 const MainWrap = styled(FlexBox)`
+  position: relative;
   padding-top: 60px;
   height: 100%;
+  z-index: 1000;
 `;
 
 const PrimaryText = styled.h1`
@@ -204,4 +205,18 @@ const Arrow = styled.img`
   top: 55px;
   left: 20px;
   transform: rotate(180deg);
+`;
+
+const wrapperKeyframe = keyframes`
+0% {
+opacity: 0.4;
+}
+100% {
+opacity: 0;
+
+}
+`;
+const AnimationBlack = styled(ModalBlackWrapper)`
+  opacity: 0;
+  animation: 2s linear ${wrapperKeyframe};
 `;

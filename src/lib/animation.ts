@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const animation = keyframes`
   0% {
@@ -28,10 +28,11 @@ const animationContexts = keyframes`
 `;
 
 export const AnimationBox = styled.div`
-  animation:${animation} 2s ease-in-out  ;
+  position: relative;
+  animation: ${animation} 2s ease-in-out;
 `;
 
 export const AnimationContexts = styled.div`
-width:100%;
-animation:${animationContexts} 2s ease-in-out  ;
+  width: 100%;
+  animation: ${animationContexts} 2s ease-in-out;
 `;
