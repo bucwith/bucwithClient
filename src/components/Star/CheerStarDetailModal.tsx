@@ -35,7 +35,7 @@ const CheerStarDetailModal = ({
 
   return (
     <ModalWrapper>
-      <ModalBox style={{ zIndex: 100, paddingTop: "120px" }}>
+      <ModalBox style={{ paddingTop: "120px" }}>
         <MainIcon src={getIconSrc(starData.iconCode)} />
         <FlexBox gap="30px">
           <Title>{`${starData.nickname}님의 응원 별`}</Title>

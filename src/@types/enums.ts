@@ -4,8 +4,8 @@ export enum ButtonColor {
   Black,
 }
 
-export enum BucketTypeEnum {
-  BT001 = "BT001",
-  BT002 = "BT002",
-  BT003 = "BT003",
-}
+export const bucketType = {
+  BT001: "BT001",
+  BT002: "BT002",
+  BT003: "BT003",
+} as const;

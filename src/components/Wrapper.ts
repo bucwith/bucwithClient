@@ -5,6 +5,7 @@ interface WrapperProps {
   padding?: string;
   direction?: string;
   justify?: string;
+  animation?: boolean;
 }
 
 export const VerticalCentered = styled.div<WrapperProps>`
@@ -24,6 +25,9 @@ export const ImagedWrapper = styled.div<WrapperProps>`
   background-size: cover;
   background-repeat: no-repeat;
   padding: ${(props) => props.padding};
+  > * {
+    ${(props) => (props.animation ? null : `animation : none;`)}
+  }
 `;
 
 export const DarkWrapper = styled.div<WrapperProps>`

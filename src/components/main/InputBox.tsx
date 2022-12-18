@@ -4,7 +4,7 @@ import SubTitle from "./SubTitle";
 import TextArea, { TextAreaProps } from "./TextArea";
 import Button from "../Button";
 import Chip from "../Chip";
-import { BucketTypeEnum, ButtonColor } from "../../@types/enums";
+import { bucketType, ButtonColor } from "../../@types/enums";
 
 interface InputBoxProps extends TextAreaProps {
   title?: string;
@@ -13,6 +13,8 @@ interface InputBoxProps extends TextAreaProps {
   onClickButton?: () => void;
   textarea?: boolean;
   value?: string;
+  type?: "BT001" | "BT002" | "BT003";
+  setType?: React.Dispatch<React.SetStateAction<"BT001" | "BT002" | "BT003">>;
 }
 
 export default function InputBox({
@@ -24,10 +26,9 @@ export default function InputBox({
   onInputChange,
   onTextAreaChange,
   value,
+  type,
+  setType,
 }: InputBoxProps) {
-  const [bucketType, setBucketType] = React.useState<BucketTypeEnum>(
-    BucketTypeEnum.BT001
-  );
   return (
     <Wrap gap="20px">
       {title && <SubTitle text={title}></SubTitle>}
@@ -35,18 +36,18 @@ export default function InputBox({
         {/* map 돌리기 */}
         <Chip
           text="꾸준히!"
-          isFocus={bucketType === BucketTypeEnum.BT001}
-          onClick={() => setBucketType(BucketTypeEnum.BT001)}
+          isFocus={type === bucketType.BT001}
+          onClick={() => setType(bucketType.BT001)}
         />
         <Chip
           text="일년안에!"
-          isFocus={bucketType === BucketTypeEnum.BT002}
-          onClick={() => setBucketType(BucketTypeEnum.BT002)}
+          isFocus={type === bucketType.BT002}
+          onClick={() => setType(bucketType.BT002)}
         />
         <Chip
           text="오랫동안!"
-          isFocus={bucketType === BucketTypeEnum.BT003}
-          onClick={() => setBucketType(BucketTypeEnum.BT003)}
+          isFocus={type === bucketType.BT003}
+          onClick={() => setType(bucketType.BT003)}
         />
       </ChipWrap>
       <TextArea

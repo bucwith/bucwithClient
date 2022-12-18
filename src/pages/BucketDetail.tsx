@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import theme from "../styles/theme";
 import {
   FlexBox,
@@ -176,14 +176,14 @@ const BucketDetail = () => {
           starId={starData.starId}
         />
       )}
-      <AnimationBlack />
+      <AnimationBlackWrapper animation={path.includes("completion")} />
     </ImagedWrapper>
   );
 };
 
 export default BucketDetail;
 
-const MainWrap = styled(FlexBox)<{ animation: boolean }>`
+const MainWrap = styled(FlexBox)<{ animation?: boolean }>`
   position: relative;
   padding-top: 60px;
   height: 100%;
@@ -226,10 +226,14 @@ opacity: 0.4;
 }
 100% {
 opacity: 0;
-
 }
 `;
-const AnimationBlack = styled(ModalBlackWrapper)`
-  opacity: 0;
+
+const animationBlack = css`
   animation: 2s linear ${wrapperKeyframe};
+`;
+
+const AnimationBlackWrapper = styled(ModalBlackWrapper)<{ animation: boolean }>`
+  opacity: 0;
+  ${(props) => (props.animation ? animationBlack : null)};
 `;

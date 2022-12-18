@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
 import { useMutation } from "react-query";
 import { postBucket } from "../api/my-api";
-import { BucketTypeEnum } from "../@types/enums";
+import { bucketType } from "../@types/enums";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../store/atoms";
 
@@ -13,12 +13,16 @@ const AddList = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = React.useState("");
   const userData = useRecoilValue(userDataAtom);
+  const [type, setType] = React.useState<keyof typeof bucketType>(
+    bucketType.BT001
+  );
+
   const addBucketMutation = useMutation(
     () =>
       postBucket({
         userId: 1,
         contents: inputValue,
-        type: BucketTypeEnum.BT001,
+        type: type,
       }),
     {
       onSuccess: () =>
@@ -43,6 +47,8 @@ const AddList = () => {
           onClickButton={() => addBucketMutation.mutate()}
           placeholder="예) 매일 운동하기 / 술 끊기"
           textarea
+          type={type}
+          setType={setType}
         />
       </VerticalCentered>
     </ImagedWrapper>

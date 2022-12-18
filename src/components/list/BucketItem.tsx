@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "react-query";
 import styled from "styled-components";
-import { BucketTypeEnum } from "../../@types/enums";
+import { bucketType } from "../../@types/enums";
 import { checkBucket } from "../../api/my-api";
 import lightIcon from "../../assets/icon_lantern.png";
 import { BucketListType } from "../../pages/List";
@@ -29,12 +29,12 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
     );
 
     const handleCheckClick = () => {
-      checkboxMutation.mutate();
-      setIsChecked((prev) => !prev);
-
-      if (checkboxMutation.isSuccess && !isChecked) {
+      if (!isChecked) {
         setCongratModal(true);
       }
+
+      checkboxMutation.mutate();
+      setIsChecked((prev) => !prev);
     };
 
     const [isChecked, setIsChecked] = React.useState(data.isFinished);
@@ -44,10 +44,10 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
         default:
           return { text: "꾸준히", color: "#D47F7F" };
 
-        case BucketTypeEnum.BT002:
+        case bucketType.BT002:
           return { text: "일년동안", color: "#3D9EBC" };
 
-        case BucketTypeEnum.BT003:
+        case bucketType.BT003:
           return { text: "오랫동안", color: "#63BC77" };
       }
     };
