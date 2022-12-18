@@ -15,6 +15,8 @@ import { userDataAtom } from "../store/atoms";
 import getIconSrc from "../utils/getIconSrc";
 import { CHEER_STAR_LOCATION } from "../constant";
 import lanternRising from "../assets/lanternRising.png";
+import { AnimationBox, AnimationContexts } from "../lib/animation";
+
 
 type StarType = {
   bucketId: number;
@@ -89,17 +91,21 @@ const BucketDetail = () => {
             setIsShare={setIsShare}
           />
         ) : null}
-        <FlexBox>
-          {/* <SecondaryText>{`${nickname}님의 버킷리스트는`}</SecondaryText>
-          <PrimaryText>{contents}</PrimaryText> */}
-        </FlexBox>
+        <AnimationContexts>
+          <FlexBox>
+            <SecondaryText>{`${nickname}님의 버킷리스트는`}</SecondaryText>
+            <PrimaryText>{contents}</PrimaryText>
+          </FlexBox>
+        </AnimationContexts>
         <LanternContainer>
-          <img
-            style={{
-              height: "280px",
-            }}
-            src={lanternRising}
-          />
+          <AnimationBox>
+            <img
+              style={{
+                height: "280px",
+              }}
+              src={lanternRising}
+              />
+          </AnimationBox>
           {/* {cheerStarData &&
             cheerStarData.map((star: StarType, index: number) => {
               return (
@@ -116,20 +122,22 @@ const BucketDetail = () => {
               );
             })} */}
         </LanternContainer>
-        <FlexBox gap="10px" direction="row">
-          <Button
-            disabled={false}
-            text={`내 리스트 보러가기`}
-            color={ButtonColor.Black}
-            onClick={handleMeListClick}
-          />
-          <Button
-            disabled={false}
-            text={`내 버킷 공유하기`}
-            color={ButtonColor.Primary}
-            onClick={() => setIsShare(true)}
-          />
-        </FlexBox>
+        <AnimationContexts>
+          <FlexBox gap="10px" direction="row" style={{flexGrow: 1}}>
+            <Button
+              disabled={false}
+              text={`내 리스트 보러가기`}
+              color={ButtonColor.Black}
+              onClick={handleMeListClick}
+            />
+            <Button
+              disabled={false}
+              text={`내 버킷 공유하기`}
+              color={ButtonColor.Primary}
+              onClick={() => setIsShare(true)}
+            />
+          </FlexBox>
+        </AnimationContexts>
       </MainWrap>
     </ImagedWrapper>
   );
