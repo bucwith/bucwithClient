@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import MainLightImg from "../assets/main_light.png";
 import theme from "../styles/theme";
 import { FlexBox, ImagedWrapper } from "../components/Wrapper";
 import Button from "../components/Button";
@@ -15,6 +14,8 @@ import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../store/atoms";
 import getIconSrc from "../utils/getIconSrc";
 import { CHEER_STAR_LOCATION } from "../constant";
+import lanternRising from "../assets/lanternRising.png";
+
 type StarType = {
   bucketId: number;
   contents: string;
@@ -89,17 +90,17 @@ const BucketDetail = () => {
           />
         ) : null}
         <FlexBox>
-          <SecondaryText>{`${nickname}님의 버킷리스트는`}</SecondaryText>
-          <PrimaryText>{contents}</PrimaryText>
+          {/* <SecondaryText>{`${nickname}님의 버킷리스트는`}</SecondaryText>
+          <PrimaryText>{contents}</PrimaryText> */}
         </FlexBox>
         <LanternContainer>
           <img
             style={{
               height: "280px",
             }}
-            src={MainLightImg}
+            src={lanternRising}
           />
-          {cheerStarData &&
+          {/* {cheerStarData &&
             cheerStarData.map((star: StarType, index: number) => {
               return (
                 <img
@@ -113,7 +114,7 @@ const BucketDetail = () => {
                   }}
                 />
               );
-            })}
+            })} */}
         </LanternContainer>
         <FlexBox gap="10px" direction="row">
           <Button

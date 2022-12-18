@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FlexBox, ModalWrapper } from "../Wrapper";
-import star from "../../assets/main_icons/yellow_star.png";
+import fanfare from "../../assets/fanfare.png";
 import Button from "../Button";
 import { ButtonColor } from "../../@types/enums";
 interface CongratModalProps {
@@ -11,7 +11,12 @@ const CongratModal = ({ setCongratModal }: CongratModalProps) => {
   return (
     <ModalWrapper>
       <Container>
-        <img src={star} width="130px" alt="" style={{ marginBottom: "20px" }} />
+        <img
+          src={fanfare}
+          width="130px"
+          alt=""
+          style={{ marginBottom: "20px" }}
+        />
         <FlexBox gap="8px">
           <Title>버킷 완료를 축하해요!</Title>
           <Description>다른 버킷리스트 달성도 응원할게요.</Description>

@@ -12,17 +12,19 @@ import BucketDetail from "./pages/BucketDetail";
 function App() {
   const pathname = window.location.pathname;
   const URLSearch = new URLSearchParams(location.search);
-  const TOKEN = URLSearch.get("token");
-  const hasTokenUrl = pathname === "/me/list" || pathname === "/nickname";
-  const localToken = localStorage.getItem("token");
 
-  if (pathname !== "/" && !pathname.includes("guest") && localToken === null) {
-    console.log("token is null");
-    window.location.href = "http://localhost:3000/";
+  const refreshToken = URLSearch.get("refreshToken");
+  const accessToken = URLSearch.get("accessToken");
+  const hasTokenUrl = pathname === "/me/list" || pathname === "/nickname";
+  const localToken = localStorage.getItem("accessToken");
+
+  if (hasTokenUrl && accessToken && refreshToken) {
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
   }
 
-  if (hasTokenUrl && TOKEN) {
-    localStorage.setItem("token", TOKEN);
+  if (pathname !== "/" && !pathname.includes("guest") && localToken === null) {
+    window.location.href = "http://localhost:3000/";
   }
 
   return (

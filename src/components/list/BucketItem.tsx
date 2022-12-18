@@ -30,14 +30,15 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
 
     const handleCheckClick = () => {
       checkboxMutation.mutate();
+      setIsChecked((prev) => !prev);
 
-      if (checkboxMutation.isSuccess) {
+      if (checkboxMutation.isSuccess && data.isFinished === false) {
         setCongratModal(true);
-        setIsChecked((prev) => !prev);
       }
     };
 
     const [isChecked, setIsChecked] = React.useState(data.isFinished);
+
     const getData = () => {
       switch (data.type) {
         default:

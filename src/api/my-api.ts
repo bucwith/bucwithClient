@@ -1,12 +1,16 @@
 import { BucketListType } from "./../pages/List";
-import axios from "axios";
 import { BASE_URL } from "../constant";
+import axios from "./intercepter";
 
 const token = localStorage.getItem("token");
-const axiosWithToken = axios.create({
-  baseURL: BASE_URL,
-  headers: { Authorization: token },
-});
+
+axios.interceptors.request.use(
+  (response) => response,
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
 
 export const postBucket = async ({
   userId,
@@ -14,7 +18,7 @@ export const postBucket = async ({
   type,
 }: BucketListType) => {
   try {
-    const response = await axiosWithToken.post(BASE_URL + "/bucket", {
+    const response = await axios.post(BASE_URL + "/bucket", {
       userId: userId,
       contents: contents,
       type: type,
@@ -27,11 +31,11 @@ export const postBucket = async ({
 
 export const getBucketList = async () => {
   try {
-    const response = await axiosWithToken.get("/bucket");
+    const response = await axios.get("/bucket/user");
 
     return response.data.data;
   } catch (err) {
-    console.error(err);
+    // console.log(err);
   }
 };
 
@@ -41,7 +45,7 @@ export const checkBucket = async (bucketId: number) => {
       throw new Error("there is no bucketId.");
     }
 
-    const response = await axiosWithToken.post(`/bucket/finish/${bucketId}`);
+    const response = await axios.post(`/bucket/finish/${bucketId}`);
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -50,7 +54,7 @@ export const checkBucket = async (bucketId: number) => {
 
 export const putNickName = async (name: string) => {
   try {
-    const response = await axiosWithToken.put("/user/name", { name: name });
+    const response = await axios.put("/user/name", { name: name });
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -102,7 +106,7 @@ export const getToken = async () => {
 
 export const getUserData = async () => {
   try {
-    const response = await axiosWithToken.get("/user/info");
+    const response = await axios.get("/user/info");
 
     return response.data.data;
   } catch (err) {
