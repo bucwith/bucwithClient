@@ -25,6 +25,7 @@ import CheerStarRemove from "../components/Star/CheerStarRemove";
 import BucketDetailEdit from "../components/Detail/BucketDetailEdit";
 import BucketRemoveModal from "../components/Detail/BucketRemoveModal";
 import lanternsStopped from "../assets/lantern.png";
+import SnackBar from "../components/Share/SnackBar";
 type StarDataType = {
   bucketId: number;
   contents: string;
@@ -41,6 +42,7 @@ const BucketDetail = () => {
   const path = location.pathname;
   const { bucketId } = useParams();
   const [isShare, setIsShare] = useState(false);
+  const [isSnackBarShow, setIsSnackBarShow] = React.useState(false);
   const [isCheerStarDetailShow, setIsCheerStartDetailShow] =
     React.useState(false);
   const [isRemoveModalShow, setIsRemoveModalShow] = React.useState(false);
@@ -94,6 +96,14 @@ const BucketDetail = () => {
     setIsCheerStartDetailShow(true);
   };
 
+  React.useEffect(() => {
+    if (isSnackBarShow) {
+      setTimeout(() => {
+        setIsSnackBarShow(false);
+      }, 3000);
+    }
+  }, [isSnackBarShow]);
+
   return (
     <ImagedWrapper
       ref={(ref) => {
@@ -111,11 +121,13 @@ const BucketDetail = () => {
         />
       )}
       <MainWrap animation={path.includes("completion")} justify="space-between">
+        {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
         {isShare ? (
           <Share
             modalClose={modalClose}
             saveImg={saveImg}
             setIsShare={setIsShare}
+            setIsSnackBarShow={setIsSnackBarShow}
           />
         ) : null}
         <AnimationContexts animation={isAnimationNeed}>
