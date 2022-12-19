@@ -22,6 +22,8 @@ import lanternRising from "../assets/lanternRising.png";
 import { AnimationBox, AnimationContexts } from "../lib/animation";
 import CheerStarDetailModal from "../components/Star/CheerStarDetailModal";
 import CheerStarRemove from "../components/Star/CheerStarRemove";
+import BucketDetailEdit from "../components/Detail/BucketDetailEdit";
+import BucketRemoveModal from "../components/Detail/BucketRemoveModal";
 
 type StarDataType = {
   bucketId: number;
@@ -43,13 +45,15 @@ const BucketDetail = () => {
     React.useState(false);
   const [isRemoveModalShow, setIsRemoveModalShow] = React.useState(false);
   const [starData, setStarData] = React.useState<StarDataType | undefined>();
-
+  const [isEditBucketShow, setIsEditBucketShow] = React.useState(false);
+  const [isRemoveBucketShow, setIsRemoveBucketShow] = React.useState(false);
   const userData = useRecoilValue(userDataAtom);
 
   const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
     setIsShare(false);
   };
+
   const contents = location.state.contents;
 
   const { data: stars } = useQuery(["getCheerStar"], () =>
@@ -147,12 +151,18 @@ const BucketDetail = () => {
         </AnimationBox>
 
         <AnimationContexts>
-          <FlexBox gap="10px" direction="row" style={{ flexGrow: 1 }}>
+          <FlexBox
+            gap="10px"
+            direction="row"
+            style={{ flexGrow: 1, zIndex: 1000 }}
+          >
             <Button
               disabled={false}
-              text={`내 리스트 보기`}
+              text={bucketId ? "버킷 수정하기" : "내 리스트 보러가기"}
               color={ButtonColor.Black}
-              onClick={handleMeListClick}
+              onClick={
+                bucketId ? () => setIsEditBucketShow(true) : handleMeListClick
+              }
             />
             <Button
               disabled={false}
@@ -176,7 +186,20 @@ const BucketDetail = () => {
           starId={starData.starId}
         />
       )}
-      <AnimationBlackWrapper animation={path.includes("completion")} />
+      {isEditBucketShow && (
+        <BucketDetailEdit
+          contents={contents}
+          setIsEditBucketShow={setIsEditBucketShow}
+          setIsRemoveBucketShow={setIsRemoveBucketShow}
+        />
+      )}
+      {isRemoveBucketShow && (
+        <BucketRemoveModal
+          setIsRemoveBucketShow={setIsRemoveBucketShow}
+          bucketId={Number(bucketId)}
+        />
+      )}
+      {/* <AnimationBlackWrapper animation={path.includes("completion")} /> */}
     </ImagedWrapper>
   );
 };

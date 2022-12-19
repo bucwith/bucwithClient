@@ -51,7 +51,7 @@ export const PrimaryButton = styled.button`
   background-color: #7958fc;
   color: #fff;
   border-radius: 1.8rem;
-
+  z-index: 1000;
   /* active = pressed */
   &:active {
     background-color: #4f35b6;
@@ -96,4 +96,5 @@ export const PrimaryBlackButton = styled.button`
   &:active {
     background-color: #292c45;
   }
+  z-index: 1000;
 `;

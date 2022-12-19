@@ -8,7 +8,6 @@ import { bucketType, ButtonColor } from "../../@types/enums";
 
 interface InputBoxProps extends TextAreaProps {
   title?: string;
-  placeholder: string;
   buttonText: string;
   onClickButton?: () => void;
   textarea?: boolean;
@@ -33,7 +32,6 @@ export default function InputBox({
     <Wrap gap="20px">
       {title && <SubTitle text={title}></SubTitle>}
       <ChipWrap>
-        {/* map 돌리기 */}
         <Chip
           text="꾸준히!"
           isFocus={type === bucketType.BT001}

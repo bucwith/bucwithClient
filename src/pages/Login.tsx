@@ -3,10 +3,10 @@ import { ButtonColor } from "../@types/enums";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
-  const Login = () => {
-  const BACK_URL = `https://bucwiths.shop:8443/oauth2/authorization/kakao`
+const Login = () => {
+  const BACK_URL = `https://bucwiths.shop:8443/oauth2/authorization/kakao`;
   const handleRedirect = () => {
-    return location.href=(BACK_URL);
+    return (location.href = BACK_URL);
   };
 
   return (

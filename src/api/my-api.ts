@@ -27,6 +27,32 @@ export const postBucket = async ({
   }
 };
 
+export const editBucket = async ({
+  userId,
+  contents,
+  type,
+}: BucketListType) => {
+  try {
+    const response = await axios.put(BASE_URL + "/bucket", {
+      userId: userId,
+      contents: contents,
+      type: type,
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const removeBucket = async (bucketId: number) => {
+  try {
+    const response = await axios.delete(`/bucket/${bucketId}`);
+
+    return response.data.data;
+  } catch (err) {
+    // console.log(err);
+  }
+};
 export const getBucketList = async () => {
   try {
     const response = await axios.get("/bucket/user");
