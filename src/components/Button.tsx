@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ButtonColor } from "../@types/enums";
 import kakaoIcon from "../assets/kakao_icon.png";
 
@@ -43,26 +43,9 @@ export default function Button({
   }
 }
 
-export const PrimaryButton = styled.button`
-  width: 100%;
-  font-size: 1.6rem;
-  padding: 1.7rem;
-  line-height: 2.9rem;
-  background-color: #7958fc;
-  color: #fff;
-  border-radius: 1.8rem;
-  z-index: 1000;
-  /* active = pressed */
-  &:active {
-    background-color: #4f35b6;
-  }
-  &:disabled {
-    opacity: 0.5;
-  }
-`;
-
 const KakaoButton = styled.button`
   width: 100%;
+
   height: 60px;
   color: black;
   background-color: #fee500;
@@ -84,13 +67,29 @@ const KakaoButton = styled.button`
   }
 `;
 
-export const PrimaryBlackButton = styled.button`
+const buttonStyle = css`
   width: 100%;
   font-size: 1.6rem;
-  padding: 1.7rem;
-  line-height: 2.9rem;
+  padding: 1.6rem;
+  border-radius: 1.6rem;
   color: #fff;
-  border-radius: 1.8rem;
+`;
+
+export const PrimaryButton = styled.button`
+  ${buttonStyle}
+  background-color: #7958fc;
+  z-index: 1000;
+  /* active = pressed */
+  &:active {
+    background-color: #4f35b6;
+  }
+  &:disabled {
+    opacity: 0.5;
+  }
+`;
+
+export const PrimaryBlackButton = styled.button`
+  ${buttonStyle}
   background-color: #303451;
   /* active = pressed */
   &:active {
