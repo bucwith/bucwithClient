@@ -58,7 +58,7 @@ const BucketDetail = () => {
 
   const contents = location.state.contents;
 
-  const { data: stars } = useQuery(["getCheerStar"], () =>
+  const { data: stars } = useQuery(["getCheerStar", isRemoveModalShow], () =>
     bucketId ? getCheerStar(Number(bucketId)) : null
   );
 

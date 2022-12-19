@@ -17,14 +17,12 @@ const CheerStarRemove = ({
 }: CheerStarRemoveProps) => {
   const queryClient = useQueryClient();
 
-  const { mutate: removeStar } = useMutation(["removeStar"], () =>
-    DeleteCheerStar(starId)
-  );
+  const { mutate } = useMutation(["removeStar"], () => DeleteCheerStar(starId));
 
   const handleRemoveButton = () => {
-    removeStar();
+    mutate();
     setIsRemoveModalShow(false);
-    queryClient.invalidateQueries(["removeStar"]);
+    queryClient.invalidateQueries("getCheerStar");
   };
 
   return (

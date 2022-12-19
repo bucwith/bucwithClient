@@ -91,5 +91,5 @@ const AddButton = styled.div`
   color: white;
   text-align: center;
   vertical-align: top;
-  padding-top: -4px;
+  padding-top: 4px;
 `;
