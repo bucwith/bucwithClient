@@ -161,7 +161,7 @@ const BucketDetail = () => {
           >
             <Button
               disabled={false}
-              text={bucketId ? "버킷 수정하기" : "내 리스트 보러가기"}
+              text={bucketId ? "버킷 수정하기" : "내 리스트 보기"}
               color={ButtonColor.Black}
               onClick={
                 bucketId ? () => setIsEditBucketShow(true) : handleMeListClick
