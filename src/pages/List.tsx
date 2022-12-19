@@ -89,5 +89,7 @@ const AddButton = styled.div`
   border-radius: 50%;
   font-size: 40px;
   color: white;
-  padding-top: 4px;
+  text-align: center;
+  vertical-align: top;
+  padding-top: -4px;
 `;
