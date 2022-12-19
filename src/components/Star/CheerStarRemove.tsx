@@ -31,7 +31,7 @@ const CheerStarRemove = ({
     <ModalWrapper>
       <ModalBox gap="30px">
         <SubTitle isCentered={true} text="이 풍등을 삭제할까요?" />
-        <Description>{`'삭제하기’ 버튼을 누르면\n벅윗 풍등과 응원별이 모두 삭제됩니다.`}</Description>
+        <Description>{`‘삭제하기’ 버튼을  누르면\n선택한 응원별이 삭제됩니다.`}</Description>
         <FlexBox direction="row" gap="10px">
           <PrimaryBlackButton onClick={() => handleRemoveButton()}>
             삭제하기
