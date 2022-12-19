@@ -5,11 +5,11 @@ import theme from "../styles/theme";
 import mainImage from "../assets/list_image.png";
 import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
-import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { getBucketList, getToken, getUserData } from "../api/my-api";
 import CongratModal from "../components/list/CongratModal";
 import { useRecoilState } from "recoil";
 import { userDataAtom } from "../store/atoms";
+import NavigationBarLite from '../components/NavigationBar/NavigationBarLite';
 
 export interface BucketListType {
   bucketId?: number;
@@ -54,7 +54,7 @@ const List = () => {
           </FlexBox>
         </ScrollWrapper>
       </HorizonCentered>
-      <NavigationBar />
+      <NavigationBarLite />
       {congratModal && <CongratModal setCongratModal={setCongratModal} />}
     </DarkWrapper>
   );
