@@ -30,7 +30,9 @@ const Input = styled.input`
 const InputArea = styled.textarea`
   ${inputCss};
   height: 164px;
-  resize: none;
+  &:focus {
+      outline: none;
+    }
 `;
 
 export interface TextAreaProps {
