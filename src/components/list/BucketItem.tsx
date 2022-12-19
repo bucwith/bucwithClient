@@ -63,7 +63,7 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
         >
           {isChecked && "✔"}
         </ChipCheckBox>
-        <Chip color={chipData.color}>{chipData.text}</Chip>;
+        <Chip color={chipData.color}>{chipData.text}</Chip>
         <DetailButton data={data} />
       </FlexBox>
     );
