@@ -12,10 +12,10 @@ import { BASE_URL } from "../../constant";
 const ShareWarp = styled.div`
   position: absolute;
   background-color: rgba(0, 0, 0, 0.6);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  top: -30px;
+  bottom: -30px;
+  left: -20px;
+  right: -20px;
 `;
 
 const ShareInnerWarp = styled.div`
@@ -24,8 +24,8 @@ const ShareInnerWarp = styled.div`
   border-radius: 30px 30px 0 0;
   padding: 30px 20px;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 20px;
+  right: 20px;
   text-align: center;
 `;
 

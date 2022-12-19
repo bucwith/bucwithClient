@@ -150,7 +150,7 @@ const BucketDetail = () => {
           <FlexBox gap="10px" direction="row" style={{ flexGrow: 1 }}>
             <Button
               disabled={false}
-              text={`내 리스트 보러가기`}
+              text={`내 리스트 보기`}
               color={ButtonColor.Black}
               onClick={handleMeListClick}
             />

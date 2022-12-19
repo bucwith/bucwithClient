@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 const animation = keyframes`
   0% {
 
-    transform:translateY(574px);
+    transform:translateY(674px);
     /* opacity: 0; */
   }
   50% {
@@ -29,6 +29,8 @@ const animationContexts = keyframes`
 
 export const AnimationBox = styled.div`
   position: relative;
+  z-index: -1;
+  margin-top: -210px;
   animation: ${animation} 2s ease-in-out;
 `;
 

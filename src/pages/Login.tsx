@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import Title from "../components/Title";
 import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
   const Login = () => {
-  const BACK_URL = `http://61.97.184.195:8080/oauth2/authorization/kakao`
+  const BACK_URL = `https://bucwiths.shop:8443/oauth2/authorization/kakao`
   const handleRedirect = () => {
     return location.href=(BACK_URL);
   };
