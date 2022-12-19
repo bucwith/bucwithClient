@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 const animation = keyframes`
   0% {
@@ -27,14 +27,22 @@ const animationContexts = keyframes`
   }
 `;
 
-export const AnimationBox = styled.div`
-  position: relative;
-  z-index: -1;
-  margin-top: -210px;
+const contextAnimation = css`
+  animation: ${animationContexts} 2s ease-in-out;
+`;
+
+const moveAnimation = css`
   animation: ${animation} 2s ease-in-out;
 `;
 
-export const AnimationContexts = styled.div`
+export const AnimationBox = styled.div<{ animation: boolean }>`
+  position: relative;
+  z-index: -1;
+  margin-top: -210px;
+  ${(props) => (props.animation ? moveAnimation : null)};
+`;
+
+export const AnimationContexts = styled.div<{ animation: boolean }>`
   width: 100%;
-  animation: ${animationContexts} 2s ease-in-out;
+  ${(props) => (props.animation ? contextAnimation : null)};
 `;

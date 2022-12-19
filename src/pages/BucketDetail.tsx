@@ -24,7 +24,7 @@ import CheerStarDetailModal from "../components/Star/CheerStarDetailModal";
 import CheerStarRemove from "../components/Star/CheerStarRemove";
 import BucketDetailEdit from "../components/Detail/BucketDetailEdit";
 import BucketRemoveModal from "../components/Detail/BucketRemoveModal";
-
+import lanternsStopped from "../assets/lantern.png";
 type StarDataType = {
   bucketId: number;
   contents: string;
@@ -63,7 +63,7 @@ const BucketDetail = () => {
   const handleMeListClick = () => {
     return navigate("/me/list");
   };
-
+  const isAnimationNeed = path.includes("completion");
   // 앨범에 저장하는 코드
   const captureRef = React.useRef<HTMLDivElement>();
   const exportElementAsPNG = (
@@ -106,7 +106,6 @@ const BucketDetail = () => {
         <Arrow
           src={arrow}
           onClick={() => {
-            console.log("back");
             navigate(-1);
           }}
         />
@@ -119,19 +118,23 @@ const BucketDetail = () => {
             setIsShare={setIsShare}
           />
         ) : null}
-        <AnimationContexts>
+        <AnimationContexts animation={isAnimationNeed}>
           <FlexBox>
             <SecondaryText>{`${userData?.name}님의 버킷리스트는`}</SecondaryText>
             <PrimaryText>{contents}</PrimaryText>
           </FlexBox>
         </AnimationContexts>
-        <AnimationBox>
-          <img
-            style={{
-              height: "280px",
-            }}
-            src={lanternRising}
-          />
+        <AnimationBox animation={isAnimationNeed}>
+          {isAnimationNeed ? (
+            <img
+              style={{
+                height: "280px",
+              }}
+              src={lanternRising}
+            />
+          ) : (
+            <img src={lanternsStopped} />
+          )}
           {stars &&
             stars.map((star: StarDataType, index: number) => {
               return (
@@ -150,7 +153,7 @@ const BucketDetail = () => {
             })}
         </AnimationBox>
 
-        <AnimationContexts>
+        <AnimationContexts animation={isAnimationNeed}>
           <FlexBox
             gap="10px"
             direction="row"
@@ -199,21 +202,18 @@ const BucketDetail = () => {
           bucketId={Number(bucketId)}
         />
       )}
-      {/* <AnimationBlackWrapper animation={path.includes("completion")} /> */}
+      <AnimationBlackWrapper animation={isAnimationNeed} />
     </ImagedWrapper>
   );
 };
 
 export default BucketDetail;
 
-const MainWrap = styled(FlexBox)<{ animation?: boolean }>`
+const MainWrap = styled(FlexBox)`
   position: relative;
   padding-top: 60px;
   height: 100%;
   z-index: 300;
-  > * {
-    ${(props) => (props.animation ? null : `animation : none;`)}
-  }
 `;
 
 const PrimaryText = styled.h1`

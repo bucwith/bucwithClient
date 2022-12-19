@@ -56,7 +56,7 @@ const List = () => {
           </FlexBox>
         </ScrollWrapper>
       </HorizonCentered>
-      <NavigationBarLite />
+      {/* <NavigationBarLite /> */}
       {congratModal && <CongratModal setCongratModal={setCongratModal} />}
     </DarkWrapper>
   );

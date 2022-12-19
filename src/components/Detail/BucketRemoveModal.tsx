@@ -1,5 +1,6 @@
 import React from "react";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeBucket } from "../../api/my-api";
 import { PrimaryBlackButton, PrimaryButton } from "../Button";
@@ -14,9 +15,15 @@ const BucketRemoveModal = ({
   bucketId,
   setIsRemoveBucketShow,
 }: BucketRemoveModalProps) => {
+  const navigate = useNavigate();
   const { mutate } = useMutation(["removeBucket"], () =>
     removeBucket(bucketId)
   );
+
+  const handleRemoveButton = () => {
+    mutate();
+    navigate("/me/list");
+  };
 
   return (
     <ModalWrapper>
@@ -24,7 +31,7 @@ const BucketRemoveModal = ({
         <SubTitle isCentered={true} text="이 풍등을 삭제할까요?" />
         <Description>{`'삭제하기’ 버튼을 누르면\n벅윗 풍등과 응원별이 모두 삭제됩니다.`}</Description>
         <FlexBox direction="row" gap="10px">
-          <PrimaryBlackButton onClick={() => mutate()}>
+          <PrimaryBlackButton onClick={() => handleRemoveButton()}>
             삭제하기
           </PrimaryBlackButton>
           <PrimaryButton onClick={() => setIsRemoveBucketShow(false)}>
