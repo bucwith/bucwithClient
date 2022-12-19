@@ -71,5 +71,4 @@ export const ModalWrapper = styled.div`
 export const ModalBlackWrapper = styled(ModalWrapper)`
   opacity: 0.7;
   background-color: black;
-  z-index: 300;
 `;
