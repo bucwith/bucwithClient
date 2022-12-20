@@ -26,15 +26,11 @@ const List = () => {
   const [userData, setUserData] = useRecoilState(userDataAtom);
   const [congratModal, setCongratModal] = React.useState(false);
 
-  const { data } = useQuery(["getData"], () => getBucketList(), {
-    refetchOnWindowFocus: true,
-  });
+  const { data } = useQuery(["getData"], () => getBucketList());
   const navigate = useNavigate();
   const { data: userRawData } = useQuery(["getUserData"], () =>
     userData.userId === -1 ? getUserData() : null
   );
-
-  console.log(userData);
 
   return (
     <DarkWrapper padding="30px 20px">
