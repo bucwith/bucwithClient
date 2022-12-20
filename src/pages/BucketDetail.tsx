@@ -38,7 +38,6 @@ type StarDataType = {
 const BucketDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const path = location.pathname;
   const { bucketId } = useParams();
   const [isShare, setIsShare] = useState(false);
@@ -50,15 +49,15 @@ const BucketDetail = () => {
   const [isEditBucketShow, setIsEditBucketShow] = React.useState(false);
   const [isRemoveBucketShow, setIsRemoveBucketShow] = React.useState(false);
   const userData = useRecoilValue(userDataAtom);
+  const contents = location.state.contents;
 
   const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
     setIsShare(false);
   };
 
-  const contents = location.state.contents;
   const { data: bucket } = useQuery(["getBucketData", isEditBucketShow], () =>
-    getBucketData(Number(bucketId))
+    bucketId ? getBucketData(Number(bucketId)) : null
   );
   const { data: stars } = useQuery(["getCheerStar", isRemoveModalShow], () =>
     bucketId ? getCheerStar(Number(bucketId)) : null
@@ -136,7 +135,7 @@ const BucketDetail = () => {
         <AnimationContexts animation={isAnimationNeed}>
           <FlexBox>
             <SecondaryText>{`${userData?.name}님의 버킷리스트는`}</SecondaryText>
-            <PrimaryText>{bucket?.bucket.contents}</PrimaryText>
+            <PrimaryText>{bucket?.bucket?.contents ?? contents}</PrimaryText>
           </FlexBox>
         </AnimationContexts>
 
@@ -209,7 +208,7 @@ const BucketDetail = () => {
       )}
       {isEditBucketShow && (
         <BucketDetailEdit
-          contents={bucket?.bucket.contents}
+          contents={contents ?? bucket?.bucket.contents}
           setIsEditBucketShow={setIsEditBucketShow}
           setIsRemoveBucketShow={setIsRemoveBucketShow}
         />

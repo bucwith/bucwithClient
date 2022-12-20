@@ -60,7 +60,7 @@ const BucketDetailEdit = ({
             src={CloseIcon}
             onClick={() => setIsEditBucketShow(false)}
           />
-          {contents && <SubTitle text={contents} />}
+          <SubTitle text="어떤 종류의 버킷리스트인가요?" />
           <ChipWrap>
             <Chip
               text="꾸준히!"
