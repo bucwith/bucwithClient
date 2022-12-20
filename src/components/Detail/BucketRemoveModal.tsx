@@ -1,40 +1,40 @@
 import React from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { DeleteCheerStar } from "../../api/my-api";
+import { removeBucket } from "../../api/my-api";
 import { PrimaryBlackButton, PrimaryButton } from "../Button";
 import SubTitle from "../main/SubTitle";
+import { ModalBox } from "../Star/style";
 import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
-import { ModalBox } from "./style";
-
-interface CheerStarRemoveProps {
-  setIsRemoveModalShow: React.Dispatch<React.SetStateAction<boolean>>;
-  starId: number;
+interface BucketRemoveModalProps {
+  bucketId: number;
+  setIsRemoveBucketShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const CheerStarRemove = ({
-  setIsRemoveModalShow,
-  starId,
-}: CheerStarRemoveProps) => {
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation(["removeStar"], () => DeleteCheerStar(starId));
+const BucketRemoveModal = ({
+  bucketId,
+  setIsRemoveBucketShow,
+}: BucketRemoveModalProps) => {
+  const navigate = useNavigate();
+  const { mutate } = useMutation(["removeBucket"], () =>
+    removeBucket(bucketId)
+  );
 
   const handleRemoveButton = () => {
     mutate();
-    setIsRemoveModalShow(false);
-    queryClient.invalidateQueries("getCheerStar");
+    navigate("/me/list");
   };
 
   return (
     <ModalWrapper>
       <ModalBox gap="30px">
         <SubTitle isCentered={true} text="이 풍등을 삭제할까요?" />
-        <Description>{`‘삭제하기’ 버튼을  누르면\n선택한 응원별이 삭제됩니다.`}</Description>
+        <Description>{`'삭제하기’ 버튼을 누르면\n벅윗 풍등과 응원별이 모두 삭제됩니다.`}</Description>
         <FlexBox direction="row" gap="10px">
           <PrimaryBlackButton onClick={() => handleRemoveButton()}>
             삭제하기
           </PrimaryBlackButton>
-          <PrimaryButton onClick={() => setIsRemoveModalShow(false)}>
+          <PrimaryButton onClick={() => setIsRemoveBucketShow(false)}>
             안할래요
           </PrimaryButton>
         </FlexBox>
@@ -44,7 +44,7 @@ const CheerStarRemove = ({
   );
 };
 
-export default CheerStarRemove;
+export default BucketRemoveModal;
 
 const Description = styled.pre`
   font-weight: 400;

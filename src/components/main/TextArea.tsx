@@ -30,11 +30,13 @@ const Input = styled.input`
 const InputArea = styled.textarea`
   ${inputCss};
   height: 164px;
-  resize: none;
+  &:focus {
+      outline: none;
+    }
 `;
 
 export interface TextAreaProps {
-  placeholder: string;
+  placeholder?: string;
   textarea?: boolean;
   onInputChange?: ChangeEventHandler<HTMLInputElement>;
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
@@ -59,7 +61,7 @@ export default function TextArea({
       ) : (
         <Input
           placeholder={placeholder}
-          minLength = {2}
+          minLength={2}
           onChange={onInputChange}
           value={value}
         />

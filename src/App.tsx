@@ -27,13 +27,13 @@ function App() {
     refreshToken = URLSearch.get("refreshToken");
   }
 
-  if (
-    url.pathname !== "/" &&
-    !url.pathname.includes("guest") &&
-    localToken === null
-  ) {
-    window.location.href = `${url.protocol}//${url.host}`;
-  }
+  // if (
+  //   url.pathname !== "/" &&
+  //   !url.pathname.includes("guest") &&
+  //   localToken === null
+  // ) {
+  //   window.location.href = `${url.protocol}//${url.host}`;
+  // }
 
   return (
     <div className="App">

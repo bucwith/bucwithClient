@@ -11,7 +11,7 @@ import { ButtonColor } from "../@types/enums";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Share from "../components/Share/Share";
 import { useQuery } from "react-query";
-import { getCheerStar } from "../api/my-api";
+import { getBucketData, getCheerStar } from "../api/my-api";
 import { toPng } from "html-to-image";
 import arrow from "../assets/icon_arrow-right.png";
 import { useRecoilValue } from "recoil";
@@ -22,7 +22,10 @@ import lanternRising from "../assets/lanternRising.png";
 import { AnimationBox, AnimationContexts } from "../lib/animation";
 import CheerStarDetailModal from "../components/Star/CheerStarDetailModal";
 import CheerStarRemove from "../components/Star/CheerStarRemove";
-
+import BucketDetailEdit from "../components/Detail/BucketDetailEdit";
+import BucketRemoveModal from "../components/Detail/BucketRemoveModal";
+import lanternsStopped from "../assets/lantern.png";
+import SnackBar from "../components/Share/SnackBar";
 type StarDataType = {
   bucketId: number;
   contents: string;
@@ -39,20 +42,25 @@ const BucketDetail = () => {
   const path = location.pathname;
   const { bucketId } = useParams();
   const [isShare, setIsShare] = useState(false);
+  const [isSnackBarShow, setIsSnackBarShow] = React.useState(false);
   const [isCheerStarDetailShow, setIsCheerStartDetailShow] =
     React.useState(false);
   const [isRemoveModalShow, setIsRemoveModalShow] = React.useState(false);
   const [starData, setStarData] = React.useState<StarDataType | undefined>();
-
+  const [isEditBucketShow, setIsEditBucketShow] = React.useState(false);
+  const [isRemoveBucketShow, setIsRemoveBucketShow] = React.useState(false);
   const userData = useRecoilValue(userDataAtom);
 
   const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
     setIsShare(false);
   };
-  const contents = location.state.contents;
 
-  const { data: stars } = useQuery(["getCheerStar"], () =>
+  const contents = location.state.contents;
+  const { data: bucket } = useQuery(["getBucketData", isEditBucketShow], () =>
+    getBucketData(Number(bucketId))
+  );
+  const { data: stars } = useQuery(["getCheerStar", isRemoveModalShow], () =>
     bucketId ? getCheerStar(Number(bucketId)) : null
   );
 
@@ -60,6 +68,7 @@ const BucketDetail = () => {
     return navigate("/me/list");
   };
 
+  const isAnimationNeed = path.includes("completion");
   // 앨범에 저장하는 코드
   const captureRef = React.useRef<HTMLDivElement>();
   const exportElementAsPNG = (
@@ -90,6 +99,14 @@ const BucketDetail = () => {
     setIsCheerStartDetailShow(true);
   };
 
+  React.useEffect(() => {
+    if (isSnackBarShow) {
+      setTimeout(() => {
+        setIsSnackBarShow(false);
+      }, 3000);
+    }
+  }, [isSnackBarShow]);
+
   return (
     <ImagedWrapper
       ref={(ref) => {
@@ -102,57 +119,71 @@ const BucketDetail = () => {
         <Arrow
           src={arrow}
           onClick={() => {
-            console.log("back");
             navigate(-1);
           }}
         />
       )}
       <MainWrap animation={path.includes("completion")} justify="space-between">
+        {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
         {isShare ? (
           <Share
             modalClose={modalClose}
             saveImg={saveImg}
             setIsShare={setIsShare}
+            setIsSnackBarShow={setIsSnackBarShow}
           />
         ) : null}
-        <AnimationContexts>
+        <AnimationContexts animation={isAnimationNeed}>
           <FlexBox>
             <SecondaryText>{`${userData?.name}님의 버킷리스트는`}</SecondaryText>
-            <PrimaryText>{contents}</PrimaryText>
+            <PrimaryText>{bucket?.bucket.contents}</PrimaryText>
           </FlexBox>
         </AnimationContexts>
-        <AnimationBox>
-          <img
-            style={{
-              height: "280px",
-            }}
-            src={lanternRising}
-          />
-          {stars &&
-            stars.map((star: StarDataType, index: number) => {
-              return (
-                <img
-                  key={index}
-                  src={getIconSrc(star.iconCode)}
-                  style={{
-                    width: "60px",
-                    position: "absolute",
-                    top: `${CHEER_STAR_LOCATION[index].top}px`,
-                    left: `${CHEER_STAR_LOCATION[index].left}px`,
-                  }}
-                  onClick={() => handleStarClick(index)}
-                />
-              );
-            })}
+
+        <AnimationBox animation={isAnimationNeed}>
+          <div style={{ position: "relative" }}>
+            {isAnimationNeed ? (
+              <img
+                style={{
+                  width: "325px",
+                }}
+                src={lanternRising}
+              />
+            ) : (
+              <img src={lanternsStopped} />
+            )}
+            {stars &&
+              stars.map((star: StarDataType, index: number) => {
+                return (
+                  <img
+                    key={index}
+                    src={getIconSrc(star.iconCode)}
+                    style={{
+                      width: "60px",
+                      position: "absolute",
+                      top: `${CHEER_STAR_LOCATION[index].top}px`,
+                      left: `${CHEER_STAR_LOCATION[index].left}px`,
+                    }}
+                    onClick={() => handleStarClick(index)}
+                  />
+                );
+              })}
+          </div>
         </AnimationBox>
 
-        <AnimationContexts>
-          <FlexBox gap="10px" direction="row" style={{ flexGrow: 1 }}>
+        <AnimationContexts animation={isAnimationNeed}>
+          <FlexBox
+            gap="10px"
+            direction="row"
+            style={{ flexGrow: 1, zIndex: 1000 }}
+          >
             <Button
               disabled={false}
-              text={`내 리스트 보러가기`}
+              text={bucketId ? "버킷 수정하기" : "내 리스트 보기"}
               color={ButtonColor.Black}
-              onClick={handleMeListClick}
+              onClick={
+                bucketId ? () => setIsEditBucketShow(true) : handleMeListClick
+              }
             />
             <Button
               disabled={false}
@@ -176,21 +207,31 @@ const BucketDetail = () => {
           starId={starData.starId}
         />
       )}
-      <AnimationBlackWrapper animation={path.includes("completion")} />
+      {isEditBucketShow && (
+        <BucketDetailEdit
+          contents={bucket?.bucket.contents}
+          setIsEditBucketShow={setIsEditBucketShow}
+          setIsRemoveBucketShow={setIsRemoveBucketShow}
+        />
+      )}
+      {isRemoveBucketShow && (
+        <BucketRemoveModal
+          setIsRemoveBucketShow={setIsRemoveBucketShow}
+          bucketId={Number(bucketId)}
+        />
+      )}
+      <AnimationBlackWrapper animation={isAnimationNeed} />
     </ImagedWrapper>
   );
 };
 
 export default BucketDetail;
 
-const MainWrap = styled(FlexBox)<{ animation?: boolean }>`
+const MainWrap = styled(FlexBox)`
   position: relative;
   padding-top: 60px;
   height: 100%;
   z-index: 300;
-  > * {
-    ${(props) => (props.animation ? null : `animation : none;`)}
-  }
 `;
 
 const PrimaryText = styled.h1`

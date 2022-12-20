@@ -5,16 +5,17 @@ import theme from "../styles/theme";
 import mainImage from "../assets/list_image.png";
 import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
-import NavigationBar from "../components/NavigationBar/NavigationBar";
-import { getBucketList, getToken, getUserData } from "../api/my-api";
+import { getBucketList, getUserData } from "../api/my-api";
 import CongratModal from "../components/list/CongratModal";
 import { useRecoilState } from "recoil";
 import { userDataAtom } from "../store/atoms";
+import NavigationBarLite from "../components/NavigationBar/NavigationBarLite";
+import { useNavigate } from "react-router-dom";
 
 export interface BucketListType {
   bucketId?: number;
   contents: string;
-  userId: number;
+  userId?: number;
   type: string;
   registDate?: Date;
   isFinished?: boolean;
@@ -24,19 +25,13 @@ const List = () => {
   // const { data: token } = useQuery(["token"], () => getToken());
   const [userData, setUserData] = useRecoilState(userDataAtom);
   const [congratModal, setCongratModal] = React.useState(false);
-  const { data } = useQuery(["getData"], () => getBucketList());
 
-  const { data: userRawData } = useQuery(
-    ["getUserData"],
-    () => (userData.userId === -1 ? getUserData() : null),
-    {
-      onSuccess: (data) => {
-        console.log("successData : ", data);
-        if (data) {
-          setUserData(data);
-        }
-      },
-    }
+  const { data } = useQuery(["getData"], () => getBucketList(), {
+    refetchOnWindowFocus: true,
+  });
+  const navigate = useNavigate();
+  const { data: userRawData } = useQuery(["getUserData"], () =>
+    userData.userId === -1 ? getUserData() : null
   );
 
   console.log(userData);
@@ -49,7 +44,8 @@ const List = () => {
         </ListTitle>
         <ScrollWrapper>
           <StyledImg src={mainImage} />
-          <FlexBox gap="20px">
+          <FlexBox gap="20px" style={{ position: "relative" }}>
+            <AddButton onClick={() => navigate("/me/add")}>+</AddButton>
             {data?.map((bucket: BucketListType, index: number) => (
               <BucketItem
                 key={index}
@@ -60,7 +56,7 @@ const List = () => {
           </FlexBox>
         </ScrollWrapper>
       </HorizonCentered>
-      <NavigationBar />
+      {/* <NavigationBarLite /> */}
       {congratModal && <CongratModal setCongratModal={setCongratModal} />}
     </DarkWrapper>
   );
@@ -81,4 +77,19 @@ const ScrollWrapper = styled.div`
   width: 100%;
   overflow: scroll;
   text-align: center;
+`;
+
+const AddButton = styled.div`
+  position: absolute;
+  top: -66px;
+  right: 0;
+  width: 46px;
+  height: 46px;
+  background-color: #7958fc;
+  border-radius: 50%;
+  font-size: 40px;
+  color: white;
+  text-align: center;
+  vertical-align: top;
+  padding-top: 4px;
 `;

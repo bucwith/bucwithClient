@@ -7,15 +7,14 @@ import fbIcon from "../../assets/icon_fb.png";
 import twitterIcon from "../../assets/icon_twitter.png";
 import closeIcon from "../../assets/icon_close.png";
 import downloadIcon from "../../assets/icon_download.png";
-import { BASE_URL } from "../../constant";
 
 const ShareWarp = styled.div`
   position: absolute;
   background-color: rgba(0, 0, 0, 0.6);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  top: -30px;
+  bottom: -30px;
+  left: -20px;
+  right: -20px;
 `;
 
 const ShareInnerWarp = styled.div`
@@ -24,9 +23,10 @@ const ShareInnerWarp = styled.div`
   border-radius: 30px 30px 0 0;
   padding: 30px 20px;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 20px;
+  right: 20px;
   text-align: center;
+  z-index: 1100;
 `;
 
 const FlexWrapper = styled.ul`
@@ -82,48 +82,61 @@ export interface TextAreaProps {
   onInputChange?: ChangeEventHandler<HTMLInputElement>;
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
   value?: string;
+  setIsSnackBarShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const BUCKET_URL = (BASE_URL + '/me/completion')
-const shareItems = [
-  {
-    'imgURL': kakaoIcon,
-    'title': '카카오톡',
-    'link' : "https://www.kakaocorp.com/page/service/service/KakaoTalk?lang=ko"
-  },
-  {
-    'imgURL': fbIcon,
-    'title': '페이스북',
-    'link' : "https://www.facebook.com/"
-  },
-  {
-    'imgURL': twitterIcon,
-    'title': 'twitter',
-    'link' : "https://twitter.com/"
-  },
-  {
-    'imgURL': linkIcon,
-    'title': '링크 복사',
-    'link' : BUCKET_URL
-  },
-]
 
-export default function Share({ modalClose, saveImg, setIsShare }: any) {
+export default function Share({
+  modalClose,
+  saveImg,
+  setIsShare,
+  setIsSnackBarShow,
+}: any) {
+  const shareItems = [
+    {
+      imgURL: kakaoIcon,
+      title: "카카오톡",
+      onClick: () =>
+        window.open(
+          "https://www.kakaocorp.com/page/service/service/KakaoTalk?lang=ko"
+        ),
+    },
+    {
+      imgURL: fbIcon,
+      title: "페이스북",
+      onClick: () => window.open("https://www.facebook.com/"),
+    },
+    {
+      imgURL: twitterIcon,
+      title: "twitter",
+      onClick: () => window.open("https://twitter.com/"),
+    },
+    {
+      imgURL: linkIcon,
+      title: "링크 복사",
+      onClick: () =>
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          setIsSnackBarShow(true);
+        }),
+    },
+  ];
   return (
     <ShareWarp onClick={modalClose}>
       <ShareInnerWarp>
         <Title primary={`내 버킷 공유하기`}></Title>
         <CloseButton onClick={modalClose}></CloseButton>
         <FlexWrapper>
-          { shareItems.map((item)=> (
-              <Items key={item.title}>
-                <Click onClick={()=>{window.open(item.link)}}>
-                  <img src={item.imgURL} />
-                  <Sub>{item.title}</Sub>
-                </Click>
-              </Items>
+          {shareItems.map((item) => (
+            <Items key={item.title}>
+              <Click onClick={item.onClick}>
+                <img src={item.imgURL} />
+                <Sub>{item.title}</Sub>
+              </Click>
+            </Items>
           ))}
         </FlexWrapper>
-        <SaveButton onClick={() => saveImg(setIsShare)}>내 앨범에 이미지 저장하기</SaveButton>
+        <SaveButton onClick={() => saveImg(setIsShare)}>
+          내 앨범에 이미지 저장하기
+        </SaveButton>
       </ShareInnerWarp>
     </ShareWarp>
   );

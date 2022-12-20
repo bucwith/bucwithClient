@@ -35,9 +35,10 @@ const ChipButton = styled.button`
 
 const ChipFocusButton = styled.button`
   padding: 10px 16px;
-  background-color: white;
-  color: black;
   border-radius: 30px;
+  background-color: white;
+  border: 1px solid white;
+  color: black;
   font-size: 1.4rem;
 `;
 

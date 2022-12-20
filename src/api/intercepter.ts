@@ -46,7 +46,6 @@ axios.interceptors.response.use(
         // refresh token을 이용하여 access token 재발행 받기
         return axios
           .post("/account/reissue", {
-            grant_type: "refreshToken",
             refreshToken: preRefreshToken,
           })
           .then((res) => {
@@ -60,6 +59,7 @@ axios.interceptors.response.use(
             return axios(originalRequest);
           })
           .catch(() => {
+            console.log("error");
             // access token을 받아오지 못하는 오류 발생시 logout 처리
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
