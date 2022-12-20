@@ -22,8 +22,10 @@ export interface BucketListType {
 }
 
 const List = () => {
+  // const { data: token } = useQuery(["token"], () => getToken());
   const [userData, setUserData] = useRecoilState(userDataAtom);
   const [congratModal, setCongratModal] = React.useState(false);
+
   const { data } = useQuery(["getData"], () => getBucketList(), {
     refetchOnWindowFocus: true,
   });
@@ -32,11 +34,7 @@ const List = () => {
     userData.userId === -1 ? getUserData() : null
   );
 
-  React.useEffect(() => {
-    if (userRawData) {
-      setUserData(userRawData);
-    }
-  }, [userRawData]);
+  console.log(userData);
 
   return (
     <DarkWrapper padding="30px 20px">
