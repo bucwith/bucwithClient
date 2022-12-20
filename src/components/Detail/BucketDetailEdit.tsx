@@ -14,7 +14,7 @@ import {
   ModalWrapper,
   VerticalCentered,
 } from "../Wrapper";
-
+import CloseIcon from "../../assets/icon_close.png";
 interface BucketDetailEditProps {
   contents: string;
   setIsEditBucketShow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -62,8 +62,12 @@ const BucketDetailEdit = ({
   return (
     <ModalWrapper>
       <VerticalCentered gap="40px" style={{ width: "100%", zIndex: 1000 }}>
-        <Wrap gap="20px">
-          {contents && <SubTitle text={contents}></SubTitle>}
+        <Wrap gap="20px" style={{ position: "relative" }}>
+          <CloseButton
+            src={CloseIcon}
+            onClick={() => setIsEditBucketShow(false)}
+          />
+          {contents && <SubTitle text={contents} />}
           <ChipWrap>
             <Chip
               text="꾸준히!"
@@ -108,14 +112,21 @@ interface WrapProps {
 }
 export const Wrap = styled.div<WrapProps>`
   padding: 30px 20px;
-  background: rgba(52, 55, 68, 0.5);
+  background: rgba(52, 55, 68);
   backdrop-filter: blur(15px);
   border-radius: 30px;
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.gap};
 `;
+
 export const ChipWrap = styled.ul`
   display: flex;
   gap: 8px;
+`;
+
+const CloseButton = styled.img`
+  position: absolute;
+  top: 30px;
+  right: 20px;
 `;
