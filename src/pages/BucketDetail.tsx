@@ -219,7 +219,10 @@ const BucketDetail = () => {
           bucketId={Number(bucketId)}
         />
       )}
-      <AnimationBlackWrapper animation={isAnimationNeed} />
+      <AnimationBlackWrapper
+        animation={isAnimationNeed}
+        style={{ zIndex: 0 }}
+      />
     </ImagedWrapper>
   );
 };
