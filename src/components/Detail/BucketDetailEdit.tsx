@@ -54,7 +54,7 @@ const BucketDetailEdit = ({
 
   return (
     <ModalWrapper>
-      <VerticalCentered gap="40px" style={{ width: "100%", zIndex: 1000 }}>
+      <VerticalCentered gap="40px" style={{ width: "100%", zIndex: 9999 }}>
         <Wrap gap="20px" style={{ position: "relative" }}>
           <CloseButton
             src={CloseIcon}
