@@ -35,7 +35,7 @@ const Guest = () => {
   );
 
   const handleMeListClick = () => {
-    return navigate("/me/list");
+    return navigate("/");
   };
 
   return (
