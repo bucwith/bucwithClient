@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 export interface BucketListType {
   bucketId?: number;
   contents: string;
-  userId: number;
+  userId?: number;
   type: string;
   registDate?: Date;
   isFinished?: boolean;
@@ -24,7 +24,9 @@ export interface BucketListType {
 const List = () => {
   const [userData, setUserData] = useRecoilState(userDataAtom);
   const [congratModal, setCongratModal] = React.useState(false);
-  const { data } = useQuery(["getData"], () => getBucketList());
+  const { data } = useQuery(["getData"], () => getBucketList(), {
+    refetchOnWindowFocus: true,
+  });
   const navigate = useNavigate();
   const { data: userRawData } = useQuery(["getUserData"], () =>
     userData.userId === -1 ? getUserData() : null

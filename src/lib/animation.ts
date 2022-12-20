@@ -3,16 +3,9 @@ import styled, { css, keyframes } from "styled-components";
 const animation = keyframes`
   0% {
 
-    transform:translateY(674px);
-    /* opacity: 0; */
-  }
-  50% {
-
+    transform:translateY(400px);
   }
   100%{
-
-    transform:translateY(0px);
-    /* opacity: 1; */
   }
 `;
 
@@ -36,10 +29,11 @@ const moveAnimation = css`
 `;
 
 export const AnimationBox = styled.div<{ animation: boolean }>`
-  position: relative;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: -1;
-  margin-top: -210px;
-  ${(props) => (props.animation ? moveAnimation : null)};
+  ${(props) => (props.animation ? moveAnimation : null)}
 `;
 
 export const AnimationContexts = styled.div<{ animation: boolean }>`

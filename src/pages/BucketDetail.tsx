@@ -11,7 +11,7 @@ import { ButtonColor } from "../@types/enums";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Share from "../components/Share/Share";
 import { useQuery } from "react-query";
-import { getCheerStar } from "../api/my-api";
+import { getBucketData, getCheerStar } from "../api/my-api";
 import { toPng } from "html-to-image";
 import arrow from "../assets/icon_arrow-right.png";
 import { useRecoilValue } from "recoil";
@@ -57,7 +57,9 @@ const BucketDetail = () => {
   };
 
   const contents = location.state.contents;
-
+  const { data: bucket } = useQuery(["getBucketData", isEditBucketShow], () =>
+    getBucketData(Number(bucketId))
+  );
   const { data: stars } = useQuery(["getCheerStar", isRemoveModalShow], () =>
     bucketId ? getCheerStar(Number(bucketId)) : null
   );
@@ -65,6 +67,7 @@ const BucketDetail = () => {
   const handleMeListClick = () => {
     return navigate("/me/list");
   };
+
   const isAnimationNeed = path.includes("completion");
   // 앨범에 저장하는 코드
   const captureRef = React.useRef<HTMLDivElement>();
@@ -133,36 +136,39 @@ const BucketDetail = () => {
         <AnimationContexts animation={isAnimationNeed}>
           <FlexBox>
             <SecondaryText>{`${userData?.name}님의 버킷리스트는`}</SecondaryText>
-            <PrimaryText>{contents}</PrimaryText>
+            <PrimaryText>{bucket?.bucket.contents}</PrimaryText>
           </FlexBox>
         </AnimationContexts>
+
         <AnimationBox animation={isAnimationNeed}>
-          {isAnimationNeed ? (
-            <img
-              style={{
-                height: "280px",
-              }}
-              src={lanternRising}
-            />
-          ) : (
-            <img src={lanternsStopped} />
-          )}
-          {stars &&
-            stars.map((star: StarDataType, index: number) => {
-              return (
-                <img
-                  key={index}
-                  src={getIconSrc(star.iconCode)}
-                  style={{
-                    width: "60px",
-                    position: "absolute",
-                    top: `${CHEER_STAR_LOCATION[index].top}px`,
-                    left: `${CHEER_STAR_LOCATION[index].left}px`,
-                  }}
-                  onClick={() => handleStarClick(index)}
-                />
-              );
-            })}
+          <div style={{ position: "relative" }}>
+            {isAnimationNeed ? (
+              <img
+                style={{
+                  width: "325px",
+                }}
+                src={lanternRising}
+              />
+            ) : (
+              <img src={lanternsStopped} />
+            )}
+            {stars &&
+              stars.map((star: StarDataType, index: number) => {
+                return (
+                  <img
+                    key={index}
+                    src={getIconSrc(star.iconCode)}
+                    style={{
+                      width: "60px",
+                      position: "absolute",
+                      top: `${CHEER_STAR_LOCATION[index].top}px`,
+                      left: `${CHEER_STAR_LOCATION[index].left}px`,
+                    }}
+                    onClick={() => handleStarClick(index)}
+                  />
+                );
+              })}
+          </div>
         </AnimationBox>
 
         <AnimationContexts animation={isAnimationNeed}>
@@ -203,7 +209,7 @@ const BucketDetail = () => {
       )}
       {isEditBucketShow && (
         <BucketDetailEdit
-          contents={contents}
+          contents={bucket?.bucket.contents}
           setIsEditBucketShow={setIsEditBucketShow}
           setIsRemoveBucketShow={setIsRemoveBucketShow}
         />

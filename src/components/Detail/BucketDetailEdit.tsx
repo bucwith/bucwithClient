@@ -1,6 +1,6 @@
 import React from "react";
 import { useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { bucketType } from "../../@types/enums";
 import { editBucket } from "../../api/my-api";
@@ -27,25 +27,19 @@ const BucketDetailEdit = ({
   setIsRemoveBucketShow,
 }: BucketDetailEditProps) => {
   const [inputValue, setInputValue] = React.useState(contents);
-  const navigate = useNavigate();
   const [type, setType] = React.useState<keyof typeof bucketType>(
     bucketType.BT001
   );
-
-  const addBucketMutation = useMutation(
+  const { bucketId } = useParams();
+  const { mutate } = useMutation(
     () =>
       editBucket({
-        userId: 1,
+        bucketId: Number(bucketId),
         contents: inputValue,
         type: type,
       }),
     {
-      onSuccess: () =>
-        navigate("/me/completion", {
-          state: {
-            contents: inputValue,
-          },
-        }),
+      onSuccess: () => setIsEditBucketShow(false),
     }
   );
 
@@ -55,8 +49,7 @@ const BucketDetailEdit = ({
   };
 
   const handleEditSubmitButton = () => {
-    setIsEditBucketShow(false);
-    addBucketMutation.mutate();
+    mutate();
   };
 
   return (

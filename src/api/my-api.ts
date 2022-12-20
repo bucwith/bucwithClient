@@ -28,13 +28,13 @@ export const postBucket = async ({
 };
 
 export const editBucket = async ({
-  userId,
+  bucketId,
   contents,
   type,
 }: BucketListType) => {
   try {
     const response = await axios.put(BASE_URL + "/bucket", {
-      userId: userId,
+      bucketId: bucketId,
       contents: contents,
       type: type,
     });
