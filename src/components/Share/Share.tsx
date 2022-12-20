@@ -93,7 +93,7 @@ export default function Share({
 }: any) {
   const shareItems = [
     {
-      imgUrl: kakaoIcon,
+      imgURL: kakaoIcon,
       title: "카카오톡",
       onClick: () =>
         window.open(
@@ -101,7 +101,7 @@ export default function Share({
         ),
     },
     {
-      imgUrl: fbIcon,
+      imgURL: fbIcon,
       title: "페이스북",
       onClick: () => window.open("https://www.facebook.com/"),
     },
