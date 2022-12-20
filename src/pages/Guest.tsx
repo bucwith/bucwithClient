@@ -10,7 +10,6 @@ import { useQuery } from "react-query";
 import { getBucketData, getCheerStar } from "../api/my-api";
 import CheerStarModal from "../components/Star/CheerStarModal";
 import getIconSrc from "../utils/getIconSrc";
-import CheerStarDetailModal from "../components/Star/CheerStarDetailModal";
 import { CHEER_STAR_LOCATION } from "../constant";
 
 type StarDataType = {
@@ -35,17 +34,8 @@ const Guest = () => {
     bucketId ? getCheerStar(Number(bucketId)) : null
   );
 
-  const [isCheerStarDetailShow, setIsCheerStartDetailShow] =
-    React.useState(false);
-  const [starData, setStarData] = React.useState<StarDataType | undefined>();
-
   const handleMeListClick = () => {
     return navigate("/me/list");
-  };
-
-  const handleStarClick = (index: number) => {
-    setStarData(stars[index]);
-    setIsCheerStartDetailShow(true);
   };
 
   return (
@@ -72,10 +62,9 @@ const Guest = () => {
                   style={{
                     width: "60px",
                     position: "absolute",
-                    top: `${CHEER_STAR_LOCATION[index].top}px`,
-                    left: `${CHEER_STAR_LOCATION[index].left}px`,
+                    top: `${CHEER_STAR_LOCATION[index]?.top}px`,
+                    left: `${CHEER_STAR_LOCATION[index]?.left}px`,
                   }}
-                  onClick={() => handleStarClick(index)}
                 />
               );
             })}
@@ -97,12 +86,6 @@ const Guest = () => {
       </MainWrap>
       {isCheerStarShow && (
         <CheerStarModal setIsCheerStartShow={setIsCheerStartShow} />
-      )}
-      {isCheerStarDetailShow && starData && (
-        <CheerStarDetailModal
-          starData={starData}
-          setIsCheerStartDetailShow={setIsCheerStartDetailShow}
-        />
       )}
     </ImagedWrapper>
   );
@@ -137,12 +120,4 @@ const SecondaryText = styled.h2`
   margin-bottom: 8px;
   text-align: center;
   color: ${theme.colors.whiteColor};
-`;
-
-const Arrow = styled.img`
-  width: 26px;
-  position: absolute;
-  top: 55px;
-  left: 20px;
-  transform: rotate(180deg);
 `;
