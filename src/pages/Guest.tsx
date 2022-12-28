@@ -39,7 +39,7 @@ const Guest = () => {
   };
 
   return (
-    <ImagedWrapper>
+    <>
       <MainWrap justify="space-between">
         <FlexBox>
           <SecondaryText>{`${bucket?.userName}님의 버킷리스트는`}</SecondaryText>
@@ -87,7 +87,7 @@ const Guest = () => {
       {isCheerStarShow && (
         <CheerStarModal setIsCheerStartShow={setIsCheerStartShow} />
       )}
-    </ImagedWrapper>
+    </>
   );
 };
 

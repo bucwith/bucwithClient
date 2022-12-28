@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import theme from "../styles/theme";
-import {
-  FlexBox,
-  ImagedWrapper,
-  ModalBlackWrapper,
-} from "../components/Wrapper";
+import { FlexBox, ModalBlackWrapper } from "../components/Wrapper";
 import Button from "../components/Button";
 import { ButtonColor } from "../@types/enums";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -34,8 +30,10 @@ type StarDataType = {
   registDate: Date;
   starId: number;
 };
-
-const BucketDetail = () => {
+interface BucketDetailProps {
+  exportElementAsPNG: () => any;
+}
+const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
@@ -68,29 +66,12 @@ const BucketDetail = () => {
   };
 
   const isAnimationNeed = path.includes("completion");
-  // 앨범에 저장하는 코드
-  const captureRef = React.useRef<HTMLDivElement>();
-  const exportElementAsPNG = (
-    el: HTMLDivElement | undefined,
-    filename: string
-  ) => {
-    if (el === undefined) {
-      return null;
-    }
 
-    toPng(el).then((image) => {
-      const link = window.document.createElement("a");
-      link.download = filename + ".png";
-      link.href = image;
-      link.click();
-    });
-  };
-
-  const saveImg = (setIsShare: any) => {
+  const saveImg = () => {
     if (isShare) {
       setIsShare(false);
     }
-    exportElementAsPNG(captureRef.current, "test");
+    exportElementAsPNG();
   };
 
   const handleStarClick = (index: number) => {
@@ -107,13 +88,7 @@ const BucketDetail = () => {
   }, [isSnackBarShow]);
 
   return (
-    <ImagedWrapper
-      ref={(ref) => {
-        if (ref) {
-          captureRef.current = ref;
-        }
-      }}
-    >
+    <>
       {bucketId && (
         <Arrow
           src={arrow}
@@ -122,20 +97,23 @@ const BucketDetail = () => {
           }}
         />
       )}
+      {isShare ? (
+        <Share
+          modalClose={modalClose}
+          saveImg={saveImg}
+          setIsShare={setIsShare}
+          setIsSnackBarShow={setIsSnackBarShow}
+        />
+      ) : null}
       <MainWrap animation={path.includes("completion")} justify="space-between">
         {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
-        {isShare ? (
-          <Share
-            modalClose={modalClose}
-            saveImg={saveImg}
-            setIsShare={setIsShare}
-            setIsSnackBarShow={setIsSnackBarShow}
-          />
-        ) : null}
+
         <AnimationContexts animation={isAnimationNeed}>
           <FlexBox>
-            <SecondaryText>{`${userData?.name}님의 버킷리스트는`}</SecondaryText>
-            <PrimaryText>{bucket?.bucket?.contents ?? contents}</PrimaryText>
+            <SecondaryText>{`'${userData?.name}'님의 버킷리스트는`}</SecondaryText>
+            <PrimaryText>{`"${
+              bucket?.bucket?.contents ?? contents
+            }"`}</PrimaryText>
           </FlexBox>
         </AnimationContexts>
 
@@ -223,7 +201,7 @@ const BucketDetail = () => {
         animation={isAnimationNeed}
         style={{ zIndex: 0 }}
       />
-    </ImagedWrapper>
+    </>
   );
 };
 

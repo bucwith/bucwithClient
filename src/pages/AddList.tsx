@@ -35,23 +35,21 @@ const AddList = () => {
   );
 
   return (
-    <ImagedWrapper>
-      <VerticalCentered gap="40px">
-        <Title
-          primary={`${userData?.name}님이\n꿈꾸는 버킷리스트를\n적어주세요.`}
-        />
-        <InputBox
-          onTextAreaChange={(e) => setInputValue(e.target.value)}
-          title="어떤 종류의 버킷리스트인가요?"
-          buttonText="내 벅윗 풍등 등록하기"
-          onClickButton={() => addBucketMutation.mutate()}
-          placeholder="예) 매일 운동하기 / 술 끊기"
-          textarea
-          type={type}
-          setType={setType}
-        />
-      </VerticalCentered>
-    </ImagedWrapper>
+    <VerticalCentered gap="40px">
+      <Title
+        primary={`${userData?.name}님이\n꿈꾸는 버킷리스트를\n적어주세요.`}
+      />
+      <InputBox
+        onTextAreaChange={(e) => setInputValue(e.target.value)}
+        title="어떤 종류의 버킷리스트인가요?"
+        buttonText="내 벅윗 풍등 등록하기"
+        onClickButton={() => addBucketMutation.mutate()}
+        placeholder="예) 매일 운동하기 / 술 끊기"
+        textarea
+        type={type}
+        setType={setType}
+      />
+    </VerticalCentered>
   );
 };
 

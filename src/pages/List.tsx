@@ -1,15 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { DarkWrapper, FlexBox, HorizonCentered } from "../components/Wrapper";
+import { FlexBox, HorizonCentered, ImagedWrapper } from "../components/Wrapper";
 import theme from "../styles/theme";
 import mainImage from "../assets/list_image.png";
 import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
-import { getBucketList, getUserData } from "../api/my-api";
+import { getBucketList } from "../api/my-api";
 import CongratModal from "../components/list/CongratModal";
-import { useRecoilState } from "recoil";
-import { userDataAtom } from "../store/atoms";
-import NavigationBarLite from "../components/NavigationBar/NavigationBarLite";
 import { useNavigate } from "react-router-dom";
 
 export interface BucketListType {
@@ -23,17 +20,13 @@ export interface BucketListType {
 
 const List = () => {
   // const { data: token } = useQuery(["token"], () => getToken());
-  const [userData, setUserData] = useRecoilState(userDataAtom);
   const [congratModal, setCongratModal] = React.useState(false);
 
   const { data } = useQuery(["getData"], () => getBucketList());
   const navigate = useNavigate();
-  const { data: userRawData } = useQuery(["getUserData"], () =>
-    userData.userId === -1 ? getUserData() : null
-  );
 
   return (
-    <DarkWrapper padding="30px 20px">
+    <>
       <HorizonCentered direction="column">
         <ListTitle style={{ paddingBottom: "10px" }}>
           내 리스트 보관함
@@ -41,7 +34,9 @@ const List = () => {
         <ScrollWrapper>
           <StyledImg src={mainImage} />
           <FlexBox gap="20px" style={{ position: "relative" }}>
-            <AddButton onClick={() => navigate("/me/add")}>+</AddButton>
+            <AddButton onClick={() => navigate("/me/add")}>
+              <FlexBox>+</FlexBox>
+            </AddButton>
             {data?.map((bucket: BucketListType, index: number) => (
               <BucketItem
                 key={index}
@@ -52,9 +47,8 @@ const List = () => {
           </FlexBox>
         </ScrollWrapper>
       </HorizonCentered>
-      {/* <NavigationBarLite /> */}
       {congratModal && <CongratModal setCongratModal={setCongratModal} />}
-    </DarkWrapper>
+    </>
   );
 };
 
@@ -88,4 +82,5 @@ const AddButton = styled.div`
   text-align: center;
   vertical-align: top;
   padding-top: 4px;
+  font-weight: 300;
 `;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import spaceBgImg from "../assets/space_bg.png";
 interface WrapperProps {
   gap?: string;
@@ -6,6 +6,7 @@ interface WrapperProps {
   direction?: string;
   justify?: string;
   animation?: boolean;
+  dark?: boolean;
 }
 
 export const VerticalCentered = styled.div<WrapperProps>`
@@ -16,25 +17,29 @@ export const VerticalCentered = styled.div<WrapperProps>`
   gap: ${(props) => props.gap};
   padding: ${(props) => props.padding};
 `;
+// 후에 정규식으로 변경
+const isDark = window.location.href.includes("list");
 
-export const ImagedWrapper = styled.div<WrapperProps>`
-  width: 100%;
-  height: 100vh;
-  padding: 20px;
+const img = css`
   background-image: url(${spaceBgImg});
   background-size: cover;
   background-repeat: no-repeat;
-  padding: ${(props) => props.padding};
+`;
+
+const dark = css`
+  background-color: #141415;
+`;
+
+export const ImagedWrapper = styled.div<WrapperProps>`
+  position: fixed;
+  right: 0;
+  left: 0;
+  height: 100vh;
+  padding: ${(props) => (props.padding ? props.padding : "20px")};
   > * {
     ${(props) => (props.animation ? null : `animation : none;`)}
   }
-`;
-
-export const DarkWrapper = styled.div<WrapperProps>`
-  width: 100%;
-  height: 100vh;
-  background-color: #141415;
-  padding: ${(props) => props.padding};
+  ${isDark ? dark : img}
 `;
 
 export const HorizonCentered = styled.div<WrapperProps>`

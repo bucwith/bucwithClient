@@ -7,24 +7,16 @@ import fbIcon from "../../assets/icon_fb.png";
 import twitterIcon from "../../assets/icon_twitter.png";
 import closeIcon from "../../assets/icon_close.png";
 import downloadIcon from "../../assets/icon_download.png";
-
-const ShareWarp = styled.div`
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.6);
-  top: -30px;
-  bottom: -30px;
-  left: -20px;
-  right: -20px;
-`;
+import { ModalBlackWrapper } from "../Wrapper";
 
 const ShareInnerWarp = styled.div`
+  width: 100%;
   position: absolute;
+  bottom: 0;
+  left: 0;
   background-color: #24252c;
   border-radius: 30px 30px 0 0;
   padding: 30px 20px;
-  bottom: 0;
-  left: 20px;
-  right: 20px;
   text-align: center;
   z-index: 1100;
 `;
@@ -85,20 +77,26 @@ export interface TextAreaProps {
   setIsSnackBarShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Share({
-  modalClose,
-  saveImg,
-  setIsShare,
-  setIsSnackBarShow,
-}: any) {
+export default function Share({ modalClose, saveImg, setIsSnackBarShow }: any) {
+  const shareData = {
+    title: "뭔데 타이틀",
+    text: "뭔데 텍스트",
+    url: "https://developer.mozilla.org",
+  };
+
+  const onClickShare = async () => {
+    try {
+      await navigator.share(shareData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const shareItems = [
     {
       imgURL: kakaoIcon,
       title: "카카오톡",
-      onClick: () =>
-        window.open(
-          "https://www.kakaocorp.com/page/service/service/KakaoTalk?lang=ko"
-        ),
+      onClick: () => onClickShare(),
     },
     {
       imgURL: fbIcon,
@@ -119,10 +117,12 @@ export default function Share({
         }),
     },
   ];
+
   return (
-    <ShareWarp onClick={modalClose}>
+    <>
+      <ModalBlackWrapper onClick={modalClose} />
       <ShareInnerWarp>
-        <Title primary={`내 버킷 공유하기`}></Title>
+        <Title primary="내 버킷 공유하기"></Title>
         <CloseButton onClick={modalClose}></CloseButton>
         <FlexWrapper>
           {shareItems.map((item) => (
@@ -134,10 +134,10 @@ export default function Share({
             </Items>
           ))}
         </FlexWrapper>
-        <SaveButton onClick={() => saveImg(setIsShare)}>
+        <SaveButton onClick={() => saveImg()}>
           내 앨범에 이미지 저장하기
         </SaveButton>
       </ShareInnerWarp>
-    </ShareWarp>
+    </>
   );
 }

@@ -7,7 +7,8 @@ import lightIcon from "../../assets/icon_lantern.png";
 import { BucketListType } from "../../pages/List";
 import theme from "../../styles/theme";
 import { FlexBox } from "../Wrapper";
-import DetailButton from "./DetailButton";
+import arrowIcon from "../../assets/icon_arrow-right.png";
+import { useNavigate } from "react-router-dom";
 interface BucketItemProps {
   data: BucketListType;
   setCongratModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +20,8 @@ type ChipDataType = {
 };
 
 const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
+  const navigate = useNavigate();
+
   const renderChip = () => {
     if (data.isFinished === undefined) {
       return null;
@@ -64,30 +67,37 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
           {isChecked && "✔"}
         </ChipCheckBox>
         <Chip color={chipData.color}>{chipData.text}</Chip>
-        <DetailButton data={data} />
       </FlexBox>
     );
   };
 
   return (
     <ItemBox>
-      <img src={lightIcon} />
-      {renderChip()}
-      <ItemTitle>{data.contents}</ItemTitle>
+      <FlexBox style={{ alignItems: "flex-start" }}>
+        <img src={lightIcon} />
+        {renderChip()}
+        <ItemTitle>{data.contents}</ItemTitle>
+      </FlexBox>
+      <img
+        src={arrowIcon}
+        onClick={() =>
+          navigate(`/me/bucket/${data.bucketId}`, {
+            state: { contents: data.contents },
+          })
+        }
+      />
     </ItemBox>
   );
 };
 
 export default BucketItem;
 
-const ItemBox = styled.div`
+const ItemBox = styled(FlexBox)`
   width: 100%;
   padding: 30px 20px;
   background-color: rgba(36, 37, 44, 0.5);
   border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
 `;
 
 const ItemTitle = styled.h2`
