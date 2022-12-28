@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import theme from "../styles/theme";
 import { FlexBox, ModalBlackWrapper } from "../components/Wrapper";
@@ -10,8 +10,8 @@ import { useQuery } from "react-query";
 import { getBucketData, getCheerStar } from "../api/my-api";
 import { toPng } from "html-to-image";
 import arrow from "../assets/icon_arrow-right.png";
-import { useRecoilValue } from "recoil";
-import { userDataAtom } from "../store/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isDarkWrapper, userDataAtom } from "../store/atoms";
 import getIconSrc from "../utils/getIconSrc";
 import { CHEER_STAR_LOCATION } from "../constant";
 import lanternRising from "../assets/lanternRising.png";
@@ -48,7 +48,6 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   const [isRemoveBucketShow, setIsRemoveBucketShow] = React.useState(false);
   const userData = useRecoilValue(userDataAtom);
   const contents = location.state.contents;
-
   const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
     setIsShare(false);
@@ -61,6 +60,11 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
     bucketId ? getCheerStar(Number(bucketId)) : null
   );
 
+  const setIsDark = useSetRecoilState(isDarkWrapper);
+  useEffect(() => {
+    setIsDark(false);
+  }, []);
+
   const handleMeListClick = () => {
     return navigate("/me/list");
   };
@@ -72,7 +76,6 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
       setIsShare(false);
     }
     exportElementAsPNG();
-    // setTimeout(() => setIsShare(true), 300);
   };
 
   const handleStarClick = (index: number) => {

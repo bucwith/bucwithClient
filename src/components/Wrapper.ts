@@ -6,7 +6,7 @@ interface WrapperProps {
   direction?: string;
   justify?: string;
   animation?: boolean;
-  dark?: boolean;
+  isDark?: boolean;
 }
 
 export const VerticalCentered = styled.div<WrapperProps>`
@@ -18,7 +18,6 @@ export const VerticalCentered = styled.div<WrapperProps>`
   padding: ${(props) => props.padding};
 `;
 // 후에 정규식으로 변경
-const isDark = window.location.href.includes("list");
 
 const img = css`
   background-image: url(${spaceBgImg});
@@ -29,7 +28,7 @@ const img = css`
 const dark = css`
   background-color: #141415;
 `;
-
+console.log(window.location.pathname);
 export const ImagedWrapper = styled.div<WrapperProps>`
   position: fixed;
   right: 0;
@@ -39,7 +38,7 @@ export const ImagedWrapper = styled.div<WrapperProps>`
   > * {
     ${(props) => (props.animation ? null : `animation : none;`)}
   }
-  ${isDark ? dark : img}
+  ${(props) => (props.isDark ? dark : img)};
 `;
 
 export const HorizonCentered = styled.div<WrapperProps>`
@@ -71,6 +70,7 @@ export const ModalWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 `;
 
 export const ModalBlackWrapper = styled(ModalWrapper)`

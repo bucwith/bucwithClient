@@ -95,7 +95,7 @@ export default BucketItem;
 const ItemBox = styled(FlexBox)`
   width: 100%;
   padding: 30px 20px;
-  background-color: rgba(36, 37, 44, 0.5);
+  background-color: #24252c;
   border-radius: 30px;
   flex-direction: row;
 `;

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { FlexBox, HorizonCentered, ImagedWrapper } from "../components/Wrapper";
+import { FlexBox, HorizonCentered } from "../components/Wrapper";
 import theme from "../styles/theme";
 import mainImage from "../assets/list_image.png";
 import BucketItem from "../components/list/BucketItem";
@@ -8,7 +8,9 @@ import { useQuery } from "react-query";
 import { getBucketList } from "../api/my-api";
 import CongratModal from "../components/list/CongratModal";
 import { useNavigate } from "react-router-dom";
-
+import { useSetRecoilState } from "recoil";
+import { isDarkWrapper } from "../store/atoms";
+import fanfareImg from "../assets/fanfare.png";
 export interface BucketListType {
   bucketId?: number;
   contents: string;
@@ -21,10 +23,23 @@ export interface BucketListType {
 const List = () => {
   // const { data: token } = useQuery(["token"], () => getToken());
   const [congratModal, setCongratModal] = React.useState(false);
+  const [fanfareImgSrc, setFanfareImgSrc] = useState("");
+  const setIsDark = useSetRecoilState(isDarkWrapper);
+
+  useEffect(() => {
+    if (congratModal) {
+      console.log("팡!");
+      return setFanfareImgSrc(fanfareImg);
+    }
+    setFanfareImgSrc("");
+  }, [congratModal]);
+
+  useEffect(() => {
+    setIsDark(true);
+  }, []);
 
   const { data } = useQuery(["getData"], () => getBucketList());
   const navigate = useNavigate();
-
   return (
     <>
       <HorizonCentered direction="column">
@@ -67,6 +82,9 @@ const ScrollWrapper = styled.div`
   width: 100%;
   overflow: scroll;
   text-align: center;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const AddButton = styled.div`

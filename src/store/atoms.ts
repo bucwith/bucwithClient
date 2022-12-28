@@ -15,3 +15,8 @@ export const userDataAtom = atom({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const isDarkWrapper = atom({
+  key: "isDarkWrapper",
+  default: false,
+});

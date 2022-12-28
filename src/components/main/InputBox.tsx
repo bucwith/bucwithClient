@@ -70,7 +70,7 @@ interface WrapProps {
 }
 export const Wrap = styled.div<WrapProps>`
   padding: 30px 20px;
-  background: rgba(52, 55, 68, 0.5);
+  background: #24252c;
   backdrop-filter: blur(15px);
   border-radius: 30px;
   display: flex;

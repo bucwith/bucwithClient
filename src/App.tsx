@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Login from "./pages/Login";
 import SetNickname from "./pages/SetNickname";
 import List from "./pages/List";
@@ -10,7 +10,7 @@ import Guest from "./pages/Guest";
 import BucketDetail from "./pages/BucketDetail";
 import { ImagedWrapper } from "./components/Wrapper";
 import { useQuery } from "react-query";
-import { userDataAtom } from "./store/atoms";
+import { isDarkWrapper, userDataAtom } from "./store/atoms";
 import { getUserData } from "./api/my-api";
 import { toPng } from "html-to-image";
 
@@ -22,7 +22,6 @@ function App() {
   let accessToken = URLSearch.get("accessToken");
   const hasTokenUrl =
     url.pathname === "/me/list" || url.pathname === "/nickname";
-  const localToken = localStorage.getItem("accessToken");
 
   if (hasTokenUrl && accessToken && refreshToken) {
     localStorage.setItem("accessToken", accessToken);
@@ -31,14 +30,7 @@ function App() {
     accessToken = URLSearch.get("accessToken");
     refreshToken = URLSearch.get("refreshToken");
   }
-
-  // if (
-  //   url.pathname !== "/" &&
-  //   !url.pathname.includes("guest") &&
-  //   localToken === null
-  // ) {
-  //   window.location.href = `${url.protocol}//${url.host}`;
-  // }
+  const isDark = useRecoilValue(isDarkWrapper);
 
   // user정보 가져오기
   const [userData, setUserData] = useRecoilState(userDataAtom);
@@ -74,7 +66,7 @@ function App() {
         }
       }}
     >
-      <ImagedWrapper>
+      <ImagedWrapper isDark={isDark}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />

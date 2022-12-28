@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../components/Title";
 import InputBox from "../components/main/InputBox";
 import { useNavigate } from "react-router-dom";
@@ -6,8 +6,8 @@ import { ImagedWrapper, VerticalCentered } from "../components/Wrapper";
 import { useMutation } from "react-query";
 import { postBucket } from "../api/my-api";
 import { bucketType } from "../@types/enums";
-import { useRecoilValue } from "recoil";
-import { userDataAtom } from "../store/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isDarkWrapper, userDataAtom } from "../store/atoms";
 
 const AddList = () => {
   const navigate = useNavigate();
@@ -33,6 +33,11 @@ const AddList = () => {
         }),
     }
   );
+  const setIsDark = useSetRecoilState(isDarkWrapper);
+
+  useEffect(() => {
+    setIsDark(false);
+  }, []);
 
   return (
     <VerticalCentered gap="40px">
