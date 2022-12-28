@@ -72,6 +72,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
       setIsShare(false);
     }
     exportElementAsPNG();
+    // setTimeout(() => setIsShare(true), 300);
   };
 
   const handleStarClick = (index: number) => {
