@@ -23,7 +23,6 @@ export interface BucketListType {
 }
 
 const List = () => {
-  // const { data: token } = useQuery(["token"], () => getToken());
   const [congratModal, setCongratModal] = React.useState(false);
   const setIsDark = useSetRecoilState(isDarkWrapper);
   const [selectedBucketData, setSelectedBuckeData] = useState<BucketListType>();
@@ -35,7 +34,9 @@ const List = () => {
     setIsDark(true);
   }, []);
 
-  const { data } = useQuery(["getData"], () => getBucketList());
+  const { data } = useQuery(["getData", isEditBucketShow], () =>
+    getBucketList()
+  );
   const navigate = useNavigate();
 
   return (

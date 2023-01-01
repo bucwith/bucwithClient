@@ -21,6 +21,7 @@ import lanternsStopped from "../assets/lantern.png";
 import SnackBar from "../components/Share/SnackBar";
 import { BucketListType } from "./List";
 import BackArrow from "../components/BackArrow";
+import { MainWrap } from "./Guest";
 
 type StarDataType = {
   bucketId: number;
@@ -100,61 +101,9 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
     }
   }, [isSnackBarShow]);
 
-  return (
-    <>
-      {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
-      {bucketId && <BackArrow />}
-      {isShare ? (
-        <Share
-          modalClose={modalClose}
-          saveImg={saveImg}
-          setIsShare={setIsShare}
-          setIsSnackBarShow={setIsSnackBarShow}
-          bucketIdFromData={data?.bucketId}
-        />
-      ) : null}
-      <MainWrap animation={path.includes("completion")} justify="space-between">
-        <AnimationContexts animation={isAnimationNeed}>
-          {!isFetching && (
-            <FlexBox key={data?.bucketId}>
-              <SecondaryText>{`'${userData?.name}'님의 버킷리스트는`}</SecondaryText>
-              <PrimaryText>{`"${data?.contents}"`}</PrimaryText>
-            </FlexBox>
-          )}
-        </AnimationContexts>
-
-        <AnimationBox animation={isAnimationNeed}>
-          <div style={{ position: "relative" }}>
-            {isAnimationNeed ? (
-              <img
-                style={{
-                  width: "325px",
-                }}
-                src={lanternRising}
-              />
-            ) : (
-              <img src={lanternsStopped} />
-            )}
-            {!isStarFetching &&
-              stars &&
-              stars.map((star: StarDataType, index: number) => {
-                return (
-                  <img
-                    key={index}
-                    src={getIconSrc(star.iconCode)}
-                    style={{
-                      width: "55px",
-                      position: "absolute",
-                      top: `${CHEER_STAR_LOCATION[index].top}px`,
-                      left: `${CHEER_STAR_LOCATION[index].left}px`,
-                    }}
-                    onClick={() => handleStarClick(index)}
-                  />
-                );
-              })}
-          </div>
-        </AnimationBox>
-
+  const renderButton = () => {
+    setTimeout(() => {
+      return (
         <AnimationContexts animation={isAnimationNeed}>
           <FlexBox
             gap="10px"
@@ -171,12 +120,92 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
             )}
             <Button
               disabled={false}
-              text={`내 버킷 공유하기`}
+              text="내 버킷 공유하기"
               color={ButtonColor.Primary}
               onClick={() => setIsShare(true)}
             />
           </FlexBox>
         </AnimationContexts>
+      );
+    }, 3000);
+  };
+
+  return (
+    <>
+      {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
+      {bucketId && <BackArrow />}
+      {isShare ? (
+        <Share
+          modalClose={modalClose}
+          saveImg={saveImg}
+          setIsShare={setIsShare}
+          setIsSnackBarShow={setIsSnackBarShow}
+          bucketIdFromData={data?.bucketId}
+        />
+      ) : null}
+      <MainWrap animation={path.includes("completion")} justify="space-between">
+        <>
+          <AnimationContexts animation={isAnimationNeed}>
+            <FlexBox>
+              <SecondaryText>{`'${userData?.name}'님의 버킷리스트는`}</SecondaryText>
+              <PrimaryText>{`"${data?.contents}"`}</PrimaryText>
+            </FlexBox>
+          </AnimationContexts>
+
+          <AnimationBox animation={isAnimationNeed}>
+            <div style={{ position: "relative" }}>
+              {isAnimationNeed ? (
+                <img
+                  style={{
+                    width: "325px",
+                  }}
+                  src={lanternRising}
+                />
+              ) : (
+                <img src={lanternsStopped} />
+              )}
+              {!isStarFetching &&
+                stars &&
+                stars.map((star: StarDataType, index: number) => {
+                  return (
+                    <img
+                      key={index}
+                      src={getIconSrc(star.iconCode)}
+                      style={{
+                        width: "55px",
+                        position: "absolute",
+                        top: `${CHEER_STAR_LOCATION[index].top}px`,
+                        left: `${CHEER_STAR_LOCATION[index].left}px`,
+                      }}
+                      onClick={() => handleStarClick(index)}
+                    />
+                  );
+                })}
+            </div>
+          </AnimationBox>
+          <AnimationContexts animation={isAnimationNeed}>
+            <FlexBox
+              gap="10px"
+              direction="row"
+              style={{ flexGrow: 1, zIndex: 1000 }}
+            >
+              {bucketId ? null : (
+                <Button
+                  disabled={false}
+                  text="내 리스트 보기"
+                  color={ButtonColor.Black}
+                  onClick={handleMeListClick}
+                />
+              )}
+              <Button
+                disabled={false}
+                text="내 버킷 공유하기"
+                color={ButtonColor.Primary}
+                onClick={() => setIsShare(true)}
+              />
+            </FlexBox>
+          </AnimationContexts>
+        </>
       </MainWrap>
       {isCheerStarDetailShow && starData && (
         <CheerStarDetailModal
@@ -192,22 +221,12 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
         />
       )}
 
-      <AnimationBlackWrapper
-        animation={isAnimationNeed}
-        style={{ zIndex: 0 }}
-      />
+      <AnimationBlackWrapper animation={isAnimationNeed} />
     </>
   );
 };
 
 export default BucketDetail;
-
-const MainWrap = styled(FlexBox)`
-  position: relative;
-  padding-top: 60px;
-  height: 100%;
-  z-index: 300;
-`;
 
 const PrimaryText = styled.h1`
   font-weight: 700;
@@ -227,15 +246,6 @@ const SecondaryText = styled.h2`
   color: ${theme.colors.whiteColor};
 `;
 
-const Arrow = styled.img`
-  width: 26px;
-  position: absolute;
-  top: 55px;
-  left: 20px;
-  transform: rotate(180deg);
-  z-index: 1000;
-`;
-
 const wrapperKeyframe = keyframes`
 0% {
 opacity: 0.4;
@@ -246,10 +256,11 @@ opacity: 0;
 `;
 
 const animationBlack = css`
-  animation: 2s linear ${wrapperKeyframe};
+  animation: 2s ${wrapperKeyframe} linear;
 `;
 
 const AnimationBlackWrapper = styled(ModalBlackWrapper)<{ animation: boolean }>`
   opacity: 0;
+  z-index: -1;
   ${(props) => (props.animation ? animationBlack : null)};
 `;

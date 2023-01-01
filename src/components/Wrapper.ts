@@ -39,6 +39,7 @@ export const ImagedWrapper = styled.div<WrapperProps>`
     ${(props) => (props.animation ? null : `animation : none;`)}
   }
   ${(props) => (props.isDark ? dark : img)};
+  z-index: -1;
 `;
 
 export const HorizonCentered = styled.div<WrapperProps>`
@@ -75,6 +76,6 @@ export const ModalWrapper = styled.div`
 
 export const ModalBlackWrapper = styled(ModalWrapper)`
   opacity: 0.4;
-  z-index: 1100;
   background-color: black;
+  z-index: 10;
 `;

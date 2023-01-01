@@ -16,7 +16,6 @@ export default function Button({
   disabled,
   onClick,
   color,
-  icon,
 }: ButtomProps) {
   {
     switch (color) {
@@ -45,7 +44,6 @@ export default function Button({
 
 const KakaoButton = styled.button`
   width: 100%;
-
   height: 60px;
   color: black;
   background-color: #fee500;
@@ -78,13 +76,15 @@ const buttonStyle = css`
 export const PrimaryButton = styled.button`
   ${buttonStyle}
   background-color: #7958fc;
-  z-index: 1000;
+  z-index: 100;
   /* active = pressed */
   &:active {
     background-color: #4f35b6;
   }
   &:disabled {
-    opacity: 0.5;
+    /* opacity: 0.4; */
+    background-color: #170f30;
+    color: #313131;
   }
 `;
 
@@ -95,5 +95,5 @@ export const PrimaryBlackButton = styled.button`
   &:active {
     background-color: #292c45;
   }
-  z-index: 1000;
+  z-index: 1100;
 `;

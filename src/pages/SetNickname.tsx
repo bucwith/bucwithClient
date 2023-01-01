@@ -12,7 +12,7 @@ const SetNickname = () => {
   const navigate = useNavigate();
   const [userNameValue, setUserNameValue] = React.useState("");
 
-  const { mutate } = useMutation(() => putNickName(userNameValue), {
+  const { mutate } = useMutation(() => putNickName(userNameValue.trim()), {
     onSuccess: () =>
       navigate("/me/add", {
         state: {

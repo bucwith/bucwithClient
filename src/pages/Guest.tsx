@@ -94,7 +94,7 @@ const LanternContainer = styled.div`
   transform: translateY(-50%);
 `;
 
-const MainWrap = styled(FlexBox)`
+export const MainWrap = styled(FlexBox)`
   padding-top: 60px;
   height: 100%;
 `;

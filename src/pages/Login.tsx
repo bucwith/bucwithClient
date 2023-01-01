@@ -5,6 +5,7 @@ import Title from "../components/Title";
 import { VerticalCentered } from "../components/Wrapper";
 const Login = () => {
   const BACK_URL = `https://bucwiths.shop:8443/oauth2/authorization/kakao`;
+
   const handleRedirect = () => {
     return (location.href = BACK_URL);
   };

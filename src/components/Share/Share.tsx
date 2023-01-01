@@ -21,7 +21,7 @@ const ShareInnerWarp = styled.div`
   border-radius: 30px 30px 0 0;
   padding: 30px 20px;
   text-align: center;
-  z-index: 1100;
+  z-index: 9999;
 `;
 
 const FlexWrapper = styled.ul`

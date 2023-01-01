@@ -37,7 +37,7 @@ const BucketDetailEdit = ({
     () =>
       editBucket({
         bucketId,
-        contents: inputValue,
+        contents: inputValue.trim(),
         type: type,
       }),
     {
@@ -58,50 +58,52 @@ const BucketDetailEdit = ({
   };
 
   return (
-    <ModalWrapper>
-      <VerticalCentered gap="40px" style={{ width: "100%", zIndex: 9999 }}>
-        <Wrap gap="20px" style={{ position: "relative" }}>
-          <CloseButton
-            src={CloseIcon}
-            onClick={() => setIsEditBucketShow(false)}
-          />
-          <SubTitle text="어떤 종류의 버킷리스트인가요?" />
-          <ChipWrap>
-            <Chip
-              text="꾸준히!"
-              isFocus={type === bucketType.BT001}
-              onClick={() => setType(bucketType.BT001)}
+    <>
+      <ModalWrapper>
+        <VerticalCentered gap="40px" style={{ width: "100%" }}>
+          <Wrap gap="20px" style={{ position: "relative" }}>
+            <CloseButton
+              src={CloseIcon}
+              onClick={() => setIsEditBucketShow(false)}
             />
-            <Chip
-              text="일년안에!"
-              isFocus={type === bucketType.BT002}
-              onClick={() => setType(bucketType.BT002)}
+            <SubTitle text="어떤 종류의 버킷리스트인가요?" />
+            <ChipWrap>
+              <Chip
+                text="꾸준히!"
+                isFocus={type === bucketType.BT001}
+                onClick={() => setType(bucketType.BT001)}
+              />
+              <Chip
+                text="일년안에!"
+                isFocus={type === bucketType.BT002}
+                onClick={() => setType(bucketType.BT002)}
+              />
+              <Chip
+                text="오랫동안!"
+                isFocus={type === bucketType.BT003}
+                onClick={() => setType(bucketType.BT003)}
+              />
+            </ChipWrap>
+            <InputArea
+              onChange={(e) => setInputValue(e.target.value)}
+              value={inputValue}
             />
-            <Chip
-              text="오랫동안!"
-              isFocus={type === bucketType.BT003}
-              onClick={() => setType(bucketType.BT003)}
-            />
-          </ChipWrap>
-          <InputArea
-            onChange={(e) => setInputValue(e.target.value)}
-            value={inputValue}
-          />
-          <FlexBox direction="row" gap="10px">
-            <PrimaryBlackButton onClick={() => handleRemoveModalButton()}>
-              삭제
-            </PrimaryBlackButton>
-            <PrimaryButton
-              onClick={() => handleEditSubmitButton()}
-              disabled={!inputValue}
-            >
-              수정하기
-            </PrimaryButton>
-          </FlexBox>
-        </Wrap>
-      </VerticalCentered>
+            <FlexBox direction="row" gap="10px">
+              <PrimaryBlackButton onClick={() => handleRemoveModalButton()}>
+                삭제
+              </PrimaryBlackButton>
+              <PrimaryButton
+                onClick={() => handleEditSubmitButton()}
+                disabled={!inputValue}
+              >
+                수정하기
+              </PrimaryButton>
+            </FlexBox>
+          </Wrap>
+        </VerticalCentered>
+      </ModalWrapper>
       <ModalBlackWrapper />
-    </ModalWrapper>
+    </>
   );
 };
 

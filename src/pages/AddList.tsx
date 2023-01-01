@@ -22,7 +22,7 @@ const AddList = () => {
     () =>
       postBucket({
         userId: 1,
-        contents: inputValue,
+        contents: inputValue.trim(),
         type: type,
       }),
     {

@@ -1,31 +1,40 @@
 import styled, { css, keyframes } from "styled-components";
 
-const animation = keyframes`
-  0% {
-
-    transform:translateY(400px);
-  }
-  100%{
+const lanternAnimation = keyframes`
+0%{
+  transform: translateY(100%) ;
+}
+100%{
   }
 `;
 
-const animationContexts = keyframes`
-  0% {
+const degreeCss = keyframes`
+from {
+  /* transform: rotate(-15deg); */
+} to{
+}
+`;
 
+const contentsAnimation = keyframes`
+  from {
     opacity: 0;
   }
-  100%{
-
+  to{
     opacity: 1;
   }
 `;
 
-const contextAnimation = css`
-  animation: ${animationContexts} 2s ease-in-out;
+const constentsCss = css`
+  /* easeOutCubic */
+  opacity: 0;
+  animation: ${contentsAnimation} 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
 `;
 
-const moveAnimation = css`
-  animation: ${animation} 2s ease-in-out;
+const lanternCss = css`
+  animation: ${lanternAnimation} 2s cubic-bezier(0.32, 0, 0.67, 0);
+  /* animation-fill-mode: forwards; */
 `;
 
 export const AnimationBox = styled.div<{ animation: boolean }>`
@@ -33,10 +42,10 @@ export const AnimationBox = styled.div<{ animation: boolean }>`
   top: 50%;
   transform: translateY(-50%);
   z-index: -1;
-  ${(props) => (props.animation ? moveAnimation : null)}
+  ${(props) => (props.animation ? lanternCss : null)}
 `;
 
 export const AnimationContexts = styled.div<{ animation: boolean }>`
   width: 100%;
-  ${(props) => (props.animation ? contextAnimation : null)};
+  ${(props) => (props.animation ? constentsCss : null)};
 `;

@@ -51,7 +51,6 @@ export default CongratModal;
 const Container = styled(FlexBox)`
   background-color: #24252c;
   border-radius: 30px;
-  z-index: 200;
   padding: 250px 20px 30px;
   gap: 20px;
 `;
