@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from "react";
+import React, { ChangeEventHandler, useEffect, useState } from "react";
 import styled from "styled-components";
 import Title from "../Title";
 import linkIcon from "../../assets/icon_link.png";
@@ -8,6 +8,9 @@ import twitterIcon from "../../assets/icon_twitter.png";
 import closeIcon from "../../assets/icon_close.png";
 import downloadIcon from "../../assets/icon_download.png";
 import { ModalBlackWrapper } from "../Wrapper";
+import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userDataAtom } from "../../store/atoms";
 
 const ShareInnerWarp = styled.div`
   width: 100%;
@@ -75,33 +78,72 @@ export interface TextAreaProps {
   onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
   value?: string;
   setIsSnackBarShow: React.Dispatch<React.SetStateAction<boolean>>;
+  bucketIdFromData: number;
 }
 
-export default function Share({ modalClose, saveImg, setIsSnackBarShow }: any) {
-  const shareData = {
-    title: "뭔데 타이틀",
-    text: "뭔데 텍스트",
-    url: "https://developer.mozilla.org",
-  };
+export default function Share({
+  modalClose,
+  saveImg,
+  setIsSnackBarShow,
+  bucketIdFromData,
+}: any) {
+  const { bucketId } = useParams();
 
-  const onClickShare = async () => {
-    try {
-      await navigator.share(shareData);
-    } catch (err) {
-      console.error(err);
-    }
+  const shareLink = `${process.env.REACT_APP_DOMAIN}/guest/${
+    bucketId ?? bucketIdFromData
+  }`;
+  const userData = useRecoilValue(userDataAtom);
+  // const shareLink = `${window.location.origin}/guest/${
+  //   bucketId ?? bucketIdFromData
+  // }`;
+  const shareKakao = () => {
+    window.Kakao.Share.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "벅윗",
+        description: `${userData?.name}님의 소망을 응원해주세요.`,
+        imageUrl:
+          "https://img.freepik.com/free-photo/closeup-shot-of-a-cute-ginger-kitten-staring-at-the-camera-isolated-on-a-white-wall_181624-45452.jpg?w=2000",
+        // imageUrl: process.env.REACT_APP_SHARE_IMG,
+        link: {
+          mobileWebUrl: "https://developers.kakao.com",
+          webUrl: "https://developers.kakao.com",
+        },
+      },
+      buttons: [
+        {
+          title: "웹으로 이동",
+          link: {
+            mobileWebUrl: "https://developers.kakao.com",
+            webUrl: "https://developers.kakao.com",
+          },
+        },
+        {
+          title: "앱으로 이동",
+          link: {
+            mobileWebUrl: "https://developers.kakao.com",
+            webUrl: "https://developers.kakao.com",
+          },
+        },
+      ],
+    });
   };
 
   const shareItems = [
     {
       imgURL: kakaoIcon,
       title: "카카오톡",
-      onClick: () => onClickShare(),
+      onClick: () => shareKakao(),
     },
     {
       imgURL: fbIcon,
       title: "페이스북",
-      onClick: () => window.open("https://www.facebook.com/"),
+      onClick: () =>
+        window.open(
+          `https://www.facebook.com/sharer/sharer.php?u=${shareLink}`,
+          "_blank",
+          "width=600,height=400"
+        ),
     },
     {
       imgURL: twitterIcon,
@@ -112,7 +154,7 @@ export default function Share({ modalClose, saveImg, setIsSnackBarShow }: any) {
       imgURL: linkIcon,
       title: "링크 복사",
       onClick: () =>
-        navigator.clipboard.writeText(window.location.href).then(() => {
+        navigator.clipboard.writeText(shareLink).then(() => {
           setIsSnackBarShow(true);
         }),
     },

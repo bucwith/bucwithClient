@@ -28,7 +28,7 @@ const img = css`
 const dark = css`
   background-color: #141415;
 `;
-console.log(window.location.pathname);
+
 export const ImagedWrapper = styled.div<WrapperProps>`
   position: fixed;
   right: 0;
@@ -54,7 +54,7 @@ export const FlexBox = styled.div<WrapperProps>`
   width: 100%;
   display: flex;
   flex-direction: ${(props) => props.direction || "column"};
-  justify-content: ${(props) => props.justify};
+  justify-content: ${(props) => props.justify || "center"};
   align-items: center;
   padding: ${(props) => props.padding};
   gap: ${(props) => props.gap};

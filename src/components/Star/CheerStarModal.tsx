@@ -3,7 +3,7 @@ import { ButtonColor } from "../../@types/enums";
 import Button from "../Button";
 import SubTitle from "../main/SubTitle";
 import TextArea from "../main/TextArea";
-import { FlexBox, ModalWrapper } from "../Wrapper";
+import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
 import { pinkIcons, yellowIcons, blueIcons } from "../../assets/icons";
 
 import { useMutation } from "react-query";
@@ -12,15 +12,19 @@ import warningIcon from "../../assets/icon_warning.png";
 import closeIcon from "../../assets/icon_close.png";
 import { useParams } from "react-router-dom";
 import {
+  ActiveStar,
+  ActiveStarBox,
   Arrow,
   ArrowBox,
   CloseIcon,
   Color,
-  IconImage,
   IconList,
   ModalBox,
+  Star,
   WarningMsg,
 } from "./style";
+import styled from "styled-components";
+import glow from "../../assets/list_glow.png";
 
 const Colors = [
   { color: "#FF6BDE", icons: pinkIcons, code: "P" },
@@ -31,21 +35,28 @@ const Colors = [
 interface CheerStarModalProps {
   setIsCheerStartShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+const starCount = pinkIcons.length;
+
 const CheerStarModal = ({ setIsCheerStartShow }: CheerStarModalProps) => {
   const { bucketId } = useParams();
   const [contents, setContents] = React.useState("");
   const [nickname, setNickname] = React.useState("");
-  const [iconIndex, setIconIndex] = React.useState<number>(0);
+  const [iconIndex, setIconIndex] = React.useState<number>(1);
   const [icons, setIcons] = React.useState(pinkIcons);
   const [iconColor, setIconColor] = React.useState("P");
 
   const clickNext = () => {
-    if (iconIndex < icons.length - 1) {
-      setIconIndex((prev) => prev + 1);
+    if (iconIndex === starCount - 1) {
+      setIconIndex(0);
     }
+    setIconIndex((prev) => prev + 1);
   };
 
   const clickPrev = () => {
+    if (iconIndex === 0) {
+      setIconIndex(starCount - 1);
+    }
     setIconIndex((prev) => prev - 1);
   };
 
@@ -63,85 +74,86 @@ const CheerStarModal = ({ setIsCheerStartShow }: CheerStarModalProps) => {
   );
 
   return (
-    <ModalWrapper>
-      <ModalBox gap="30px">
-        <SubTitle text="응원 별 달기" isCentered />
-        <FlexBox justify="center" direction="row">
-          <div
-            style={{
-              width: "248px",
-              height: "68px",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <IconList gap="60px" iconIndex={iconIndex}>
-              {icons.map((icon, index) => (
-                <IconImage
-                  src={icon}
-                  key={index}
-                  className={iconIndex === index ? "active" : ""}
-                />
-              ))}
+    <>
+      <ModalWrapper>
+        <ModalBox gap="30px">
+          <SubTitle text="응원 별 달기" isCentered />
+          <div style={{ position: "relative" }}>
+            <IconList>
+              <Star
+                src={
+                  iconIndex === 0 ? icons[starCount - 1] : icons[iconIndex - 1]
+                }
+              />
+              <ActiveStarBox>
+                <ActiveStar src={icons[iconIndex]} />
+                <img src={glow} style={{ position: "absolute" }} />
+              </ActiveStarBox>
+              <Star
+                src={
+                  iconIndex === starCount - 1 ? icons[0] : icons[iconIndex + 1]
+                }
+              />
             </IconList>
+            <ArrowBox>
+              <Arrow onClick={() => clickPrev()}>‹</Arrow>
+              <Arrow onClick={() => clickNext()}>›</Arrow>
+            </ArrowBox>
           </div>
-          <ArrowBox justify="center" gap="120px">
-            <Arrow onClick={() => clickPrev()} disabled={iconIndex === 0}>
-              ‹
-            </Arrow>
-            <Arrow
-              onClick={() => clickNext()}
-              disabled={iconIndex === icons.length - 1}
-            >
-              ›
-            </Arrow>
-          </ArrowBox>
-        </FlexBox>
-        <FlexBox gap="20px" justify="center" direction="row">
-          {Object.values(Colors).map((data, index) => (
-            <Color
-              key={index}
-              color={data.color}
-              onClick={() => {
-                setIcons(data.icons);
-                setIconColor(data.code);
-              }}
-            />
-          ))}
-        </FlexBox>
-        <FlexBox gap="10px" style={{ alignItems: "stretch" }}>
-          <TextArea
-            placeholder="응원 메세지를 작성해보세요."
-            textarea
-            onTextAreaChange={(e) => setContents(e.target.value)}
-          />
-          <TextArea
-            placeholder="닉네임을 입력해 주세요."
-            onInputChange={(e) => setNickname(e.target.value)}
-          />
-        </FlexBox>
-        <FlexBox gap="10px">
-          <FlexBox justify="center" gap="4px" direction="row">
-            <img src={warningIcon} alt="" />
-            <WarningMsg>
-              응원별은 등록 후 수정 또는 삭제가 불가능해요.
-            </WarningMsg>
+          <FlexBox gap="20px" justify="center" direction="row">
+            {Object.values(Colors).map((data, index) => (
+              <Color
+                key={index}
+                color={data.color}
+                onClick={() => {
+                  setIcons(data.icons);
+                  setIconColor(data.code);
+                }}
+              />
+            ))}
           </FlexBox>
-          <Button
-            disabled={false}
-            text="응원 별 달기"
-            color={ButtonColor.Primary}
-            onClick={() => cheerStar.mutate()}
+          <FlexBox gap="10px" style={{ alignItems: "stretch" }}>
+            <TextArea
+              placeholder="응원 메세지를 작성해보세요."
+              textarea
+              onTextAreaChange={(e) => setContents(e.target.value)}
+            />
+            <TextArea
+              placeholder="닉네임을 입력해 주세요."
+              onInputChange={(e) => setNickname(e.target.value)}
+            />
+          </FlexBox>
+          <FlexBox gap="10px">
+            <FlexBox justify="center" gap="4px" direction="row">
+              <img src={warningIcon} alt="" />
+              <WarningMsg>
+                응원별은 등록 후 수정 또는 삭제가 불가능해요.
+              </WarningMsg>
+            </FlexBox>
+            <Button
+              disabled={false}
+              text="응원 별 달기"
+              color={ButtonColor.Primary}
+              onClick={() => cheerStar.mutate()}
+            />
+          </FlexBox>
+          <CloseIcon
+            src={closeIcon}
+            alt="닫기 버튼"
+            onClick={() => setIsCheerStartShow(false)}
           />
-        </FlexBox>
-        <CloseIcon
-          src={closeIcon}
-          alt="닫기 버튼"
-          onClick={() => setIsCheerStartShow(false)}
-        />
-      </ModalBox>
-    </ModalWrapper>
+        </ModalBox>
+      </ModalWrapper>
+      <ModalBlackWrapper />
+    </>
   );
 };
 
 export default CheerStarModal;
+
+const Glow = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;

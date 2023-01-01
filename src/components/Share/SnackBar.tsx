@@ -37,7 +37,7 @@ const SnackBox = styled.div`
   font-weight: 400;
   font-size: 14px;
   color: #c4c8d3;
-  z-index: 9999;
+  z-index: 99999;
   white-space: nowrap;
   animation: 0.2s linear ${fade};
 `;

@@ -1,16 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FlexBox, HorizonCentered } from "../components/Wrapper";
+import { getBucketList } from "../api/my-api";
 import theme from "../styles/theme";
 import mainImage from "../assets/list_image.png";
 import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
-import { getBucketList } from "../api/my-api";
 import CongratModal from "../components/list/CongratModal";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { isDarkWrapper } from "../store/atoms";
-import fanfareImg from "../assets/fanfare.png";
+import BucketDetailEdit from "../components/Detail/BucketDetailEdit";
+import BucketRemoveModal from "../components/Detail/BucketRemoveModal";
+
 export interface BucketListType {
   bucketId?: number;
   contents: string;
@@ -23,16 +25,11 @@ export interface BucketListType {
 const List = () => {
   // const { data: token } = useQuery(["token"], () => getToken());
   const [congratModal, setCongratModal] = React.useState(false);
-  const [fanfareImgSrc, setFanfareImgSrc] = useState("");
   const setIsDark = useSetRecoilState(isDarkWrapper);
+  const [selectedBucketData, setSelectedBuckeData] = useState<BucketListType>();
 
-  useEffect(() => {
-    if (congratModal) {
-      console.log("팡!");
-      return setFanfareImgSrc(fanfareImg);
-    }
-    setFanfareImgSrc("");
-  }, [congratModal]);
+  const [isEditBucketShow, setIsEditBucketShow] = React.useState(false);
+  const [isRemoveBucketShow, setIsRemoveBucketShow] = React.useState(false);
 
   useEffect(() => {
     setIsDark(true);
@@ -40,6 +37,7 @@ const List = () => {
 
   const { data } = useQuery(["getData"], () => getBucketList());
   const navigate = useNavigate();
+
   return (
     <>
       <HorizonCentered direction="column">
@@ -57,12 +55,28 @@ const List = () => {
                 key={index}
                 data={bucket}
                 setCongratModal={setCongratModal}
+                setIsEditBucketShow={setIsEditBucketShow}
+                setSelectedBuckeData={setSelectedBuckeData}
               />
             ))}
           </FlexBox>
         </ScrollWrapper>
       </HorizonCentered>
       {congratModal && <CongratModal setCongratModal={setCongratModal} />}
+      {isEditBucketShow && (
+        <BucketDetailEdit
+          bucketId={selectedBucketData?.bucketId}
+          contents={selectedBucketData?.contents}
+          setIsEditBucketShow={setIsEditBucketShow}
+          setIsRemoveBucketShow={setIsRemoveBucketShow}
+        />
+      )}
+      {isRemoveBucketShow && (
+        <BucketRemoveModal
+          setIsRemoveBucketShow={setIsRemoveBucketShow}
+          bucketId={selectedBucketData?.bucketId}
+        />
+      )}
     </>
   );
 };

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import MainLightImg from "../assets/main_light.png";
+import MainLightImg from "../assets/lantern.png";
 import theme from "../styles/theme";
-import { FlexBox, ImagedWrapper } from "../components/Wrapper";
+import { FlexBox } from "../components/Wrapper";
 import Button from "../components/Button";
 import { ButtonColor } from "../@types/enums";
 import { useNavigate, useParams } from "react-router-dom";
@@ -46,12 +46,7 @@ const Guest = () => {
           <PrimaryText>{bucket?.bucket.contents}</PrimaryText>
         </FlexBox>
         <LanternContainer>
-          <img
-            style={{
-              height: "280px",
-            }}
-            src={MainLightImg}
-          />
+          <img width="325px" src={MainLightImg} />
 
           {stars &&
             stars.map((star: StarDataType, index: number) => {
@@ -72,13 +67,13 @@ const Guest = () => {
         <FlexBox gap="10px" direction="row">
           <Button
             disabled={false}
-            text={`나도 풍등 날리기`}
+            text="나도 풍등 날리기"
             color={ButtonColor.Black}
             onClick={handleMeListClick}
           />
           <Button
             disabled={false}
-            text={`응원별 달기`}
+            text="응원별 달기"
             color={ButtonColor.Primary}
             onClick={() => setIsCheerStartShow(true)}
           />

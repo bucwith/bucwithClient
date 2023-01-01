@@ -1,6 +1,5 @@
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeBucket } from "../../api/my-api";
 import { PrimaryBlackButton, PrimaryButton } from "../Button";
@@ -16,7 +15,7 @@ const BucketRemoveModal = ({
   setIsRemoveBucketShow,
 }: BucketRemoveModalProps) => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+
   const { mutate } = useMutation(
     ["removeBucket"],
     () => removeBucket(bucketId),
@@ -25,7 +24,7 @@ const BucketRemoveModal = ({
 
   const handleRemoveButton = () => {
     mutate();
-    navigate("/me/list");
+    setIsRemoveBucketShow(false);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Login from "./pages/Login";
@@ -15,13 +15,14 @@ import { getUserData } from "./api/my-api";
 import { toPng } from "html-to-image";
 
 function App() {
-  const url = window.location;
+  const location = window.location;
+  const url = new URL(location.href);
   const URLSearch = new URLSearchParams(location.search);
 
   let refreshToken = URLSearch.get("refreshToken");
   let accessToken = URLSearch.get("accessToken");
   const hasTokenUrl =
-    url.pathname === "/me/list" || url.pathname === "/nickname";
+    location.pathname === "/me/list" || location.pathname === "/nickname";
 
   if (hasTokenUrl && accessToken && refreshToken) {
     localStorage.setItem("accessToken", accessToken);
@@ -29,7 +30,12 @@ function App() {
 
     accessToken = URLSearch.get("accessToken");
     refreshToken = URLSearch.get("refreshToken");
+
+    url.searchParams.delete("accessToken");
+    url.searchParams.delete("refreshToken");
+    window.history.replaceState({}, "", url);
   }
+
   const isDark = useRecoilValue(isDarkWrapper);
 
   // user정보 가져오기
@@ -56,6 +62,17 @@ function App() {
       link.click();
     });
   };
+
+  window.FB.init({
+    appId: process.env.REACT_APP_FACEBOOK_JS_KEY,
+    autoLogAppEvents: true,
+    xfbml: true,
+    version: "v15.0",
+  });
+
+  if (!window.Kakao.isInitialized()) {
+    window.Kakao.init(process.env.REACT_APP_KAKAO_JS_KEY);
+  }
 
   return (
     <div

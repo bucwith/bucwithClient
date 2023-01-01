@@ -27,12 +27,12 @@ const Input = styled.input`
   ${inputCss};
 `;
 
-const InputArea = styled.textarea`
+export const InputArea = styled.textarea`
   ${inputCss};
   height: 164px;
   &:focus {
-      outline: none;
-    }
+    outline: none;
+  }
 `;
 
 export interface TextAreaProps {

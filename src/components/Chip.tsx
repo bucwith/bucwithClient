@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface Chiptypes {
   text: string;
@@ -24,20 +24,22 @@ const ListItem = styled.li`
   padding: 0px;
 `;
 
-const ChipButton = styled.button`
+const chipStype = css`
   padding: 10px 16px;
   border-radius: 30px;
   color: white;
-  background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid white;
   font-size: 1.4rem;
+  font-weight: 700;
+`;
+
+const ChipButton = styled.button`
+  ${chipStype}
+  background-color: rgba(255, 255, 255, 0.1);
 `;
 
 const ChipFocusButton = styled.button`
-  padding: 10px 16px;
-  border-radius: 30px;
-  background-color: white;
-  border: 1px solid white;
+  ${chipStype}
   color: black;
   font-size: 1.4rem;
 `;

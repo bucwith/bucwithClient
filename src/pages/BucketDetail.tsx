@@ -8,7 +8,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Share from "../components/Share/Share";
 import { useQuery } from "react-query";
 import { getBucketData, getCheerStar } from "../api/my-api";
-import { toPng } from "html-to-image";
 import arrow from "../assets/icon_arrow-right.png";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isDarkWrapper, userDataAtom } from "../store/atoms";
@@ -18,10 +17,11 @@ import lanternRising from "../assets/lanternRising.png";
 import { AnimationBox, AnimationContexts } from "../lib/animation";
 import CheerStarDetailModal from "../components/Star/CheerStarDetailModal";
 import CheerStarRemove from "../components/Star/CheerStarRemove";
-import BucketDetailEdit from "../components/Detail/BucketDetailEdit";
-import BucketRemoveModal from "../components/Detail/BucketRemoveModal";
 import lanternsStopped from "../assets/lantern.png";
 import SnackBar from "../components/Share/SnackBar";
+import { BucketListType } from "./List";
+import BackArrow from "../components/BackArrow";
+
 type StarDataType = {
   bucketId: number;
   contents: string;
@@ -30,6 +30,7 @@ type StarDataType = {
   registDate: Date;
   starId: number;
 };
+
 interface BucketDetailProps {
   exportElementAsPNG: () => any;
 }
@@ -38,27 +39,35 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   const location = useLocation();
   const path = location.pathname;
   const { bucketId } = useParams();
+
+  const [data, setData] = useState<BucketListType>();
   const [isShare, setIsShare] = useState(false);
   const [isSnackBarShow, setIsSnackBarShow] = React.useState(false);
   const [isCheerStarDetailShow, setIsCheerStartDetailShow] =
     React.useState(false);
   const [isRemoveModalShow, setIsRemoveModalShow] = React.useState(false);
   const [starData, setStarData] = React.useState<StarDataType | undefined>();
-  const [isEditBucketShow, setIsEditBucketShow] = React.useState(false);
-  const [isRemoveBucketShow, setIsRemoveBucketShow] = React.useState(false);
   const userData = useRecoilValue(userDataAtom);
-  const contents = location.state.contents;
+
   const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
     setIsShare(false);
   };
 
-  const { data: bucket } = useQuery(["getBucketData", isEditBucketShow], () =>
+  const locationData = location.state?.data;
+
+  const { data: bucket, isFetching } = useQuery(["getBucketData"], () =>
     bucketId ? getBucketData(Number(bucketId)) : null
   );
-  const { data: stars } = useQuery(["getCheerStar", isRemoveModalShow], () =>
-    bucketId ? getCheerStar(Number(bucketId)) : null
+
+  const { data: stars, isFetching: isStarFetching } = useQuery(
+    ["getCheerStar", isRemoveModalShow],
+    () => (bucketId ? getCheerStar(Number(bucketId)) : null)
   );
+
+  useEffect(() => {
+    setData(locationData ?? bucket?.bucket);
+  }, [locationData, bucket]);
 
   const setIsDark = useSetRecoilState(isDarkWrapper);
   useEffect(() => {
@@ -93,32 +102,25 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
 
   return (
     <>
-      {bucketId && (
-        <Arrow
-          src={arrow}
-          onClick={() => {
-            navigate(-1);
-          }}
-        />
-      )}
+      {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
+      {bucketId && <BackArrow />}
       {isShare ? (
         <Share
           modalClose={modalClose}
           saveImg={saveImg}
           setIsShare={setIsShare}
           setIsSnackBarShow={setIsSnackBarShow}
+          bucketIdFromData={data?.bucketId}
         />
       ) : null}
       <MainWrap animation={path.includes("completion")} justify="space-between">
-        {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
-
         <AnimationContexts animation={isAnimationNeed}>
-          <FlexBox>
-            <SecondaryText>{`'${userData?.name}'님의 버킷리스트는`}</SecondaryText>
-            <PrimaryText>{`"${
-              bucket?.bucket?.contents ?? contents
-            }"`}</PrimaryText>
-          </FlexBox>
+          {!isFetching && (
+            <FlexBox key={data?.bucketId}>
+              <SecondaryText>{`'${userData?.name}'님의 버킷리스트는`}</SecondaryText>
+              <PrimaryText>{`"${data?.contents}"`}</PrimaryText>
+            </FlexBox>
+          )}
         </AnimationContexts>
 
         <AnimationBox animation={isAnimationNeed}>
@@ -133,14 +135,15 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
             ) : (
               <img src={lanternsStopped} />
             )}
-            {stars &&
+            {!isStarFetching &&
+              stars &&
               stars.map((star: StarDataType, index: number) => {
                 return (
                   <img
                     key={index}
                     src={getIconSrc(star.iconCode)}
                     style={{
-                      width: "60px",
+                      width: "55px",
                       position: "absolute",
                       top: `${CHEER_STAR_LOCATION[index].top}px`,
                       left: `${CHEER_STAR_LOCATION[index].left}px`,
@@ -158,14 +161,14 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
             direction="row"
             style={{ flexGrow: 1, zIndex: 1000 }}
           >
-            <Button
-              disabled={false}
-              text={bucketId ? "버킷 수정하기" : "내 리스트 보기"}
-              color={ButtonColor.Black}
-              onClick={
-                bucketId ? () => setIsEditBucketShow(true) : handleMeListClick
-              }
-            />
+            {bucketId ? null : (
+              <Button
+                disabled={false}
+                text="내 리스트 보기"
+                color={ButtonColor.Black}
+                onClick={handleMeListClick}
+              />
+            )}
             <Button
               disabled={false}
               text={`내 버킷 공유하기`}
@@ -185,22 +188,10 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
       {starData && isRemoveModalShow && (
         <CheerStarRemove
           setIsRemoveModalShow={setIsRemoveModalShow}
-          starId={starData.starId}
+          starId={starData?.starId}
         />
       )}
-      {isEditBucketShow && (
-        <BucketDetailEdit
-          contents={contents ?? bucket?.bucket.contents}
-          setIsEditBucketShow={setIsEditBucketShow}
-          setIsRemoveBucketShow={setIsRemoveBucketShow}
-        />
-      )}
-      {isRemoveBucketShow && (
-        <BucketRemoveModal
-          setIsRemoveBucketShow={setIsRemoveBucketShow}
-          bucketId={Number(bucketId)}
-        />
-      )}
+
       <AnimationBlackWrapper
         animation={isAnimationNeed}
         style={{ zIndex: 0 }}

@@ -1,7 +1,7 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { Wrap } from "../main/InputBox";
 import { FlexBox } from "../Wrapper";
-
+import glow from "../../assets/list_glow.png";
 interface Colorprops {
   color: string;
 }
@@ -30,53 +30,35 @@ export const Arrow = styled.button`
 
 export const ArrowBox = styled(FlexBox)`
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   flex-direction: row;
-  top: 100px;
+  gap: 120px;
 `;
 
-export const IconList = styled(FlexBox)<{ iconIndex: number }>`
-  position: absolute;
+export const IconList = styled(FlexBox)`
   flex-direction: row;
-  top: 0;
-  transform: translate(50%, 0);
-  left: ${(props) => -(props.iconIndex * 90 + 34)}px;
+  justify-content: space-around;
+  align-items: center;
 `;
 
-export const dungdung = keyframes`
- 0%{
-  margin-bottom: 0;
- }
- 50% {
-  margin-bottom: 4px;
- }
-  100%{
-  margin-bottom: 0;
- }
+export const ActiveStarBox = styled(FlexBox)`
+  width: 90px;
+  height: 90px;
 `;
 
-export const IconImage = styled.img`
+export const ActiveStar = styled.img`
+  width: 68px;
+  opacity: 1;
+  z-index: 9999;
+`;
+
+export const Star = styled.img`
   width: 30px;
   opacity: 0.33;
-  position: relative;
-  &.active {
-    /* animation: ${dungdung} 1s linear infinite; */
-    width: 68px;
-    opacity: 1;
-  }
+  overflow: visible;
 `;
-// ::after {
-//   content: "";
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 90px;
-//   height: 90px;
-//   background-color: white;
-//   /* background: rgba(205, 203, 255, 0.6); */
-//   opacity: 0.5;
-//   /* filter: blur(15px); */
-//   z-index: 3000;
-// }
 
 export const WarningMsg = styled.span`
   font-weight: 400;

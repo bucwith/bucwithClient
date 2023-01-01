@@ -8,10 +8,13 @@ import { BucketListType } from "../../pages/List";
 import theme from "../../styles/theme";
 import { FlexBox } from "../Wrapper";
 import arrowIcon from "../../assets/icon_arrow-right.png";
+import editIcon from "../../assets/icon-pencil.png";
 import { useNavigate } from "react-router-dom";
 interface BucketItemProps {
   data: BucketListType;
   setCongratModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsEditBucketShow: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedBuckeData: React.Dispatch<React.SetStateAction<BucketListType>>;
 }
 
 type ChipDataType = {
@@ -19,7 +22,12 @@ type ChipDataType = {
   color: string;
 };
 
-const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
+const BucketItem = ({
+  data,
+  setCongratModal,
+  setIsEditBucketShow,
+  setSelectedBuckeData,
+}: BucketItemProps) => {
   const navigate = useNavigate();
 
   const renderChip = () => {
@@ -28,7 +36,7 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
     }
 
     const checkboxMutation = useMutation(() =>
-      checkBucket(data.bucketId ?? -1)
+      checkBucket(data?.bucketId ?? -1)
     );
 
     const handleCheckClick = () => {
@@ -40,7 +48,7 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
       setIsChecked((prev) => !prev);
     };
 
-    const [isChecked, setIsChecked] = React.useState(data.isFinished);
+    const [isChecked, setIsChecked] = React.useState(data?.isFinished);
 
     const getData = () => {
       switch (data.type) {
@@ -58,7 +66,12 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
     const chipData: ChipDataType = getData();
 
     return (
-      <FlexBox gap="8px" style={{ margin: "10px 0 20px" }} direction="row">
+      <FlexBox
+        gap="8px"
+        style={{ margin: "10px 0 20px" }}
+        direction="row"
+        justify="start"
+      >
         <ChipCheckBox
           color={chipData.color}
           isFinished={isChecked}
@@ -70,21 +83,25 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
       </FlexBox>
     );
   };
+  const handleEditClick = () => {
+    setSelectedBuckeData(data && data);
+    setIsEditBucketShow(true);
+  };
 
   return (
     <ItemBox>
+      <EditButton onClick={() => handleEditClick()}>
+        <img width="14px" src={editIcon} />
+        <p>수정하기</p>
+      </EditButton>
       <FlexBox style={{ alignItems: "flex-start" }}>
         <img src={lightIcon} />
         {renderChip()}
-        <ItemTitle>{data.contents}</ItemTitle>
+        <ItemTitle>{data?.contents}</ItemTitle>
       </FlexBox>
       <img
         src={arrowIcon}
-        onClick={() =>
-          navigate(`/me/bucket/${data.bucketId}`, {
-            state: { contents: data.contents },
-          })
-        }
+        onClick={() => navigate(`/me/bucket/${data?.bucketId}`)}
       />
     </ItemBox>
   );
@@ -92,12 +109,27 @@ const BucketItem = ({ data, setCongratModal }: BucketItemProps) => {
 
 export default BucketItem;
 
+const EditButton = styled(FlexBox)`
+  position: absolute;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 20px;
+  top: 0;
+  right: 0;
+  gap: 4px;
+  > * {
+    color: white;
+    font-size: 12px;
+  }
+`;
+
 const ItemBox = styled(FlexBox)`
   width: 100%;
   padding: 30px 20px;
   background-color: #24252c;
   border-radius: 30px;
   flex-direction: row;
+  position: relative;
 `;
 
 const ItemTitle = styled.h2`

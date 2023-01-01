@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { BASE_URL } from "../constant";
 
-const axios = Axios.create({ baseURL: BASE_URL });
+const axios = Axios.create({ baseURL: process.env.REACT_APP_API_BASE_URL });
 
 axios.interceptors.request.use((config) => {
   const isDeleteStar =
@@ -49,7 +49,6 @@ axios.interceptors.response.use(
             refreshToken: preRefreshToken,
           })
           .then((res) => {
-            console.log(res.data);
             const { accessToken, refreshToken } = res.data;
             // 새로 받은 token들의 정보 저장
             localStorage.setItem("accessToken", accessToken);

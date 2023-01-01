@@ -57,7 +57,7 @@ export default function InputBox({
       />
       <Button
         onClick={onClickButton}
-        disabled={false}
+        disabled={!value}
         text={buttonText}
         color={ButtonColor.Primary}
       />

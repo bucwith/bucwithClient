@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { FlexBox, ModalWrapper } from "../Wrapper";
+import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
 import fanfare from "../../assets/fanfare.png";
 import Button from "../Button";
 import { ButtonColor } from "../../@types/enums";
@@ -8,22 +8,41 @@ interface CongratModalProps {
   setCongratModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const CongratModal = ({ setCongratModal }: CongratModalProps) => {
+  const imgRef = useRef<HTMLImageElement>();
+
+  useEffect(() => {
+    imgRef.current.src = fanfare;
+    return () => {
+      imgRef.current.src = "";
+    };
+  }, []);
+
   return (
-    <ModalWrapper>
-      <Container>
-        <Star src={fanfare} alt="축하 별 이미지" />
-        <FlexBox gap="8px">
-          <Title>버킷 완료를 축하해요!</Title>
-          <Description>다른 버킷리스트 달성도 응원할게요.</Description>
-        </FlexBox>
-        <Button
-          onClick={() => setCongratModal(false)}
-          text="확인"
-          color={ButtonColor.Primary}
-        />
-      </Container>
-      <ModalWrapper style={{ opacity: 0.1, zIndex: 100 }} />
-    </ModalWrapper>
+    <>
+      <ModalWrapper>
+        <Container>
+          <Star
+            ref={(ref) => {
+              if (ref) {
+                imgRef.current = ref;
+              }
+            }}
+            src={fanfare}
+            alt="축하 별 이미지"
+          />
+          <FlexBox gap="8px">
+            <Title>버킷 완료를 축하해요!</Title>
+            <Description>다른 버킷리스트 달성도 응원할게요.</Description>
+          </FlexBox>
+          <Button
+            onClick={() => setCongratModal(false)}
+            text="확인"
+            color={ButtonColor.Primary}
+          />
+        </Container>
+      </ModalWrapper>
+      <ModalBlackWrapper />
+    </>
   );
 };
 

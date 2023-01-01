@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { bucketType } from "../../@types/enums";
@@ -7,7 +7,7 @@ import { editBucket } from "../../api/my-api";
 import { PrimaryBlackButton, PrimaryButton } from "../Button";
 import Chip from "../Chip";
 import SubTitle from "../main/SubTitle";
-import TextArea from "../main/TextArea";
+import TextArea, { InputArea } from "../main/TextArea";
 import {
   FlexBox,
   ModalBlackWrapper,
@@ -19,27 +19,32 @@ interface BucketDetailEditProps {
   contents: string;
   setIsEditBucketShow: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRemoveBucketShow: React.Dispatch<React.SetStateAction<boolean>>;
+  bucketId: number;
 }
 
 const BucketDetailEdit = ({
   contents,
   setIsEditBucketShow,
   setIsRemoveBucketShow,
+  bucketId,
 }: BucketDetailEditProps) => {
   const [inputValue, setInputValue] = React.useState(contents);
   const [type, setType] = React.useState<keyof typeof bucketType>(
     bucketType.BT001
   );
-  const { bucketId } = useParams();
+
   const { mutate } = useMutation(
     () =>
       editBucket({
-        bucketId: Number(bucketId),
+        bucketId,
         contents: inputValue,
         type: type,
       }),
     {
-      onSuccess: () => setIsEditBucketShow(false),
+      onSuccess: (data) => {
+        setIsEditBucketShow(false);
+        setInputValue(data.bucket.contents);
+      },
     }
   );
 
@@ -78,16 +83,18 @@ const BucketDetailEdit = ({
               onClick={() => setType(bucketType.BT003)}
             />
           </ChipWrap>
-          <TextArea
-            textarea={true}
-            onTextAreaChange={(e) => setInputValue(e.target.value)}
+          <InputArea
+            onChange={(e) => setInputValue(e.target.value)}
             value={inputValue}
           />
           <FlexBox direction="row" gap="10px">
             <PrimaryBlackButton onClick={() => handleRemoveModalButton()}>
               삭제
             </PrimaryBlackButton>
-            <PrimaryButton onClick={() => handleEditSubmitButton()}>
+            <PrimaryButton
+              onClick={() => handleEditSubmitButton()}
+              disabled={!inputValue}
+            >
               수정하기
             </PrimaryButton>
           </FlexBox>
