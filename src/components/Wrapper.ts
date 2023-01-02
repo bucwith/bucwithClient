@@ -16,8 +16,8 @@ export const VerticalCentered = styled.div<WrapperProps>`
   flex-direction: column;
   gap: ${(props) => props.gap};
   padding: ${(props) => props.padding};
+  z-index: 9999;
 `;
-// 후에 정규식으로 변경
 
 const img = css`
   background-image: url(${spaceBgImg});
@@ -40,6 +40,15 @@ export const ImagedWrapper = styled.div<WrapperProps>`
   }
   ${(props) => (props.isDark ? dark : img)};
   z-index: -1;
+  ::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 `;
 
 export const HorizonCentered = styled.div<WrapperProps>`
@@ -77,5 +86,5 @@ export const ModalWrapper = styled.div`
 export const ModalBlackWrapper = styled(ModalWrapper)`
   opacity: 0.4;
   background-color: black;
-  z-index: 10;
+  z-index: 9990;
 `;

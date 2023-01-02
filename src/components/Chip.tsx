@@ -35,11 +35,12 @@ const chipStype = css`
 
 const ChipButton = styled.button`
   ${chipStype}
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: inherit;
 `;
 
 const ChipFocusButton = styled.button`
   ${chipStype}
+  background-color: white;
   color: black;
   font-size: 1.4rem;
 `;

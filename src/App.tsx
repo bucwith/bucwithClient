@@ -30,7 +30,6 @@ function App() {
 
     accessToken = URLSearch.get("accessToken");
     refreshToken = URLSearch.get("refreshToken");
-
     url.searchParams.delete("accessToken");
     url.searchParams.delete("refreshToken");
     window.history.replaceState({}, "", url);
@@ -41,12 +40,13 @@ function App() {
   // user정보 가져오기
   const [userData, setUserData] = useRecoilState(userDataAtom);
   const { data: userRawData } = useQuery(["getUserData"], () =>
-    userData.userId === -1 ? getUserData() : null
+    userData?.userId === -1 || !userData ? getUserData() : null
   );
 
   if (userRawData) {
     setUserData(userRawData);
   }
+
   // 앨범에 저장하는 코드
   const captureRef = React.useRef<HTMLDivElement>();
 
@@ -83,7 +83,8 @@ function App() {
         }
       }}
     >
-      <ImagedWrapper isDark={isDark}>
+      <ImagedWrapper isDark={isDark} />
+      <div style={{ width: "100vw", height: "100vh", padding: "20px" }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
@@ -102,7 +103,7 @@ function App() {
             <Route path="/guest/:bucketId" element={<Guest />} />
           </Routes>
         </BrowserRouter>
-      </ImagedWrapper>
+      </div>
     </div>
   );
 }

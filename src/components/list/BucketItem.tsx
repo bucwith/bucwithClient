@@ -83,21 +83,33 @@ const BucketItem = ({
       </FlexBox>
     );
   };
+
   const handleEditClick = () => {
     setSelectedBuckeData(data && data);
     setIsEditBucketShow(true);
   };
+  const cutContents = (contents: string) => {
+    const text = contents.split("\n");
+    if (text.length > 2) {
+      const showText = text.slice(0, 2);
+      showText[1] += " ...";
+      return showText.join("\n");
+    }
+    return contents;
+  };
 
   return (
     <ItemBox>
-      <EditButton onClick={() => handleEditClick()}>
-        <img width="14px" src={editIcon} />
-        <p>수정하기</p>
-      </EditButton>
+      <EditButtonBox>
+        <EditButton as={"button"} onClick={() => handleEditClick()}>
+          <img width="14px" src={editIcon} />
+          <p>수정하기</p>
+        </EditButton>
+      </EditButtonBox>
       <FlexBox style={{ alignItems: "flex-start" }}>
         <img src={lightIcon} />
         {renderChip()}
-        <ItemTitle>{data?.contents}</ItemTitle>
+        <ItemTitle>{cutContents(data?.contents)}</ItemTitle>
       </FlexBox>
       <img
         src={arrowIcon}
@@ -109,22 +121,27 @@ const BucketItem = ({
 
 export default BucketItem;
 
-const EditButton = styled(FlexBox)`
-  position: absolute;
-  flex-direction: row;
-  justify-content: flex-end;
+const EditButtonBox = styled.span`
   padding: 20px;
   top: 0;
   right: 0;
+  position: absolute;
+`;
+
+const EditButton = styled(FlexBox)`
+  flex-direction: row;
+  justify-content: flex-end;
   gap: 4px;
   > * {
     color: white;
     font-size: 12px;
   }
+  &:disabled {
+    opacity: 0.4;
+  }
 `;
 
 const ItemBox = styled(FlexBox)`
-  width: 100%;
   padding: 30px 20px;
   background-color: #24252c;
   border-radius: 30px;
@@ -133,9 +150,12 @@ const ItemBox = styled(FlexBox)`
 `;
 
 const ItemTitle = styled.h2`
+  white-space: pre-wrap;
+  line-height: 22px;
   font-weight: 400;
-  font-size: 1.6rem;
+  font-size: 16px;
   color: ${theme.colors.whiteColor};
+  text-align: left;
 `;
 
 const Chip = styled.span<{ color: string }>`

@@ -20,8 +20,7 @@ export default function InputBox({
   buttonText,
   onClickButton,
   textarea,
-  onInputChange,
-  onTextAreaChange,
+  onChange,
   buttonDisabled,
 }: InputBoxProps) {
   return (
@@ -30,8 +29,7 @@ export default function InputBox({
       <TextArea
         placeholder={placeholder}
         textarea={textarea}
-        onInputChange={onInputChange}
-        onTextAreaChange={onTextAreaChange}
+        onChange={onChange}
       />
       <Button
         onClick={onClickButton}

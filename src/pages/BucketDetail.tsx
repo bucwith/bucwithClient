@@ -101,35 +101,6 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
     }
   }, [isSnackBarShow]);
 
-  const renderButton = () => {
-    setTimeout(() => {
-      return (
-        <AnimationContexts animation={isAnimationNeed}>
-          <FlexBox
-            gap="10px"
-            direction="row"
-            style={{ flexGrow: 1, zIndex: 1000 }}
-          >
-            {bucketId ? null : (
-              <Button
-                disabled={false}
-                text="내 리스트 보기"
-                color={ButtonColor.Black}
-                onClick={handleMeListClick}
-              />
-            )}
-            <Button
-              disabled={false}
-              text="내 버킷 공유하기"
-              color={ButtonColor.Primary}
-              onClick={() => setIsShare(true)}
-            />
-          </FlexBox>
-        </AnimationContexts>
-      );
-    }, 3000);
-  };
-
   return (
     <>
       {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
@@ -146,12 +117,21 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
       <MainWrap animation={path.includes("completion")} justify="space-between">
         <>
           <AnimationContexts animation={isAnimationNeed}>
-            <FlexBox>
-              <SecondaryText>{`'${userData?.name}'님의 버킷리스트는`}</SecondaryText>
-              <PrimaryText>{`"${data?.contents}"`}</PrimaryText>
-            </FlexBox>
+            {!isFetching && (
+              <FlexBox gap="8px">
+                <SecondaryText>
+                  {`'${userData?.name}'님의 버킷리스트는`}
+                </SecondaryText>
+                <FlexBox direction="row">
+                  {/* <span>&quot;</span> */}
+                  <PrimaryText style={{ position: "relative" }}>
+                    {data?.contents}
+                  </PrimaryText>
+                  {/* <span>&quot;</span> */}
+                </FlexBox>
+              </FlexBox>
+            )}
           </AnimationContexts>
-
           <AnimationBox animation={isAnimationNeed}>
             <div style={{ position: "relative" }}>
               {isAnimationNeed ? (
@@ -228,21 +208,17 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
 
 export default BucketDetail;
 
-const PrimaryText = styled.h1`
-  font-weight: 700;
-  font-size: 26px;
+const PrimaryText = styled.p`
   white-space: pre-wrap;
-  color: ${theme.colors.whiteColor};
+  font-weight: 700;
+  font-size: 24px;
   line-height: 30px;
-  text-align: center;
+  color: ${theme.colors.whiteColor};
 `;
 
 const SecondaryText = styled.h2`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
-  white-space: pre-wrap;
-  margin-bottom: 8px;
-  text-align: center;
   color: ${theme.colors.whiteColor};
 `;
 
@@ -263,4 +239,15 @@ const AnimationBlackWrapper = styled(ModalBlackWrapper)<{ animation: boolean }>`
   opacity: 0;
   z-index: -1;
   ${(props) => (props.animation ? animationBlack : null)};
+`;
+
+const Quote = styled(FlexBox)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  left: 50%;
+  transform: translateX(-60%);
+  width: 120%;
+  flex-direction: row;
+  justify-content: space-between;
 `;

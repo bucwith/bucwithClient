@@ -1,14 +1,15 @@
-import React, { ChangeEventHandler } from "react";
+import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import iconPencil from "../../assets/icon-pencil.png";
+import { TEXTAREA_HEIGHT } from "../../constant";
 
-const inputCss = `
+export const inputCss = `
   width: 100%;
   background: rgba(240, 243, 245, 0.2);
   border-radius: 16px;
   border: none;
   padding: 20px;
-  color: rgba(255, 255, 255, 0.8);
+  color: white;
   font-weight: 500;
   font-size: 16px;
   &::placeholder {
@@ -16,10 +17,7 @@ const inputCss = `
     line-height: top;
     background-repeat: no-repeat;
     background-image: url(${iconPencil});
-    color: rgba(255, 255, 255, 0.8);
-    font-family: "Roboto";
-    font-style: normal;
-    line-height: 19px;
+    opacity: 0.5;
   }
 `;
 
@@ -28,8 +26,8 @@ const Input = styled.input`
 `;
 
 export const InputArea = styled.textarea`
+  height: ${TEXTAREA_HEIGHT}px;
   ${inputCss};
-  height: 164px;
   &:focus {
     outline: none;
   }
@@ -38,31 +36,49 @@ export const InputArea = styled.textarea`
 export interface TextAreaProps {
   placeholder?: string;
   textarea?: boolean;
-  onInputChange?: ChangeEventHandler<HTMLInputElement>;
-  onTextAreaChange?: ChangeEventHandler<HTMLTextAreaElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   value?: string;
   disabled?: boolean;
+  inputValue?: string;
+  setInputValue?: React.Dispatch<React.SetStateAction<string>>;
 }
 export default function TextArea({
   placeholder,
   textarea,
-  onInputChange,
-  onTextAreaChange,
+  onChange,
   value,
+  setInputValue,
+  inputValue,
 }: TextAreaProps) {
+  const inputRef = useRef<HTMLTextAreaElement>();
+
+  useEffect(() => {
+    const textAreaScrollHeight = inputRef.current?.scrollHeight;
+    if (textAreaScrollHeight > TEXTAREA_HEIGHT) {
+      setInputValue((prev) => prev.slice(0, -1));
+    }
+  }, [inputValue]);
+
   return (
     <div>
       {textarea ? (
         <InputArea
+          ref={(ref) => {
+            if (ref) {
+              inputRef.current = ref;
+            }
+          }}
           placeholder={placeholder}
-          onChange={onTextAreaChange}
-          value={value}
+          onChange={onChange}
+          value={inputValue}
+          maxLength={200}
         />
       ) : (
         <Input
           placeholder={placeholder}
           minLength={2}
-          onChange={onInputChange}
+          maxLength={8}
+          onChange={onChange}
           value={value}
         />
       )}

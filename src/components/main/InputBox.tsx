@@ -9,6 +9,7 @@ import { bucketType, ButtonColor } from "../../@types/enums";
 interface InputBoxProps extends TextAreaProps {
   title?: string;
   buttonText: string;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   onClickButton?: () => void;
   textarea?: boolean;
   value?: string;
@@ -22,11 +23,12 @@ export default function InputBox({
   buttonText,
   onClickButton,
   textarea,
-  onInputChange,
-  onTextAreaChange,
+  onChange,
   value,
   type,
   setType,
+  inputValue,
+  setInputValue,
 }: InputBoxProps) {
   return (
     <Wrap gap="20px">
@@ -51,13 +53,14 @@ export default function InputBox({
       <TextArea
         placeholder={placeholder}
         textarea={textarea}
-        onInputChange={onInputChange}
-        onTextAreaChange={onTextAreaChange}
+        onChange={onChange}
         value={value}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
       />
       <Button
         onClick={onClickButton}
-        disabled={!value}
+        disabled={!inputValue}
         text={buttonText}
         color={ButtonColor.Primary}
       />

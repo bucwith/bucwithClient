@@ -1,27 +1,19 @@
+import axios from "axios";
 import Axios from "axios";
-import { BASE_URL } from "../constant";
+const axiosWithToken = Axios.create({
+  baseURL: process.env.REACT_APP_API_BASE_URL,
+});
 
-const axios = Axios.create({ baseURL: process.env.REACT_APP_API_BASE_URL });
-
-axios.interceptors.request.use((config) => {
-  const isDeleteStar =
-    config?.url?.startsWith("/star") && config.method == "delete";
-
-  if (
-    isDeleteStar ||
-    !config?.url?.startsWith("/star") ||
-    !config?.url?.startsWith("/bucket/id")
-  ) {
-    const accessToken = localStorage.getItem("accessToken");
-    config.headers = {
-      Authorization: accessToken,
-    };
-  }
+axiosWithToken.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem("accessToken");
+  config.headers = {
+    Authorization: accessToken,
+  };
 
   return config;
 });
 
-axios.interceptors.response.use(
+axiosWithToken.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -44,17 +36,38 @@ axios.interceptors.response.use(
       const preRefreshToken = localStorage.getItem("refreshToken");
       if (preRefreshToken) {
         // refresh token을 이용하여 access token 재발행 받기
-        return axios
+        return axiosWithToken
           .post("/account/reissue", {
             refreshToken: preRefreshToken,
           })
           .then((res) => {
-            const { accessToken, refreshToken } = res.data;
+            const { accessToken, refreshToken } = res.data.data;
+
             // 새로 받은 token들의 정보 저장
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
 
-            originalRequest.headers.authorization = accessToken;
+            console.log("accessToken", accessToken);
+            console.log("localStorage", localStorage.getItem("accessToken"));
+
+            const isDeleteStar =
+              originalRequest?.url?.startsWith("/star") &&
+              originalRequest.method == "delete";
+
+            // if (
+            //   isDeleteStar ||
+            //   !originalRequest?.url?.startsWith("/star") ||
+            //   !originalRequest?.url?.startsWith("/bucket/id")
+            // ) {
+            // const accessToken = localStorage.getItem("accessToken");
+            originalRequest.headers = {
+              Authorization: accessToken,
+            };
+            // console.log("token", originalRequest);
+            // return axiosWithToken(originalRequest);
+            // }
+            // console.log("noToken", originalRequest);
+
             return axios(originalRequest);
           })
           .catch(() => {
@@ -63,7 +76,7 @@ axios.interceptors.response.use(
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
             localStorage.removeItem("profile");
-            window.location.href = "/";
+            // window.location.href = "/";
 
             return false;
           });
@@ -76,4 +89,4 @@ axios.interceptors.response.use(
   }
 );
 
-export default axios;
+export default axiosWithToken;

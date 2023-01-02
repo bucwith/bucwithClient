@@ -67,9 +67,9 @@ const KakaoButton = styled.button`
 
 const buttonStyle = css`
   width: 100%;
-  font-size: 1.6rem;
-  padding: 1.6rem;
-  border-radius: 1.6rem;
+  font-size: 16px;
+  padding: 16px;
+  border-radius: 16px;
   color: #fff;
 `;
 
@@ -82,9 +82,9 @@ export const PrimaryButton = styled.button`
     background-color: #4f35b6;
   }
   &:disabled {
-    /* opacity: 0.4; */
-    background-color: #170f30;
-    color: #313131;
+    opacity: 0.4;
+    /* background-color: #170f30;
+    color: #313131; */
   }
 `;
 

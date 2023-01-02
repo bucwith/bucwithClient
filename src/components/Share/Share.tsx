@@ -1,6 +1,5 @@
 import React, { ChangeEventHandler, useEffect, useState } from "react";
 import styled from "styled-components";
-import Title from "../Title";
 import linkIcon from "../../assets/icon_link.png";
 import kakaoIcon from "../../assets/icon_kakao.png";
 import fbIcon from "../../assets/icon_fb.png";
@@ -49,13 +48,11 @@ const SaveButton = styled.button`
   background-color: #4d4e54;
   border-radius: 16px;
   width: 100%;
-  height: 59px;
   color: white;
   font-size: 16px;
   font-weight: 400;
-  line-height: 19px;
   text-align: left;
-  padding: 0 20px;
+  padding: 20px;
   background-image: url(${downloadIcon});
   background-repeat: no-repeat;
   background-position: 94% 48%;
@@ -164,7 +161,7 @@ export default function Share({
     <>
       <ModalBlackWrapper onClick={modalClose} />
       <ShareInnerWarp>
-        <Title primary="내 버킷 공유하기"></Title>
+        <Title>내 버킷 공유하기</Title>
         <CloseButton onClick={modalClose}></CloseButton>
         <FlexWrapper>
           {shareItems.map((item) => (
@@ -183,3 +180,9 @@ export default function Share({
     </>
   );
 }
+
+const Title = styled.h2`
+  font-weight: 700;
+  font-size: 20px;
+  color: white;
+`;

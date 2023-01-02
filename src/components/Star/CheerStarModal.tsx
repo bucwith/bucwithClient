@@ -116,11 +116,11 @@ const CheerStarModal = ({ setIsCheerStartShow }: CheerStarModalProps) => {
             <TextArea
               placeholder="응원 메세지를 작성해보세요."
               textarea
-              onTextAreaChange={(e) => setContents(e.target.value)}
+              onChange={(e) => setContents(e.target.value)}
             />
             <TextArea
               placeholder="닉네임을 입력해 주세요."
-              onInputChange={(e) => setNickname(e.target.value)}
+              onChange={(e) => setNickname(e.target.value)}
             />
           </FlexBox>
           <FlexBox gap="10px">
@@ -151,9 +151,9 @@ const CheerStarModal = ({ setIsCheerStartShow }: CheerStarModalProps) => {
 
 export default CheerStarModal;
 
-const Glow = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+// const Glow = styled.div`
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// `;

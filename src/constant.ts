@@ -11,3 +11,5 @@ export const CHEER_STAR_LOCATION = [
   { top: 200, left: -10 },
   { top: 30, left: 0 },
 ];
+
+export const TEXTAREA_HEIGHT = 164;

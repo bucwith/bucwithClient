@@ -1,25 +1,32 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SetInputBox, { Wrap } from "../components/main/SetInputBox";
+import { Wrap } from "../components/main/SetInputBox";
 import Title from "../components/Title";
 import { VerticalCentered } from "../components/Wrapper";
 import { useMutation } from "react-query";
 import { putNickName } from "../api/my-api";
 import TextArea from "../components/main/TextArea";
 import { PrimaryButton } from "../components/Button";
+import { useSetRecoilState } from "recoil";
+import { userDataAtom } from "../store/atoms";
 
 const SetNickname = () => {
   const navigate = useNavigate();
   const [userNameValue, setUserNameValue] = React.useState("");
+  const setUserData = useSetRecoilState(userDataAtom);
+  const { mutate, data } = useMutation(() => putNickName(userNameValue.trim()));
 
-  const { mutate } = useMutation(() => putNickName(userNameValue.trim()), {
-    onSuccess: () =>
-      navigate("/me/add", {
-        state: {
-          contents: userNameValue,
-        },
-      }),
-  });
+  const handleButtonClick = () => {
+    mutate();
+    setUserData((prev) => {
+      const userData = { ...prev };
+      console.log("name", data);
+      userData.name = userNameValue;
+      return userData;
+    });
+    console.log("hi");
+    navigate("/me/add");
+  };
 
   return (
     <VerticalCentered gap="40px">
@@ -29,10 +36,14 @@ const SetNickname = () => {
       />
       <Wrap gap="20px">
         <TextArea
+          value={userNameValue.trim()}
           placeholder="닉네임을 입력해 주세요."
-          onInputChange={(e) => setUserNameValue(e.target.value)}
+          onChange={(e) => setUserNameValue(e.target.value)}
         />
-        <PrimaryButton onClick={() => mutate()} disabled={!userNameValue}>
+        <PrimaryButton
+          onClick={() => handleButtonClick()}
+          disabled={userNameValue.length < 2}
+        >
           다음
         </PrimaryButton>
       </Wrap>

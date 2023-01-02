@@ -1,7 +1,6 @@
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
 import { Wrap } from "../main/InputBox";
 import { FlexBox } from "../Wrapper";
-import glow from "../../assets/list_glow.png";
 interface Colorprops {
   color: string;
 }
@@ -34,7 +33,6 @@ export const ArrowBox = styled(FlexBox)`
   left: 50%;
   transform: translate(-50%, -50%);
   flex-direction: row;
-  gap: 120px;
 `;
 
 export const IconList = styled(FlexBox)`

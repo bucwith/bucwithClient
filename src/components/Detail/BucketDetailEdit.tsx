@@ -43,7 +43,7 @@ const BucketDetailEdit = ({
     {
       onSuccess: (data) => {
         setIsEditBucketShow(false);
-        setInputValue(data.bucket.contents);
+        setInputValue(data.bucket?.contents);
       },
     }
   );
