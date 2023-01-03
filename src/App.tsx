@@ -63,15 +63,15 @@ function App() {
     });
   };
 
-  window.FB.init({
+  window.FB?.init({
     appId: process.env.REACT_APP_FACEBOOK_JS_KEY,
     autoLogAppEvents: true,
     xfbml: true,
     version: "v15.0",
   });
 
-  if (!window.Kakao.isInitialized()) {
-    window.Kakao.init(process.env.REACT_APP_KAKAO_JS_KEY);
+  if (!window.Kakao?.isInitialized()) {
+    window.Kakao?.init(process.env.REACT_APP_KAKAO_JS_KEY);
   }
 
   return (

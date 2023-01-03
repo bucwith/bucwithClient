@@ -48,9 +48,7 @@ const List = () => {
         <ScrollWrapper>
           <StyledImg src={mainImage} />
           <FlexBox gap="20px" style={{ position: "relative" }}>
-            <AddButton onClick={() => navigate("/me/add")}>
-              <FlexBox>+</FlexBox>
-            </AddButton>
+            <AddButton onClick={() => navigate("/me/add")}>+</AddButton>
             {data?.map((bucket: BucketListType, index: number) => (
               <BucketItem
                 key={index}
@@ -102,7 +100,7 @@ const ScrollWrapper = styled.div`
   }
 `;
 
-const AddButton = styled.div`
+const AddButton = styled(FlexBox)`
   position: absolute;
   top: -66px;
   right: 0;
@@ -110,10 +108,7 @@ const AddButton = styled.div`
   height: 46px;
   background-color: #7958fc;
   border-radius: 50%;
-  font-size: 40px;
+  font-size: 36px;
   color: white;
-  text-align: center;
-  vertical-align: top;
-  padding-top: 4px;
   font-weight: 300;
 `;

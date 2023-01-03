@@ -156,7 +156,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
             </div>
           </AnimationBox>
           <AnimationContexts animation={isAnimationNeed}>
-            <FlexBox>
+            <FlexBox gap="30px">
               <FlexBox direction="row" gap="9px">
                 {totalPage > 1 &&
                   getPagination().map((_, index) => {
@@ -208,11 +208,18 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
 
       <AnimationBlackWrapper animation={isAnimationNeed} />
       <div
-        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1,
+        }}
       >
         {!isStarFetching &&
           stars &&
-          stars.content?.map((star: StarDataType, index: number) => {
+          stars.stars.content?.map((star: StarDataType, index: number) => {
             return (
               <img
                 key={index}
