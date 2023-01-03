@@ -1,13 +1,12 @@
 import React from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useMutation } from "react-query";
 import styled from "styled-components";
 import { bucketType } from "../../@types/enums";
 import { editBucket } from "../../api/my-api";
 import { PrimaryBlackButton, PrimaryButton } from "../Button";
 import Chip from "../Chip";
 import SubTitle from "../main/SubTitle";
-import TextArea, { InputArea } from "../main/TextArea";
+import { InputArea } from "../main/TextArea";
 import {
   FlexBox,
   ModalBlackWrapper,

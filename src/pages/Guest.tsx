@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MainLightImg from "../assets/lantern.png";
 import theme from "../styles/theme";
@@ -11,6 +11,7 @@ import { getBucketData, getCheerStar } from "../api/my-api";
 import CheerStarModal from "../components/Star/CheerStarModal";
 import getIconSrc from "../utils/getIconSrc";
 import { CHEER_STAR_LOCATION } from "../constant";
+import { PrimaryText } from "./BucketDetail";
 
 type StarDataType = {
   bucketId: number;
@@ -25,6 +26,7 @@ const Guest = () => {
   const navigate = useNavigate();
   const { bucketId } = useParams();
   const [isCheerStarShow, setIsCheerStartShow] = React.useState(false);
+  const [page, setPage] = useState(0);
 
   const { data: bucket } = useQuery(["getBucket"], () =>
     bucketId ? getBucketData(Number(bucketId)) : null
@@ -38,6 +40,16 @@ const Guest = () => {
     return navigate("/");
   };
 
+  const totalPage = Math.floor(stars?.totalCnt / 7) + 1;
+
+  const getPagination = () => {
+    const arr = [];
+    for (let i = 0; i < totalPage; i++) {
+      arr.push(i);
+    }
+    return arr;
+  };
+
   return (
     <>
       <MainWrap justify="space-between">
@@ -47,41 +59,56 @@ const Guest = () => {
         </FlexBox>
         <LanternContainer>
           <img width="325px" src={MainLightImg} />
-
-          {stars &&
-            stars.map((star: StarDataType, index: number) => {
-              return (
-                <img
-                  key={index}
-                  src={getIconSrc(star.iconCode)}
-                  style={{
-                    width: "60px",
-                    position: "absolute",
-                    top: `${CHEER_STAR_LOCATION[index]?.top}px`,
-                    left: `${CHEER_STAR_LOCATION[index]?.left}px`,
-                  }}
-                />
-              );
-            })}
         </LanternContainer>
-        <FlexBox gap="10px" direction="row">
-          <Button
-            disabled={false}
-            text="나도 풍등 날리기"
-            color={ButtonColor.Black}
-            onClick={handleMeListClick}
-          />
-          <Button
-            disabled={false}
-            text="응원별 달기"
-            color={ButtonColor.Primary}
-            onClick={() => setIsCheerStartShow(true)}
-          />
+        <FlexBox gap="30px">
+          <FlexBox direction="row" gap="9px">
+            {totalPage > 1 &&
+              getPagination().map((_, index) => {
+                return (
+                  <PaginationBall
+                    key={index}
+                    className={page === index ? "active" : ""}
+                  />
+                );
+              })}
+          </FlexBox>
+          <FlexBox gap="10px" direction="row">
+            <Button
+              disabled={false}
+              text="나도 풍등 날리기"
+              color={ButtonColor.Black}
+              onClick={handleMeListClick}
+            />
+            <Button
+              disabled={false}
+              text="응원별 달기"
+              color={ButtonColor.Primary}
+              onClick={() => setIsCheerStartShow(true)}
+            />
+          </FlexBox>
         </FlexBox>
       </MainWrap>
       {isCheerStarShow && (
         <CheerStarModal setIsCheerStartShow={setIsCheerStartShow} />
       )}
+      <div
+        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+      >
+        {stars &&
+          stars.stars.content?.map((star: StarDataType, index: number) => {
+            return (
+              <img
+                key={index}
+                src={getIconSrc(star.iconCode)}
+                style={{
+                  width: "55px",
+                  position: "absolute",
+                  ...CHEER_STAR_LOCATION[index],
+                }}
+              />
+            );
+          })}
+      </div>
     </>
   );
 };
@@ -99,15 +126,6 @@ export const MainWrap = styled(FlexBox)`
   height: 100%;
 `;
 
-const PrimaryText = styled.h1`
-  font-weight: 700;
-  font-size: 26px;
-  white-space: pre-wrap;
-  color: ${theme.colors.whiteColor};
-  line-height: 30px;
-  text-align: center;
-`;
-
 const SecondaryText = styled.h2`
   font-weight: 400;
   font-size: 16px;
@@ -115,4 +133,15 @@ const SecondaryText = styled.h2`
   margin-bottom: 8px;
   text-align: center;
   color: ${theme.colors.whiteColor};
+`;
+
+export const PaginationBall = styled.span`
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  border: 1px solid white;
+  &.active {
+    width: 20px;
+    background-color: white;
+  }
 `;

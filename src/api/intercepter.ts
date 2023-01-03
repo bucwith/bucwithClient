@@ -1,19 +1,26 @@
 import axios from "axios";
-import Axios from "axios";
-const axiosWithToken = Axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
-});
 
-axiosWithToken.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem("accessToken");
-  config.headers = {
-    Authorization: accessToken,
-  };
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+
+axios.interceptors.request.use((config) => {
+  const isDeleteStar =
+    config?.url?.startsWith("/star") && config.method == "delete";
+
+  if (
+    isDeleteStar ||
+    !config?.url?.startsWith("/star") ||
+    !config?.url?.startsWith("/bucket/id")
+  ) {
+    const accessToken = localStorage.getItem("accessToken");
+    config.headers = {
+      Authorization: accessToken,
+    };
+  }
 
   return config;
 });
 
-axiosWithToken.interceptors.response.use(
+axios.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -36,7 +43,7 @@ axiosWithToken.interceptors.response.use(
       const preRefreshToken = localStorage.getItem("refreshToken");
       if (preRefreshToken) {
         // refresh token을 이용하여 access token 재발행 받기
-        return axiosWithToken
+        return axios
           .post("/account/reissue", {
             refreshToken: preRefreshToken,
           })
@@ -47,26 +54,9 @@ axiosWithToken.interceptors.response.use(
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
 
-            console.log("accessToken", accessToken);
-            console.log("localStorage", localStorage.getItem("accessToken"));
-
-            const isDeleteStar =
-              originalRequest?.url?.startsWith("/star") &&
-              originalRequest.method == "delete";
-
-            // if (
-            //   isDeleteStar ||
-            //   !originalRequest?.url?.startsWith("/star") ||
-            //   !originalRequest?.url?.startsWith("/bucket/id")
-            // ) {
-            // const accessToken = localStorage.getItem("accessToken");
             originalRequest.headers = {
               Authorization: accessToken,
             };
-            // console.log("token", originalRequest);
-            // return axiosWithToken(originalRequest);
-            // }
-            // console.log("noToken", originalRequest);
 
             return axios(originalRequest);
           })
@@ -76,7 +66,7 @@ axiosWithToken.interceptors.response.use(
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
             localStorage.removeItem("profile");
-            // window.location.href = "/";
+            window.location.href = "/";
 
             return false;
           });
@@ -89,4 +79,4 @@ axiosWithToken.interceptors.response.use(
   }
 );
 
-export default axiosWithToken;
+export default axios;

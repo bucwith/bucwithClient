@@ -131,7 +131,7 @@ const CheerStarModal = ({ setIsCheerStartShow }: CheerStarModalProps) => {
               </WarningMsg>
             </FlexBox>
             <Button
-              disabled={false}
+              disabled={!contents || !nickname}
               text="응원 별 달기"
               color={ButtonColor.Primary}
               onClick={() => cheerStar.mutate()}

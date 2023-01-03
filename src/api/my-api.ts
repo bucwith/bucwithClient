@@ -1,15 +1,5 @@
 import { BucketListType } from "./../pages/List";
-import { BASE_URL } from "../constant";
 import axios from "./intercepter";
-import axiosWithToken from "./intercepter";
-
-axios.interceptors.request.use(
-  (response) => response,
-  (error) => {
-    console.log(error);
-    return Promise.reject(error);
-  }
-);
 
 export const postBucket = async ({
   userId,
@@ -17,7 +7,7 @@ export const postBucket = async ({
   type,
 }: BucketListType) => {
   try {
-    const response = await axiosWithToken.post(BASE_URL + "/bucket", {
+    const response = await axios.post("/bucket", {
       userId: userId,
       contents: contents,
       type: type,
@@ -34,7 +24,7 @@ export const editBucket = async ({
   type,
 }: BucketListType) => {
   try {
-    const response = await axiosWithToken.put(BASE_URL + "/bucket", {
+    const response = await axios.put("/bucket", {
       bucketId: bucketId,
       contents: contents,
       type: type,
@@ -47,7 +37,7 @@ export const editBucket = async ({
 
 export const removeBucket = async (bucketId: number) => {
   try {
-    const response = await axiosWithToken.delete(`/bucket/${bucketId}`);
+    const response = await axios.delete(`/bucket/${bucketId}`);
 
     return response.data.data;
   } catch (err) {
@@ -56,7 +46,7 @@ export const removeBucket = async (bucketId: number) => {
 };
 export const getBucketList = async () => {
   try {
-    const response = await axiosWithToken.get("/bucket/user");
+    const response = await axios.get("/bucket/user");
 
     return response.data.data;
   } catch (err) {
@@ -70,7 +60,7 @@ export const checkBucket = async (bucketId: number) => {
       throw new Error("there is no bucketId.");
     }
 
-    const response = await axiosWithToken.post(`/bucket/finish/${bucketId}`);
+    const response = await axios.post(`/bucket/finish/${bucketId}`);
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -79,16 +69,24 @@ export const checkBucket = async (bucketId: number) => {
 
 export const putNickName = async (name: string) => {
   try {
-    const response = await axiosWithToken.put("/user/name", { name: name });
+    const response = await axios.put("/user/name", { name: name });
     return response.data.data;
   } catch (err) {
     console.error(err);
   }
 };
 
-export const getCheerStar = async (id: number) => {
+export const getCheerStar = async (bucketId: number) => {
   try {
-    const response = await axios.get(`/star/${id}`);
+    const response = await axios.get("/star", {
+      params: {
+        bucketId,
+        currentPage: 0,
+        starCnt: 7,
+        isDesc: false,
+      },
+    });
+
     return response.data.data;
   } catch (err) {
     console.error(err);
@@ -125,7 +123,7 @@ export const putCheerStar = async ({
 
 export const DeleteCheerStar = async (starId: number) => {
   try {
-    await axiosWithToken.delete(`/star/${starId}`);
+    await axios.delete(`/star/${starId}`);
   } catch (error) {
     console.log(error);
   }
@@ -139,7 +137,7 @@ export const getToken = async () => {
 
 export const getUserData = async () => {
   try {
-    const response = await axiosWithToken.get("/user/info");
+    const response = await axios.get("/user/info");
 
     return response.data.data;
   } catch (err) {

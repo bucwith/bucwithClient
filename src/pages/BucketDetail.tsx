@@ -21,7 +21,7 @@ import lanternsStopped from "../assets/lantern.png";
 import SnackBar from "../components/Share/SnackBar";
 import { BucketListType } from "./List";
 import BackArrow from "../components/BackArrow";
-import { MainWrap } from "./Guest";
+import { MainWrap, PaginationBall } from "./Guest";
 
 type StarDataType = {
   bucketId: number;
@@ -49,6 +49,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   const [isRemoveModalShow, setIsRemoveModalShow] = React.useState(false);
   const [starData, setStarData] = React.useState<StarDataType | undefined>();
   const userData = useRecoilValue(userDataAtom);
+  const [page, setPage] = useState(0);
 
   const modalClose = (e: any) => {
     if (e.target !== e.currentTarget) return;
@@ -101,6 +102,16 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
     }
   }, [isSnackBarShow]);
 
+  const totalPage = Math.floor(stars?.totalCnt / 7) + 1;
+
+  const getPagination = () => {
+    const arr = [];
+    for (let i = 0; i < totalPage; i++) {
+      arr.push(i);
+    }
+    return arr;
+  };
+
   return (
     <>
       {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
@@ -123,11 +134,9 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
                   {`'${userData?.name}'님의 버킷리스트는`}
                 </SecondaryText>
                 <FlexBox direction="row">
-                  {/* <span>&quot;</span> */}
                   <PrimaryText style={{ position: "relative" }}>
                     {data?.contents}
                   </PrimaryText>
-                  {/* <span>&quot;</span> */}
                 </FlexBox>
               </FlexBox>
             )}
@@ -144,45 +153,41 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
               ) : (
                 <img src={lanternsStopped} />
               )}
-              {!isStarFetching &&
-                stars &&
-                stars.map((star: StarDataType, index: number) => {
-                  return (
-                    <img
-                      key={index}
-                      src={getIconSrc(star.iconCode)}
-                      style={{
-                        width: "55px",
-                        position: "absolute",
-                        top: `${CHEER_STAR_LOCATION[index].top}px`,
-                        left: `${CHEER_STAR_LOCATION[index].left}px`,
-                      }}
-                      onClick={() => handleStarClick(index)}
-                    />
-                  );
-                })}
             </div>
           </AnimationBox>
           <AnimationContexts animation={isAnimationNeed}>
-            <FlexBox
-              gap="10px"
-              direction="row"
-              style={{ flexGrow: 1, zIndex: 1000 }}
-            >
-              {bucketId ? null : (
+            <FlexBox>
+              <FlexBox direction="row" gap="9px">
+                {totalPage > 1 &&
+                  getPagination().map((_, index) => {
+                    return (
+                      <PaginationBall
+                        key={index}
+                        className={page === index ? "active" : ""}
+                      />
+                    );
+                  })}
+              </FlexBox>
+              <FlexBox
+                gap="10px"
+                direction="row"
+                style={{ flexGrow: 1, zIndex: 1000 }}
+              >
+                {bucketId ? null : (
+                  <Button
+                    disabled={false}
+                    text="내 리스트 보기"
+                    color={ButtonColor.Black}
+                    onClick={handleMeListClick}
+                  />
+                )}
                 <Button
                   disabled={false}
-                  text="내 리스트 보기"
-                  color={ButtonColor.Black}
-                  onClick={handleMeListClick}
+                  text="내 버킷 공유하기"
+                  color={ButtonColor.Primary}
+                  onClick={() => setIsShare(true)}
                 />
-              )}
-              <Button
-                disabled={false}
-                text="내 버킷 공유하기"
-                color={ButtonColor.Primary}
-                onClick={() => setIsShare(true)}
-              />
+              </FlexBox>
             </FlexBox>
           </AnimationContexts>
         </>
@@ -202,18 +207,51 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
       )}
 
       <AnimationBlackWrapper animation={isAnimationNeed} />
+      <div
+        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+      >
+        {!isStarFetching &&
+          stars &&
+          stars.content?.map((star: StarDataType, index: number) => {
+            return (
+              <img
+                key={index}
+                src={getIconSrc(star.iconCode)}
+                style={{
+                  width: "55px",
+                  position: "absolute",
+                  ...CHEER_STAR_LOCATION[index],
+                }}
+                onClick={() => handleStarClick(index)}
+              />
+            );
+          })}
+      </div>
     </>
   );
 };
 
 export default BucketDetail;
 
-const PrimaryText = styled.p`
+export const PrimaryText = styled.p`
+  position: relative;
   white-space: pre-wrap;
   font-weight: 700;
   font-size: 24px;
   line-height: 30px;
   color: ${theme.colors.whiteColor};
+  ::before {
+    content: '"';
+    position: absolute;
+    top: 0;
+    left: -16px;
+  }
+  ::after {
+    content: '"';
+    position: absolute;
+    top: 0;
+    right: -16px;
+  }
 `;
 
 const SecondaryText = styled.h2`
@@ -239,15 +277,4 @@ const AnimationBlackWrapper = styled(ModalBlackWrapper)<{ animation: boolean }>`
   opacity: 0;
   z-index: -1;
   ${(props) => (props.animation ? animationBlack : null)};
-`;
-
-const Quote = styled(FlexBox)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  left: 50%;
-  transform: translateX(-60%);
-  width: 120%;
-  flex-direction: row;
-  justify-content: space-between;
 `;
