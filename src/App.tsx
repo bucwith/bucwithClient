@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import SetNickname from "./pages/SetNickname";
 import List from "./pages/List";
 import Me from "./pages/Me";
+import MyPage from "./pages/MyPage";
 import AddList from "./pages/AddList";
 import Guest from "./pages/Guest";
 import BucketDetail from "./pages/BucketDetail";
@@ -100,6 +101,7 @@ function App() {
               element={<BucketDetail exportElementAsPNG={exportElementAsPNG} />}
             />
             <Route path="/me" element={<Me />} />
+            <Route path="/me/mypage" element={<MyPage />} />
             <Route path="/guest/:bucketId" element={<Guest />} />
           </Routes>
         </BrowserRouter>
