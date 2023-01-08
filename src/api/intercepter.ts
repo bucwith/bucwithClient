@@ -1,4 +1,8 @@
+import { userDataAtom } from "./../store/atoms";
+import { useSetRecoilState } from "recoil";
 import axios from "axios";
+import { useQuery } from "react-query";
+import { getUserData } from "./my-api";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
@@ -54,6 +58,13 @@ axios.interceptors.response.use(
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
 
+            // 유저정보 다시 저장
+            const setUserData = useSetRecoilState(userDataAtom);
+            const { data } = useQuery(["getUserData"], getUserData);
+
+            if (data) {
+              setUserData(data);
+            }
             originalRequest.headers = {
               Authorization: accessToken,
             };
