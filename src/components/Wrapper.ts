@@ -7,6 +7,7 @@ interface WrapperProps {
   justify?: string;
   animation?: boolean;
   isDark?: boolean;
+  align?: string;
 }
 
 export const VerticalCentered = styled.div<WrapperProps>`
@@ -65,7 +66,7 @@ export const FlexBox = styled.div<WrapperProps>`
   display: flex;
   flex-direction: ${(props) => props.direction || "column"};
   justify-content: ${(props) => props.justify || "center"};
-  align-items: center;
+  align-items: ${(props) => props.align || "center"};
   padding: ${(props) => props.padding};
   gap: ${(props) => props.gap};
 `;

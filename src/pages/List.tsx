@@ -42,9 +42,9 @@ const List = () => {
   return (
     <>
       <HorizonCentered direction="column">
-        <ListTitle style={{ paddingBottom: "10px" }}>
+        <PageTitle style={{ paddingBottom: "10px" }}>
           내 리스트 보관함
-        </ListTitle>
+        </PageTitle>
         <ScrollWrapper>
           <StyledImg src={mainImage} />
           <FlexBox gap="20px" style={{ position: "relative" }}>
@@ -82,7 +82,7 @@ const List = () => {
 
 export default List;
 
-const ListTitle = styled.h1`
+export const PageTitle = styled.h1`
   color: ${theme.colors.whiteColor};
   font-size: 17px;
 `;

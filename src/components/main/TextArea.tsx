@@ -17,7 +17,7 @@ export const inputCss = `
     line-height: top;
     background-repeat: no-repeat;
     background-image: url(${iconPencil});
-    opacity: 0.5;
+  color: rgba(255, 255, 255, 0.8);
   }
 `;
 
@@ -41,6 +41,7 @@ export interface TextAreaProps {
   disabled?: boolean;
   inputValue?: string;
   setInputValue?: React.Dispatch<React.SetStateAction<string>>;
+  height?: string;
 }
 export default function TextArea({
   placeholder,
@@ -60,7 +61,7 @@ export default function TextArea({
   }, [inputValue]);
 
   return (
-    <div>
+    <div style={{ flexGrow: 1 }}>
       {textarea ? (
         <InputArea
           ref={(ref) => {
