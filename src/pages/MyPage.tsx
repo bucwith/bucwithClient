@@ -6,18 +6,26 @@ import glow from "../assets/list_glow.png";
 import pencil from "../assets/icon-pencil.png";
 import arrow from "../assets/icon_arrow-right.png";
 import IconSelectModal from "../components/MyPage/IconSelectModal";
+import SetNicknameModal from "../components/MyPage/SetNicknameModal"
+
+interface profileIconProps {
+  icon: string
+}
 
 const MyPage = () => {
   const [iconSelectModal, setIconSelectModal] = React.useState(false);
+  const [nicknameModal, setNicknameModal] = React.useState(false);
+  const [profileIcon, setProfileIcon] = React.useState<string[]>([blue_comet, "#172C5F"]);
 
   return (
     <div>
       <VerticalCentered gap="20px">
         <Title>마이 페이지</Title>
-        <ProfileIcon onClick={()=> setIconSelectModal(true)}></ProfileIcon>
-        <ProfileName>풍등이</ProfileName>
+        <ProfileIcon onClick={() => setIconSelectModal(true)} color={profileIcon[1]} icon={profileIcon[0]}></ProfileIcon>
+        <ProfileName onClick={() => setNicknameModal(true)}>풍등이</ProfileName>
       </VerticalCentered>
-      {iconSelectModal && <IconSelectModal />}
+      {iconSelectModal && <IconSelectModal setIconSelectModal={setIconSelectModal} setProfileIcon={setProfileIcon} profileIcon={profileIcon} />}
+      {nicknameModal && <SetNicknameModal setNicknameModal={setNicknameModal} />}
     </div>
   );
 };
@@ -33,13 +41,13 @@ const Title = styled.h1`
   padding: 10px 0;
 `
 
-const ProfileIcon = styled.button`
-  background-color: #172C5F;
+const ProfileIcon = styled.button<profileIconProps>`
+  background-color: ${(props) => props.color};
   width: 80px;
   height: 80px;
   border-radius: 100%;
   transform: translateX(calc(50vw - 50% - 20px));
-  background-image: url(${blue_comet}), url(${glow});
+  background-image: ${(props) => `url(${props.icon}), url(${glow})`};
   background-position: center;
   background-repeat: no-repeat;
   background-size: 60px 60px, cover;
