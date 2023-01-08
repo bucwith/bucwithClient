@@ -13,6 +13,7 @@ import CategoryDrawer from "../components/community/CategoryDrawer";
 import { useMutation } from "react-query";
 import { postCommunityPost } from "../api/community-api";
 import { useNavigate } from "react-router-dom";
+
 const Community = () => {
   const setIsDark = useSetRecoilState(isDarkWrapper);
   const navigate = useNavigate();
@@ -45,9 +46,22 @@ const Community = () => {
   };
 
   const convertCategories = (categories: number[] | string[]) => {
-    return categories.map((category) => (category = `CC00${category + 1}`));
+    const getCategoryNumber = (num: number) => {
+      let categoryNumber: number | string = num + 1;
+
+      if (categoryNumber < 10) {
+        categoryNumber = `0${categoryNumber}`;
+      }
+      return categoryNumber;
+    };
+
+    return categories.map(
+      (category) => (category = `CC0${getCategoryNumber(category)}`)
+    );
   };
 
+  //
+  //
   const { mutate } = useMutation(["postCommunityPost"], () =>
     postCommunityPost({
       userId: userData?.userId,
@@ -56,6 +70,9 @@ const Community = () => {
       categories: convertCategories(categories),
     })
   );
+
+  //
+  //
   return (
     <>
       <BackArrow />
