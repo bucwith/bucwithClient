@@ -13,6 +13,8 @@ import { useQuery } from "react-query";
 import { isDarkWrapper, userDataAtom } from "./store/atoms";
 import { getUserData } from "./api/my-api";
 import { toPng } from "html-to-image";
+import CommunityPost from "./pages/CommunityPost";
+import CommunityMain from "./pages/CommunityMain";
 
 function App() {
   const location = window.location;
@@ -101,6 +103,8 @@ function App() {
             />
             <Route path="/me" element={<Me />} />
             <Route path="/guest/:bucketId" element={<Guest />} />
+            <Route path="/community" element={<CommunityMain />} />
+            <Route path="/community/addPost" element={<CommunityPost />} />
           </Routes>
         </BrowserRouter>
       </div>
