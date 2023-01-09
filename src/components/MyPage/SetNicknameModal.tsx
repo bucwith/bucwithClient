@@ -17,8 +17,8 @@ const IconSelectModal = ({setNicknameModal}: IconSelectModalProps) => {
           <FlexBox gap="30px">
             <Title>닉네임 수정</Title>
             <CloseBtn onClick={() => {setNicknameModal(false)}} />
-            <FlexBox gap="17px">
-              <InputBox></InputBox>
+            <FlexBox as="form" gap="17px">
+              <InputBox type="text" defaultValue="풍등이"></InputBox>
               <PrimaryButton>저장하기</PrimaryButton>
             </FlexBox>
           </FlexBox>
@@ -60,4 +60,13 @@ const CloseBtn = styled.button`
 
 const InputBox = styled.input`
   width: 100%;
+  padding: 20px;
+  background: rgba(240, 243, 245, 0.2);
+  border: 1px solid #FFFFFF;
+  border-radius: 16px;
+  color: white;
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
 `
