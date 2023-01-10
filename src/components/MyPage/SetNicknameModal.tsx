@@ -23,11 +23,11 @@ const IconSelectModal = ({setNicknameModal, setNickname, nickname}: IconSelectMo
       <ModalWrapper>
         <Container>
           <FlexBox gap="30px">
-            <Title>닉네임 수정</Title>
-            <CloseBtn onClick={() => {setNicknameModal(false)}} />
+            <Title>닉네임 수정</Title> {/*component화 대상*/}
+            <CloseBtn onClick={() => {setNicknameModal(false)}} /> {/*component화 대상*/}
             <FlexBox as="form" gap="17px">
               <InputBox type="text" defaultValue={nickname} ref={inputRef} onChange={() => {setChangeNickname(inputRef.current.value)}} spellCheck="false" />
-              <PrimaryButton type="submit" onClick={() => {setNickname(changeNickname); setNicknameModal(false);}}>저장하기</PrimaryButton>
+              <PrimaryButton type="submit" onClick={() => {setNickname(changeNickname); setNicknameModal(false);}}>저장하기</PrimaryButton> {/*component화 대상*/}
             </FlexBox>
           </FlexBox>
         </Container>

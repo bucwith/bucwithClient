@@ -35,10 +35,10 @@ const MyPage = () => {
         <ProfileIcon type="button" onClick={() => setIconSelectModal(true)} color={profileIcon[1]} icon={profileIcon[0]} />
         <ProfileName type="button" onClick={() => setNicknameModal(true)}>{nickname}</ProfileName>
         <MypageSectionWrapper>
-          <MypageSectionHeader type="button" onClick={() => setInterestCategoryModal(true)} icon={heart}>
-            <MypageSectionTitle>관심 카테고리</MypageSectionTitle>
+          <MypageSectionHeader type="button" onClick={() => setInterestCategoryModal(true)} icon={heart}> {/*component화 대상*/}
+            <MypageSectionTitle>관심 카테고리</MypageSectionTitle> {/*component화 대상*/}
           </MypageSectionHeader>
-          <CategoryWrapper>
+          <CategoryWrapper> {/*component화 대상*/}
             {selectCategoryList.map((v, index) => {
               return <Category key={index}>{v}</Category>
             })}
@@ -54,8 +54,8 @@ const MyPage = () => {
             <MypageSectionTitle>알림 설정</MypageSectionTitle>
           </MypageSectionHeader>
           <FlexBox as="ul" gap="12px" align="end">
-            <ToggleBtnWrapper data-text="댓글">
-              <ToggleBtn type="button" onClick={(e) => {(e.target as Element).classList.toggle("isOn"); ((e.target as Element).parentNode as Element).classList.toggle("isOn")}} />
+            <ToggleBtnWrapper data-text="댓글"> {/*component화 대상*/}
+              <ToggleBtn type="button" onClick={(e) => {(e.target as Element).classList.toggle("isOn"); ((e.target as Element).parentNode as Element).classList.toggle("isOn")}} /> {/*component화 대상*/}
             </ToggleBtnWrapper>
             <ToggleBtnWrapper data-text="대댓글">
               <ToggleBtn type="button" onClick={(e) => {(e.target as Element).classList.toggle("isOn"); ((e.target as Element).parentNode as Element).classList.toggle("isOn")}} />

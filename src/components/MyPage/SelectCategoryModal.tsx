@@ -25,9 +25,9 @@ const SelectCategoryModal = ({setInterestCategoryModal, interestCategoryModal, s
       <ModalWrapper>
         <Container interestCategoryModal={modaloff}>
           <FlexBox as="form" gap="30px">
-            <Title>관심 카테고리 설정</Title>
-            <CloseBtn type="button" onClick={() => {setTimeout(() => {setInterestCategoryModal(false);}, 1000); setModaloff(false)}} />
-            <CategoryWrapper onClick={(e) => {(e.target as Element).nodeName === "LI" && (e.target as Element).classList.toggle("isSelect");}}>
+            <Title>관심 카테고리 설정</Title> {/*component화 대상*/}
+            <CloseBtn type="button" onClick={() => {setTimeout(() => {setInterestCategoryModal(false);}, 1000); setModaloff(false)}} /> {/*component화 대상*/}
+            <CategoryWrapper onClick={(e) => {(e.target as Element).nodeName === "LI" && (e.target as Element).classList.toggle("isSelect");}}> {/*component화 대상*/}
               {category_list.map((v, index) => {
                 return <Category key={index} className={selectCategoryList.includes(v) && "isSelect"}>{v}</Category>
               })}
@@ -37,7 +37,7 @@ const SelectCategoryModal = ({setInterestCategoryModal, interestCategoryModal, s
               setModaloff(false); 
               document.querySelectorAll(".isSelect").forEach((v) => isSelectList.push(v.textContent)); 
               setSelectCategoryList(isSelectList)
-            }}>저장하기</PrimaryButton>
+            }}>저장하기</PrimaryButton> {/*component화 대상*/}
           </FlexBox>
         </Container>
       </ModalWrapper>

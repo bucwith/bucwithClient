@@ -47,43 +47,43 @@ const IconSelectModal = ({setIconSelectModal, setProfileIcon}: IconSelectModalPr
       <ModalWrapper>
         <Container>
           <FlexBox as="form" gap="30px">
-            <Title>프로필 아이콘 선택</Title>
-            <CloseBtn type="button" onClick={() => {setIconSelectModal(false)}} />
+            <Title>프로필 아이콘 선택</Title> {/*component화 대상*/}
+            <CloseBtn type="button" onClick={() => {setIconSelectModal(false)}} /> {/*component화 대상*/}
             <IconWrapper>
-              <Icon main={false} iconColor={IconList[Math.abs(((selectIcon - 1) % 4 < 0 ? (selectIcon - 1) % 4 + 4 : (selectIcon - 1) % 4))+selectIconColor]}>
-                <Blur />
+              <Icon main={false} iconColor={IconList[Math.abs(((selectIcon - 1) % 4 < 0 ? (selectIcon - 1) % 4 + 4 : (selectIcon - 1) % 4))+selectIconColor]}> {/*component화 대상*/}
+                <Blur /> {/*component화 대상*/}
               </Icon>
-              <BtnWrapper>
-                <IconMoveBtn type="button" isRight={false} onClick={() => {setSelectIcon(selectIcon - 1)}} />
+              <BtnWrapper> {/*component화 대상*/}
+                <IconMoveBtn type="button" isRight={false} onClick={() => {setSelectIcon(selectIcon - 1)}} /> {/*component화 대상*/}
               </BtnWrapper>
-              <Icon main={true} color={selectColor} iconColor={IconList[Math.abs((selectIcon % 4 < 0 ? selectIcon % 4 + 4 : selectIcon % 4))+selectIconColor]} />
-              <BtnWrapper>
-                <IconMoveBtn type="button" isRight={true} onClick={() => {setSelectIcon(selectIcon + 1)}} />
+              <Icon main={true} color={selectColor} iconColor={IconList[Math.abs((selectIcon % 4 < 0 ? selectIcon % 4 + 4 : selectIcon % 4))+selectIconColor]} /> {/*component화 대상*/}
+              <BtnWrapper> {/*component화 대상*/}
+                <IconMoveBtn type="button" isRight={true} onClick={() => {setSelectIcon(selectIcon + 1)}} /> {/*component화 대상*/}
               </BtnWrapper>
-              <Icon main={false} iconColor={IconList[Math.abs(((selectIcon + 1) % 4 < 0 ? (selectIcon + 1) % 4 + 4 : (selectIcon + 1) % 4))+selectIconColor]}>
-                <Blur />
+              <Icon main={false} iconColor={IconList[Math.abs(((selectIcon + 1) % 4 < 0 ? (selectIcon + 1) % 4 + 4 : (selectIcon + 1) % 4))+selectIconColor]}> {/*component화 대상*/}
+                <Blur /> {/*component화 대상*/}
               </Icon>
             </IconWrapper>
             <FlexBox gap="16px">
-              <ColorWrapperTitle>아이콘 색상</ColorWrapperTitle>
+              <ColorWrapperTitle>아이콘 색상</ColorWrapperTitle> {/*component화 대상*/}
               <FlexBox as="ul" gap="20px" direction="row">
-                <Color onClick={()=>{setSelectIconColor(0)}} color={"#FF68DE"} select={selectIconColor === 0} />
-                <Color onClick={()=>{setSelectIconColor(4)}} color={"#F5E148"} select={selectIconColor === 4} />
-                <Color onClick={()=>{setSelectIconColor(8)}} color={"#007BED"} select={selectIconColor === 8} />
+                <Color onClick={()=>{setSelectIconColor(0)}} color={"#FF68DE"} select={selectIconColor === 0} /> {/*component화 대상*/}
+                <Color onClick={()=>{setSelectIconColor(4)}} color={"#F5E148"} select={selectIconColor === 4} /> {/*component화 대상*/}
+                <Color onClick={()=>{setSelectIconColor(8)}} color={"#007BED"} select={selectIconColor === 8} /> {/*component화 대상*/}
               </FlexBox>
             </FlexBox>
             <FlexBox gap="16px">
-              <ColorWrapperTitle>배경 색상</ColorWrapperTitle>
+              <ColorWrapperTitle>배경 색상</ColorWrapperTitle> {/*component화 대상*/}
               <FlexBox as="ul" gap="20px" direction="row">
-                <Color onClick={()=>{setSelectColor("#88BF9E")}} color={"#88BF9E"} select={selectColor === "#88BF9E"} />
-                <Color onClick={()=>{setSelectColor("#E06C6C")}} color={"#E06C6C"} select={selectColor === "#E06C6C"} />
-                <Color onClick={()=>{setSelectColor("#175F5A")}} color={"#175F5A"} select={selectColor === "#175F5A"} />
-                <Color onClick={()=>{setSelectColor("#172C5F")}} color={"#172C5F"} select={selectColor === "#172C5F"} />
-                <Color onClick={()=>{setSelectColor("#000000")}} color={"#000000"} select={selectColor === "#000000"} />
-                <Color onClick={()=>{setSelectColor("#602E9E")}} color={"#602E9E"} select={selectColor === "#602E9E"} />
+                <Color onClick={()=>{setSelectColor("#88BF9E")}} color={"#88BF9E"} select={selectColor === "#88BF9E"} /> {/*component화 대상*/}
+                <Color onClick={()=>{setSelectColor("#E06C6C")}} color={"#E06C6C"} select={selectColor === "#E06C6C"} /> {/*component화 대상*/}
+                <Color onClick={()=>{setSelectColor("#175F5A")}} color={"#175F5A"} select={selectColor === "#175F5A"} /> {/*component화 대상*/}
+                <Color onClick={()=>{setSelectColor("#172C5F")}} color={"#172C5F"} select={selectColor === "#172C5F"} /> {/*component화 대상*/}
+                <Color onClick={()=>{setSelectColor("#000000")}} color={"#000000"} select={selectColor === "#000000"} /> {/*component화 대상*/}
+                <Color onClick={()=>{setSelectColor("#602E9E")}} color={"#602E9E"} select={selectColor === "#602E9E"} /> {/*component화 대상*/}
               </FlexBox>
             </FlexBox>
-            <PrimaryButton type="submit" onClick={() => {setProfileIcon([IconList[Math.abs((selectIcon % 4 < 0 ? selectIcon % 4 + 4 : selectIcon % 4))+selectIconColor], selectColor]); setIconSelectModal(false);}}>저장하기</PrimaryButton>
+            <PrimaryButton type="submit" onClick={() => {setProfileIcon([IconList[Math.abs((selectIcon % 4 < 0 ? selectIcon % 4 + 4 : selectIcon % 4))+selectIconColor], selectColor]); setIconSelectModal(false);}}>저장하기</PrimaryButton> {/*component화 대상*/}
           </FlexBox>
         </Container>
       </ModalWrapper>
