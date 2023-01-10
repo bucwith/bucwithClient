@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { VerticalCentered } from "../components/Wrapper";
+import { FlexBox, VerticalCentered } from "../components/Wrapper";
 import blue_comet from "../assets/main_icons/blue_comet.png";
 import glow from "../assets/list_glow.png";
 import pencil from "../assets/icon-pencil.png";
@@ -13,7 +13,11 @@ import SetNicknameModal from "../components/MyPage/SetNicknameModal"
 import SelectCategoryModal from "../components/MyPage/SelectCategoryModal"
 
 interface profileIconProps {
-  icon: string
+  icon: string;
+}
+
+interface mypageSectionHeaderIconProps {
+  icon: string;
 }
 
 const MyPage = () => {
@@ -31,7 +35,7 @@ const MyPage = () => {
         <ProfileIcon type="button" onClick={() => setIconSelectModal(true)} color={profileIcon[1]} icon={profileIcon[0]} />
         <ProfileName type="button" onClick={() => setNicknameModal(true)}>{nickname}</ProfileName>
         <MypageSectionWrapper>
-          <MypageSectionHeader type="button" onClick={() => setInterestCategoryModal(true)}>
+          <MypageSectionHeader type="button" onClick={() => setInterestCategoryModal(true)} icon={heart}>
             <MypageSectionTitle>관심 카테고리</MypageSectionTitle>
           </MypageSectionHeader>
           <CategoryWrapper>
@@ -40,8 +44,27 @@ const MyPage = () => {
             })}
           </CategoryWrapper>
         </MypageSectionWrapper>
-        <MypageSectionWrapper></MypageSectionWrapper>
-        <MypageSectionWrapper></MypageSectionWrapper>
+        <MypageSectionWrapper>
+          <MypageSectionHeader type="button" icon={post}>
+            <MypageSectionTitle>내가 쓴 게시글</MypageSectionTitle>
+          </MypageSectionHeader>
+        </MypageSectionWrapper>
+        <MypageSectionWrapper>
+          <MypageSectionHeader as="header" icon={bell}>
+            <MypageSectionTitle>알림 설정</MypageSectionTitle>
+          </MypageSectionHeader>
+          <FlexBox as="ul" gap="12px" align="end">
+            <ToggleBtnWrapper data-text="댓글">
+              <ToggleBtn type="button" onClick={(e) => {(e.target as Element).classList.toggle("isOn"); ((e.target as Element).parentNode as Element).classList.toggle("isOn")}} />
+            </ToggleBtnWrapper>
+            <ToggleBtnWrapper data-text="대댓글">
+              <ToggleBtn type="button" onClick={(e) => {(e.target as Element).classList.toggle("isOn"); ((e.target as Element).parentNode as Element).classList.toggle("isOn")}} />
+            </ToggleBtnWrapper>
+            <ToggleBtnWrapper data-text="좋아요" className="isOn">
+              <ToggleBtn type="button" className="isOn" onClick={(e) => {(e.target as Element).classList.toggle("isOn"); ((e.target as Element).parentNode as Element).classList.toggle("isOn")}} />
+            </ToggleBtnWrapper>
+          </FlexBox>
+        </MypageSectionWrapper>
       </VerticalCentered>
       {iconSelectModal && <IconSelectModal setIconSelectModal={setIconSelectModal} setProfileIcon={setProfileIcon} />}
       {nicknameModal && <SetNicknameModal setNicknameModal={setNicknameModal} setNickname={setNickname} nickname={nickname} />}
@@ -114,14 +137,15 @@ const MypageSectionWrapper = styled.section`
   margin-top: 30px;
 `
 
-const MypageSectionHeader = styled.button`
+const MypageSectionHeader = styled.button<mypageSectionHeaderIconProps>`
   width: 100%;
-  padding: 16px 0 16px 24px;
-  background-image: url(${heart}), url(${arrow});
+  padding-left: 24px;
+  background-image: ${(props) => props.icon === bell ? `url(${props.icon})` : `url(${props.icon}), url(${arrow})`};
   background-repeat: no-repeat;
   background-position: left center, right center;
   background-size: 18px 18px, 20px 20px;
   text-align: left;
+  margin-bottom: ${(props) => props.icon === bell ? "20px" : "0"};
 `
 
 const MypageSectionTitle = styled.h2`
@@ -134,6 +158,7 @@ const MypageSectionTitle = styled.h2`
 
 const CategoryWrapper = styled.ul`
   width: 100%;
+  margin-top: 16px;
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
@@ -151,4 +176,42 @@ const Category = styled.li`
   padding: 10px 13.9px;
   border: 1px solid #4D4E54;
   border-radius: 30px;
+`
+
+const ToggleBtnWrapper = styled.li`
+  width: 50px;
+  height: 30px;
+  background-color: #7958FC;
+  border-radius: 20px;
+  position: relative;
+  transition: 1s;
+  &::after{
+    content: attr(data-text);
+    font-family: 'Roboto';
+    font-size: 16px;
+    line-height: 22px;
+    color: #FFFFFF;
+    position: absolute;
+    left: -300px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &.isOn{
+    background-color: #434657;
+  }
+`
+
+const ToggleBtn = styled.button`
+  width: 26px;
+  height: 26px;
+  background: #D9D9D9;
+  border-radius: 100%;
+  position: absolute;
+  top: 50%;
+  left: 22px;
+  transform: translateY(-50%);
+  transition: 1s;
+  &.isOn{
+    left: 2px;
+  }
 `

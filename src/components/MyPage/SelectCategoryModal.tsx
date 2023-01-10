@@ -18,7 +18,7 @@ interface CategorySelectModalContainerProps {
 const SelectCategoryModal = ({setInterestCategoryModal, interestCategoryModal, selectCategoryList, setSelectCategoryList} : CategorySelectModalProps) => {
   const category_list: string[] = ["#영화", "#여행", "#대학합격", "#미용/뷰티", "#연애", "#자격증", "#공부", "#다이어트", "#음식", "#동물", "#게임", "#IT", "#돈", "#건강", "#운동", "#휴식/힐링", "#외국어", "#심리/마음", "#운전", "#취미", "#기타"]
   const [modaloff, setModaloff] = React.useState(interestCategoryModal);
-  const selectList: string[] = [];
+  const isSelectList: string[] = [];
 
   return (
     <>
@@ -32,7 +32,12 @@ const SelectCategoryModal = ({setInterestCategoryModal, interestCategoryModal, s
                 return <Category key={index} className={selectCategoryList.includes(v) && "isSelect"}>{v}</Category>
               })}
             </CategoryWrapper>
-            <PrimaryButton type="button" onClick={() => {setTimeout(() => {setInterestCategoryModal(false);}, 1000); setModaloff(false); document.querySelectorAll(".isSelect").forEach((v) => selectList.push(v.textContent)); setSelectCategoryList(selectList)}}>저장하기</PrimaryButton>
+            <PrimaryButton type="button" onClick={() => {
+              setTimeout(() => {setInterestCategoryModal(false);}, 1000);
+              setModaloff(false); 
+              document.querySelectorAll(".isSelect").forEach((v) => isSelectList.push(v.textContent)); 
+              setSelectCategoryList(isSelectList)
+            }}>저장하기</PrimaryButton>
           </FlexBox>
         </Container>
       </ModalWrapper>
