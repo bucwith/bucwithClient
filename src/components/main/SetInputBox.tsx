@@ -11,6 +11,7 @@ interface InputBoxProps extends TextAreaProps {
   buttonText: string;
   onClickButton?: () => void;
   textarea?: boolean;
+  buttonDisabled: boolean;
 }
 
 export default function InputBox({
@@ -19,8 +20,8 @@ export default function InputBox({
   buttonText,
   onClickButton,
   textarea,
-  onInputChange,
-  onTextAreaChange,
+  onChange,
+  buttonDisabled,
 }: InputBoxProps) {
   return (
     <Wrap gap="20px">
@@ -28,12 +29,11 @@ export default function InputBox({
       <TextArea
         placeholder={placeholder}
         textarea={textarea}
-        onInputChange={onInputChange}
-        onTextAreaChange={onTextAreaChange}
+        onChange={onChange}
       />
       <Button
         onClick={onClickButton}
-        disabled={false}
+        disabled={buttonDisabled}
         text={buttonText}
         color={ButtonColor.Primary}
       />
