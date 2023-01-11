@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { ButtonColor } from "../@types/enums";
 import kakaoIcon from "../assets/kakao_icon.png";
+import closeBtn from "../assets/icon_close.png";
 
 interface ButtomProps {
   disabled?: boolean;
@@ -97,3 +98,14 @@ export const PrimaryBlackButton = styled.button`
   }
   z-index: 1100;
 `;
+
+export const CloseBtn = styled.button`
+  position: absolute;
+  right: 20px;
+  top: 30px;
+  background-image: url(${closeBtn});
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+`

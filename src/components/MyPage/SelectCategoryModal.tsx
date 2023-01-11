@@ -1,8 +1,7 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
 import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
-import { PrimaryButton } from "../Button";
-import closeBtn from "../../assets/icon_close.png";
+import { PrimaryButton, CloseBtn } from "../Button";
 
 interface CategorySelectModalProps {
   setInterestCategoryModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,7 +36,7 @@ const SelectCategoryModal = ({setInterestCategoryModal, interestCategoryModal, s
               setModaloff(false); 
               document.querySelectorAll(".isSelect").forEach((v) => isSelectList.push(v.textContent)); 
               setSelectCategoryList(isSelectList)
-            }}>저장하기</PrimaryButton> {/*component화 대상*/}
+            }}>저장하기</PrimaryButton>
           </FlexBox>
         </Container>
       </ModalWrapper>
@@ -85,17 +84,6 @@ const Title = styled.h3`
   text-align: center;
   color: #FFFFFF;
 `;
-
-const CloseBtn = styled.button`
-  position: absolute;
-  right: 20px;
-  top: 30px;
-  background-image: url(${closeBtn});
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 20px;
-  height: 20px;
-`
 
 const CategoryWrapper = styled.ul`
   width: 100%;

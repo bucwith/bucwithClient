@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
-import { PrimaryButton } from "../Button";
-import closeBtn from "../../assets/icon_close.png";
+import { PrimaryButton, CloseBtn } from "../Button";
 
 interface IconSelectModalProps {
   setNicknameModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,10 +23,10 @@ const IconSelectModal = ({setNicknameModal, setNickname, nickname}: IconSelectMo
         <Container>
           <FlexBox gap="30px">
             <Title>닉네임 수정</Title> {/*component화 대상*/}
-            <CloseBtn onClick={() => {setNicknameModal(false)}} /> {/*component화 대상*/}
+            <CloseBtn onClick={() => {setNicknameModal(false)}} />
             <FlexBox as="form" gap="17px">
               <InputBox type="text" defaultValue={nickname} ref={inputRef} onChange={() => {setChangeNickname(inputRef.current.value)}} spellCheck="false" />
-              <PrimaryButton type="submit" onClick={() => {setNickname(changeNickname); setNicknameModal(false);}}>저장하기</PrimaryButton> {/*component화 대상*/}
+              <PrimaryButton type="submit" onClick={() => {setNickname(changeNickname); setNicknameModal(false);}}>저장하기</PrimaryButton>
             </FlexBox>
           </FlexBox>
         </Container>
@@ -54,17 +53,6 @@ const Title = styled.h3`
   text-align: center;
   color: #FFFFFF;
 `;
-
-const CloseBtn = styled.button`
-  position: absolute;
-  right: 20px;
-  top: 30px;
-  background-image: url(${closeBtn});
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 20px;
-  height: 20px;
-`
 
 const InputBox = styled.input`
   width: 100%;
