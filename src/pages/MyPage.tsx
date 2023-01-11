@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FlexBox, VerticalCentered } from "../components/Wrapper";
 import blue_comet from "../assets/main_icons/blue_comet.png";
@@ -21,6 +22,7 @@ interface mypageSectionHeaderIconProps {
 }
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const [iconSelectModal, setIconSelectModal] = React.useState(false);
   const [nicknameModal, setNicknameModal] = React.useState(false);
   const [interestCategoryModal, setInterestCategoryModal] = React.useState(false);
@@ -35,9 +37,7 @@ const MyPage = () => {
         <ProfileIcon type="button" onClick={() => setIconSelectModal(true)} color={profileIcon[1]} icon={profileIcon[0]} />
         <ProfileName type="button" onClick={() => setNicknameModal(true)}>{nickname}</ProfileName>
         <MypageSectionWrapper>
-          <MypageSectionHeader type="button" onClick={() => setInterestCategoryModal(true)} icon={heart}> {/*component화 대상*/}
-            <MypageSectionTitle>관심 카테고리</MypageSectionTitle> {/*component화 대상*/}
-          </MypageSectionHeader>
+          <MypageSectionHeader type="button" onClick={() => setInterestCategoryModal(true)} icon={heart}>관심 카테고리</MypageSectionHeader> {/*component화 대상*/}
           <CategoryWrapper> {/*component화 대상*/}
             {selectCategoryList.map((v, index) => {
               return <Category key={index}>{v}</Category>
@@ -45,14 +45,10 @@ const MyPage = () => {
           </CategoryWrapper>
         </MypageSectionWrapper>
         <MypageSectionWrapper>
-          <MypageSectionHeader type="button" icon={post}>
-            <MypageSectionTitle>내가 쓴 게시글</MypageSectionTitle>
-          </MypageSectionHeader>
+          <MypageSectionHeader type="button" icon={post} onClick={() => {navigate("/me/myposting");}}>내가 쓴 게시글</MypageSectionHeader>
         </MypageSectionWrapper>
         <MypageSectionWrapper>
-          <MypageSectionHeader as="header" icon={bell}>
-            <MypageSectionTitle>알림 설정</MypageSectionTitle>
-          </MypageSectionHeader>
+          <MypageSectionHeader as="header" icon={bell}>알림 설정</MypageSectionHeader>
           <FlexBox as="ul" gap="12px" align="end">
             <ToggleBtnWrapper data-text="댓글"> {/*component화 대상*/}
               <ToggleBtn type="button" onClick={(e) => {(e.target as Element).classList.toggle("isOn"); ((e.target as Element).parentNode as Element).classList.toggle("isOn")}} /> {/*component화 대상*/}
@@ -146,9 +142,6 @@ const MypageSectionHeader = styled.button<mypageSectionHeaderIconProps>`
   background-size: 18px 18px, 20px 20px;
   text-align: left;
   margin-bottom: ${(props) => props.icon === bell ? "20px" : "0"};
-`
-
-const MypageSectionTitle = styled.h2`
   font-family: 'Roboto';
   font-weight: 700;
   font-size: 16px;
@@ -184,7 +177,7 @@ const ToggleBtnWrapper = styled.li`
   background-color: #7958FC;
   border-radius: 20px;
   position: relative;
-  transition: 1s;
+  transition: 0.5s;
   &::after{
     content: attr(data-text);
     font-family: 'Roboto';
@@ -210,7 +203,7 @@ const ToggleBtn = styled.button`
   top: 50%;
   left: 22px;
   transform: translateY(-50%);
-  transition: 1s;
+  transition: 0.5s;
   &.isOn{
     left: 2px;
   }
