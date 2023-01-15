@@ -20,7 +20,7 @@ export default BackArrow;
 const Arrow = styled.img`
   width: 26px;
   position: absolute;
-  top: 8px;
+  top: 28px;
   left: 20px;
   transform: rotate(180deg);
   z-index: 1000;

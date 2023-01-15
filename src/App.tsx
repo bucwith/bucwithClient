@@ -6,6 +6,7 @@ import SetNickname from "./pages/SetNickname";
 import List from "./pages/List";
 import Me from "./pages/Me";
 import MyPage from "./pages/MyPage";
+import MyPosting from "./pages/MyPosting";
 import AddList from "./pages/AddList";
 import Guest from "./pages/Guest";
 import BucketDetail from "./pages/BucketDetail";
@@ -104,6 +105,7 @@ function App() {
             />
             <Route path="/me" element={<Me />} />
             <Route path="/me/mypage" element={<MyPage />} />
+            <Route path="/me/myposting" element={<MyPosting />} />
             <Route path="/guest/:bucketId" element={<Guest />} />
             <Route path="/community" element={<CommunityMain />} />
             <Route path="/community/addPost" element={<CommunityPost />} />

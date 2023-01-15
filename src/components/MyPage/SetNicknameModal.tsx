@@ -1,25 +1,32 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
-import { PrimaryButton } from "../Button";
-import closeBtn from "../../assets/icon_close.png";
+import { PrimaryButton, CloseBtn } from "../Button";
 
 interface IconSelectModalProps {
-  setNicknameModal: React.Dispatch<React.SetStateAction<boolean>>
+  setNicknameModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setNickname: React.Dispatch<React.SetStateAction<string>>;
+  nickname: string;
 }
 
-const IconSelectModal = ({setNicknameModal}: IconSelectModalProps) => {
+const IconSelectModal = ({setNicknameModal, setNickname, nickname}: IconSelectModalProps) => {
+  const [changeNickname, setChangeNickname] = useState(nickname)
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    inputRef.current?.focus();
+  });
 
   return (
     <>
       <ModalWrapper>
         <Container>
           <FlexBox gap="30px">
-            <Title>닉네임 수정</Title>
+            <Title>닉네임 수정</Title> {/*component화 대상*/}
             <CloseBtn onClick={() => {setNicknameModal(false)}} />
-            <FlexBox gap="17px">
-              <InputBox></InputBox>
-              <PrimaryButton>저장하기</PrimaryButton>
+            <FlexBox as="form" gap="17px">
+              <InputBox type="text" defaultValue={nickname} ref={inputRef} onChange={() => {setChangeNickname(inputRef.current.value)}} spellCheck="false" />
+              <PrimaryButton type="submit" onClick={() => {setNickname(changeNickname); setNicknameModal(false);}}>저장하기</PrimaryButton>
             </FlexBox>
           </FlexBox>
         </Container>
@@ -47,17 +54,15 @@ const Title = styled.h3`
   color: #FFFFFF;
 `;
 
-const CloseBtn = styled.button`
-  position: absolute;
-  right: 20px;
-  top: 30px;
-  background-image: url(${closeBtn});
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 20px;
-  height: 20px;
-`
-
 const InputBox = styled.input`
   width: 100%;
+  padding: 20px;
+  background: rgba(240, 243, 245, 0.2);
+  border: 1px solid #FFFFFF;
+  border-radius: 16px;
+  color: white;
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
 `
