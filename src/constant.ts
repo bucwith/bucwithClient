@@ -47,3 +47,9 @@ export const CATEGORY_CHIP = [
   "취미",
   "기타",
 ];
+
+export const ICON_COLOR = {
+  icon_color: ["#FF68DE", "#F5E148", "#007BED"],
+  bg_color: ["#88BF9E", "#E06C6C", "#175F5A", "#172C5F", "#000000", "#602E9E"]
+}
+
