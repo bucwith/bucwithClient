@@ -18,12 +18,12 @@ const MyPage = () => {
   const [iconSelectModal, setIconSelectModal] = React.useState(false);
   const [nicknameModal, setNicknameModal] = React.useState(false);
   const [interestCategoryModal, setInterestCategoryModal] = React.useState(false);
-  const [nickname, setNickname] = React.useState("풍등이");
+  const [nickname, setNickname] = React.useState("");
   const [profileIcon, setProfileIcon] = React.useState<string[]>([blue_comet, "#172C5F"]);
   const [selectCategoryList, setSelectCategoryList] = React.useState<string[]>(["#영화", "#여행", "#대학합격", "#미용/뷰티", "#연애", "#공부", "#다이어트"]);
   const dataTextList: string[] = ["댓글", "대댓글", "좋아요"];
   getUserData().then((res) => {
-    console.log(res);
+    setNickname(res.name);
   })
 
   return (
