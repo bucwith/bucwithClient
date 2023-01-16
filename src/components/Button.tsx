@@ -124,7 +124,7 @@ export const ToggleBtnWrapper = styled.div`
     line-height: 22px;
     color: #FFFFFF;
     position: absolute;
-    left: -300px;
+    left: calc(90px - 100vw);
     top: 50%;
     transform: translateY(-50%);
   }
