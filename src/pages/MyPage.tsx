@@ -23,6 +23,7 @@ const MyPage = () => {
   const [selectCategoryList, setSelectCategoryList] = React.useState<string[]>(["#영화", "#여행", "#대학합격", "#미용/뷰티", "#연애", "#공부", "#다이어트"]);
   const dataTextList: string[] = ["댓글", "대댓글", "좋아요"];
   getUserData().then((res) => {
+    console.log(res)
     setNickname(res.name);
   })
 
@@ -57,7 +58,7 @@ const MyPage = () => {
         </MypageSectionWrapper>
       </VerticalCentered>
       {iconSelectModal && <IconSelectModal setIconSelectModal={setIconSelectModal} setProfileIcon={setProfileIcon} />}
-      {nicknameModal && <SetNicknameModal setNicknameModal={setNicknameModal} setNickname={setNickname} nickname={nickname} />}
+      {nicknameModal && <SetNicknameModal setNicknameModal={setNicknameModal} nickname={nickname} />}
       {interestCategoryModal && <SelectCategoryModal setInterestCategoryModal={setInterestCategoryModal} interestCategoryModal={interestCategoryModal} selectCategoryList={selectCategoryList} setSelectCategoryList={setSelectCategoryList} />}
     </div>
   );
