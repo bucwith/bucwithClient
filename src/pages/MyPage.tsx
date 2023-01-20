@@ -5,13 +5,13 @@ import { PrimaryText } from "../components/Title";
 import { MypageSectionTitle, ProfileIcon, ProfileName, Category, MypageSectionWrapper } from "../components/MyPage/MypageStyledComponent";
 import { ToggleBtnWrapper, ToggleBtn } from "../components/Button";
 import { getUserData } from "../api/my-api";
-import blue_comet from "../assets/main_icons/blue_comet.png";
 import heart from "../assets/icon_heart.png";
 import post from "../assets/icon_post.png";
 import bell from "../assets/icon_bell.png";
 import IconSelectModal from "../components/MyPage/IconSelectModal";
 import SetNicknameModal from "../components/MyPage/SetNicknameModal"
 import SelectCategoryModal from "../components/MyPage/SelectCategoryModal"
+import { ICON_CODE, ICON_COLOR } from "../constant";
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -19,19 +19,19 @@ const MyPage = () => {
   const [nicknameModal, setNicknameModal] = React.useState(false);
   const [interestCategoryModal, setInterestCategoryModal] = React.useState(false);
   const [nickname, setNickname] = React.useState("");
-  const [profileIcon, setProfileIcon] = React.useState<string[]>([blue_comet, "#172C5F"]);
+  const [profileIcon, setProfileIcon] = React.useState<string[]>([]);
   const [selectCategoryList, setSelectCategoryList] = React.useState<string[]>(["#영화", "#여행", "#대학합격", "#미용/뷰티", "#연애", "#공부", "#다이어트"]);
   const dataTextList: string[] = ["댓글", "대댓글", "좋아요"];
   getUserData().then((res) => {
-    console.log(res)
     setNickname(res.name);
+    setProfileIcon([res.iconCode, ICON_COLOR.bg_color[res.bgColor]]);
   })
 
   return (
     <div>
       <VerticalCentered gap="20px">
         <PrimaryText fontSize="18px" lineHeight="22px" padding="10px 0" textAlign="center" fontWeight="500">마이 페이지</PrimaryText>
-        <ProfileIcon type="button" onClick={() => setIconSelectModal(true)} color={profileIcon[1]} icon={profileIcon[0]} />
+        <ProfileIcon type="button" onClick={() => setIconSelectModal(true)} color={profileIcon[1]} icon={ICON_CODE[profileIcon[0]]} />
         <ProfileName type="button" onClick={() => setNicknameModal(true)}>{nickname}</ProfileName>
         <MypageSectionWrapper>
           <MypageSectionTitle type="button" onClick={() => setInterestCategoryModal(true)} icon={heart}>관심 카테고리</MypageSectionTitle>
@@ -57,7 +57,7 @@ const MyPage = () => {
           </FlexBox>
         </MypageSectionWrapper>
       </VerticalCentered>
-      {iconSelectModal && <IconSelectModal setIconSelectModal={setIconSelectModal} setProfileIcon={setProfileIcon} />}
+      {iconSelectModal && <IconSelectModal setIconSelectModal={setIconSelectModal} profileIcon={profileIcon} />}
       {nicknameModal && <SetNicknameModal setNicknameModal={setNicknameModal} nickname={nickname} />}
       {interestCategoryModal && <SelectCategoryModal setInterestCategoryModal={setInterestCategoryModal} interestCategoryModal={interestCategoryModal} selectCategoryList={selectCategoryList} setSelectCategoryList={setSelectCategoryList} />}
     </div>
