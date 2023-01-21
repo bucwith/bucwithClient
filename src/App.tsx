@@ -26,7 +26,7 @@ function App() {
   let refreshToken = URLSearch.get("refreshToken");
   let accessToken = URLSearch.get("accessToken");
   const hasTokenUrl =
-    location.pathname === "/me/list" || location.pathname === "/nickname";
+    location.pathname === "/" || location.pathname === "/nickname";
 
   if (hasTokenUrl && accessToken && refreshToken) {
     localStorage.setItem("accessToken", accessToken);
@@ -91,10 +91,10 @@ function App() {
       <div style={{ width: "100vw", height: "100vh", padding: "20px" }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/nickname" element={<SetNickname />} />
             <Route path="/me/add" element={<AddList />} />
-            <Route path="/me/list" element={<List />} />
+            <Route path="/" element={<List />} />
             <Route
               path="/me/bucket/:bucketId"
               element={<BucketDetail exportElementAsPNG={exportElementAsPNG} />}

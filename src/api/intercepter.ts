@@ -77,7 +77,7 @@ axios.interceptors.response.use(
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
             localStorage.removeItem("profile");
-            window.location.href = "/";
+            window.location.href = "/login";
 
             return false;
           });
