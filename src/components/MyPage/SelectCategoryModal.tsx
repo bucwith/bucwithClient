@@ -1,7 +1,10 @@
 import React from "react";
-import styled, { keyframes, css } from "styled-components";
-import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
+import styled, { css } from "styled-components";
+import { Category } from "./MypageStyledComponent";
+import { FlexBox, ModalBlackWrapper, ModalWrapper, CategoryWrapper } from "../Wrapper";
 import { PrimaryButton, CloseBtn } from "../Button";
+import { PrimaryText } from "../Title"
+import { Modalon, Modaloff } from "../../lib/animation"
 
 interface CategorySelectModalProps {
   setInterestCategoryModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,9 +27,9 @@ const SelectCategoryModal = ({setInterestCategoryModal, interestCategoryModal, s
       <ModalWrapper>
         <Container interestCategoryModal={modaloff}>
           <FlexBox as="form" gap="30px">
-            <Title>관심 카테고리 설정</Title> {/*component화 대상*/}
-            <CloseBtn type="button" onClick={() => {setTimeout(() => {setInterestCategoryModal(false);}, 1000); setModaloff(false)}} /> {/*component화 대상*/}
-            <CategoryWrapper onClick={(e) => {(e.target as Element).nodeName === "LI" && (e.target as Element).classList.toggle("isSelect");}}> {/*component화 대상*/}
+            <PrimaryText as="h3" fontSize="20px" lineHeight="23px">관심 카테고리 설정</PrimaryText>
+            <CloseBtn type="button" onClick={() => {setTimeout(() => {setInterestCategoryModal(false);}, 1000); setModaloff(false)}} />
+            <CategoryWrapper as="ul" gap="12px 8px" onClick={(e) => {(e.target as Element).nodeName === "LI" && (e.target as Element).classList.toggle("isSelect");}}>
               {category_list.map((v, index) => {
                 return <Category key={index} className={selectCategoryList.includes(v) && "isSelect"}>{v}</Category>
               })}
@@ -47,24 +50,6 @@ const SelectCategoryModal = ({setInterestCategoryModal, interestCategoryModal, s
 
 export default SelectCategoryModal;
 
-const Modalon = keyframes`
-  0%{
-    transform: translateY(100%) ;
-  }
-  100%{
-    transform: translateY(0);
-  }
-`
-
-const Modaloff = keyframes`
-  0%{
-    transform: translateY(0) ;
-  }
-  100%{
-    transform: translateY(100%);
-  }
-`
-
 const Container = styled(FlexBox)<CategorySelectModalContainerProps>`
   background-color: #24252c;
   border-radius: 30px 30px 0 0;
@@ -75,37 +60,3 @@ const Container = styled(FlexBox)<CategorySelectModalContainerProps>`
   transition: 1s;
   animation: ${(props) => props.interestCategoryModal ? css`${Modalon} 1s ease-in-out forwards` : css`${Modaloff} 1s ease-in-out forwards`};
 `;
-
-const Title = styled.h3`
-  font-family: 'Roboto';
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 23px;
-  text-align: center;
-  color: #FFFFFF;
-`;
-
-const CategoryWrapper = styled.ul`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-  align-items: center;
-  gap: 12px 8px;
-`
-
-const Category = styled.li`
-  font-family: 'Roboto';
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 10px 13.9px;
-  border: 1px solid #4D4E54;
-  border-radius: 30px;
-  &.isSelect{
-    color: #000000;
-    background-color: white;
-  }
-`

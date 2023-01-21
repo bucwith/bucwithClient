@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { VerticalCentered } from "../components/Wrapper";
 import BackArrow from "../components/BackArrow";
+import { PrimaryText } from "../components/Title";
 
 const MyPosting = () => {
 
@@ -9,19 +10,10 @@ const MyPosting = () => {
     <div>
       <VerticalCentered gap="20px">
         <BackArrow />
-        <Title>내가 쓴 게시글</Title>
+        <PrimaryText fontSize="18px" lineHeight="22px" padding="10px 0" textAlign="center" fontWeight="500">내가 쓴 게시글</PrimaryText>
       </VerticalCentered>
     </div>
   );
 };
 
 export default MyPosting;
-
-const Title = styled.h1`
-  font-size: 18px;
-  line-height: 22px;
-  text-align: center;
-  color: white;
-  font-weight: 500;
-  padding: 10px 0;
-`

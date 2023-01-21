@@ -24,6 +24,24 @@ const contentsAnimation = keyframes`
   }
 `;
 
+export const Modalon = keyframes`
+  0%{
+    transform: translateY(100%) ;
+  }
+  100%{
+    transform: translateY(0);
+  }
+`
+
+export const Modaloff = keyframes`
+  0%{
+    transform: translateY(0) ;
+  }
+  100%{
+    transform: translateY(100%);
+  }
+`
+
 const constentsCss = css`
   /* easeOutCubic */
   opacity: 0;

@@ -8,6 +8,7 @@ interface WrapperProps {
   animation?: boolean;
   isDark?: boolean;
   align?: string;
+  margin?: string;
 }
 
 export const VerticalCentered = styled.div<WrapperProps>`
@@ -89,3 +90,14 @@ export const ModalBlackWrapper = styled(ModalWrapper)`
   background-color: black;
   z-index: 9990;
 `;
+
+export const CategoryWrapper = styled.div<WrapperProps>`
+  width: 100%;
+  margin: ${(props) => props.margin};
+  display: flex;
+  flex-direction: ${(props) => props.direction};
+  flex-wrap: wrap;
+  justify-content: ${(props) => props.justify || "left"};
+  align-items: ${(props) => props.align || "center"};
+  gap: ${(props) => props.gap};
+`

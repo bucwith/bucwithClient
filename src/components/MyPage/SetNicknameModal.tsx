@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { InputBox } from "./Modal/SetNicknameModalStyledComponent";
 import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
 import { PrimaryButton, CloseBtn } from "../Button";
+import { PrimaryText } from "../Title";
+import { putNickName } from "../../api/my-api";
 
 interface IconSelectModalProps {
   setNicknameModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setNickname: React.Dispatch<React.SetStateAction<string>>;
   nickname: string;
 }
 
-const IconSelectModal = ({setNicknameModal, setNickname, nickname}: IconSelectModalProps) => {
+const IconSelectModal = ({setNicknameModal, nickname}: IconSelectModalProps) => {
   const [changeNickname, setChangeNickname] = useState(nickname)
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -22,11 +24,11 @@ const IconSelectModal = ({setNicknameModal, setNickname, nickname}: IconSelectMo
       <ModalWrapper>
         <Container>
           <FlexBox gap="30px">
-            <Title>닉네임 수정</Title> {/*component화 대상*/}
-            <CloseBtn onClick={() => {setNicknameModal(false)}} />
+            <PrimaryText as="h3" fontSize="20px" lineHeight="23px">닉네임 수정</PrimaryText>
+            <CloseBtn type="button" onClick={() => {setNicknameModal(false)}} />
             <FlexBox as="form" gap="17px">
               <InputBox type="text" defaultValue={nickname} ref={inputRef} onChange={() => {setChangeNickname(inputRef.current.value)}} spellCheck="false" />
-              <PrimaryButton type="submit" onClick={() => {setNickname(changeNickname); setNicknameModal(false);}}>저장하기</PrimaryButton>
+              <PrimaryButton type="submit" onClick={() => {putNickName(changeNickname); setNicknameModal(false);}}>저장하기</PrimaryButton>
             </FlexBox>
           </FlexBox>
         </Container>
@@ -44,25 +46,3 @@ const Container = styled(FlexBox)`
   padding: 30px 20px;
   position: relative;
 `;
-
-const Title = styled.h3`
-  font-family: 'Roboto';
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 23px;
-  text-align: center;
-  color: #FFFFFF;
-`;
-
-const InputBox = styled.input`
-  width: 100%;
-  padding: 20px;
-  background: rgba(240, 243, 245, 0.2);
-  border: 1px solid #FFFFFF;
-  border-radius: 16px;
-  color: white;
-  font-family: 'Roboto';
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-`

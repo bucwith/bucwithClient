@@ -76,6 +76,15 @@ export const putNickName = async (name: string) => {
   }
 };
 
+export const putUserIcon = async (iconCode: string, bgColor: string) => {
+  try {
+    const response = await axios.put("/user/icon", { iconCode: iconCode, bgColor: bgColor });
+    return response.data.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const getCheerStar = async (bucketId: number) => {
   try {
     const response = await axios.get("/star", {
