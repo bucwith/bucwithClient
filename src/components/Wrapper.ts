@@ -82,13 +82,13 @@ export const ModalWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 1200;
 `;
 
 export const ModalBlackWrapper = styled(ModalWrapper)`
   opacity: 0.4;
   background-color: black;
-  z-index: 9990;
+  z-index: 1200;
 `;
 
 export const CategoryWrapper = styled.div<WrapperProps>`
@@ -100,4 +100,4 @@ export const CategoryWrapper = styled.div<WrapperProps>`
   justify-content: ${(props) => props.justify || "left"};
   align-items: ${(props) => props.align || "center"};
   gap: ${(props) => props.gap};
-`
+`;

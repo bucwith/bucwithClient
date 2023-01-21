@@ -90,7 +90,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   };
 
   const handleStarClick = (index: number) => {
-    setStarData(stars[index]);
+    setStarData(stars.stars.content[index]);
     setIsCheerStartDetailShow(true);
   };
 
@@ -115,7 +115,6 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   return (
     <>
       {isSnackBarShow && <SnackBar text="링크가 복사되었어요." />}
-      {bucketId && <BackArrow />}
       {isShare ? (
         <Share
           modalClose={modalClose}
@@ -126,6 +125,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
         />
       ) : null}
       <MainWrap animation={path.includes("completion")} justify="space-between">
+        {bucketId && <BackArrow />}
         <>
           <AnimationContexts animation={isAnimationNeed}>
             {!isFetching && (
@@ -141,8 +141,8 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
               </FlexBox>
             )}
           </AnimationContexts>
-          <AnimationBox animation={isAnimationNeed}>
-            <div style={{ position: "relative" }}>
+          <AnimationBox animation={isAnimationNeed} style={{ height: "38.5%" }}>
+            <div style={{ position: "relative", height: "100%" }}>
               {isAnimationNeed ? (
                 <img
                   style={{
@@ -151,7 +151,10 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
                   src={lanternRising}
                 />
               ) : (
-                <img src={lanternsStopped} />
+                <img
+                  src={lanternsStopped}
+                  style={{ width: "100%", height: "100%" }}
+                />
               )}
             </div>
           </AnimationBox>
@@ -207,33 +210,57 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
       )}
 
       <AnimationBlackWrapper animation={isAnimationNeed} />
-      <div
+
+      {/* 응원별 */}
+      <FlexBox
+        direction="row"
         style={{
           position: "absolute",
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          zIndex: -1,
+          zIndex: 1000,
+          flexWrap: "nowrap",
         }}
       >
-        {!isStarFetching &&
-          stars &&
-          stars.stars.content?.map((star: StarDataType, index: number) => {
-            return (
-              <img
-                key={index}
-                src={getIconSrc(star.iconCode)}
-                style={{
-                  width: "55px",
-                  position: "absolute",
-                  ...CHEER_STAR_LOCATION[index],
-                }}
-                onClick={() => handleStarClick(index)}
-              />
-            );
-          })}
-      </div>
+        <div>
+          {!isStarFetching &&
+            stars &&
+            stars.stars.content?.map((star: StarDataType, index: number) => {
+              return (
+                <img
+                  key={index}
+                  src={getIconSrc(star.iconCode)}
+                  style={{
+                    width: "55px",
+                    position: "absolute",
+                    ...CHEER_STAR_LOCATION[index],
+                  }}
+                  onClick={() => handleStarClick(index)}
+                />
+              );
+            })}
+        </div>
+        <div>
+          {!isStarFetching &&
+            stars &&
+            stars.stars.content?.map((star: StarDataType, index: number) => {
+              return (
+                <img
+                  key={index}
+                  src={getIconSrc(star.iconCode)}
+                  style={{
+                    width: "55px",
+                    position: "absolute",
+                    ...CHEER_STAR_LOCATION[index],
+                  }}
+                  onClick={() => handleStarClick(index)}
+                />
+              );
+            })}
+        </div>
+      </FlexBox>
     </>
   );
 };

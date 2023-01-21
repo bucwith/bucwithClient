@@ -19,6 +19,7 @@ interface CheerStarDetailModalProps {
   setIsCheerStartDetailShow: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRemoveModalShow?: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const CheerStarDetailModal = ({
   starData,
   setIsCheerStartDetailShow,

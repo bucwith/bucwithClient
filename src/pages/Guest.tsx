@@ -122,8 +122,15 @@ const LanternContainer = styled.div`
 `;
 
 export const MainWrap = styled(FlexBox)`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
   padding-top: 60px;
   height: 100%;
+  z-index: 999;
 `;
 
 const SecondaryText = styled.h2`
