@@ -14,9 +14,11 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Buckwith" />
     <meta property="og:description" content="소망을 응원해주세요!" />
+    <meta property="og:image" content="%process.env.REACT_APP_SHARE_IMG%" />
+    <meta property="og:image:url" content="%process.env.REACT_APP_SHARE_IMG%" />
     <meta
-      property="og:image"
-      content="https://img.freepik.com/free-photo/closeup-shot-of-a-cute-ginger-kitten-staring-at-the-camera-isolated-on-a-white-wall_181624-45452.jpg?w=2000"
+      property="twitter:image"
+      content="%process.env.REACT_APP_SHARE_IMG%"
     />
 
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -35,6 +37,11 @@
       defer
       crossorigin="anonymous"
       src="https://connect.facebook.net/en_US/sdk.js"
+    ></script>
+    <script
+      async
+      src="https://platform.twitter.com/widgets.js"
+      charset="utf-8"
     ></script>
   </head>
   <body>

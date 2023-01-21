@@ -9,6 +9,7 @@ import { RecoilRoot } from "recoil";
 // if (process.env.NODE_ENV === 'development') {
 //     worker.start()
 //   }
+
 const queryClient = new QueryClient();
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 

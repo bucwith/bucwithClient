@@ -86,9 +86,9 @@ export default function Share({
 }: any) {
   const { bucketId } = useParams();
 
-  const shareLink = `${process.env.REACT_APP_DOMAIN}/guest/${
-    bucketId ?? bucketIdFromData
-  }`;
+  const shareLink = encodeURI(
+    `${process.env.REACT_APP_DOMAIN}/guest/${bucketId ?? bucketIdFromData}`
+  );
   const userData = useRecoilValue(userDataAtom);
   // const shareLink = `${window.location.origin}/guest/${
   //   bucketId ?? bucketIdFromData
@@ -99,9 +99,7 @@ export default function Share({
       content: {
         title: "벅윗",
         description: `${userData?.name}님의 소망을 응원해주세요.`,
-        imageUrl:
-          "https://img.freepik.com/free-photo/closeup-shot-of-a-cute-ginger-kitten-staring-at-the-camera-isolated-on-a-white-wall_181624-45452.jpg?w=2000",
-        // imageUrl: process.env.REACT_APP_SHARE_IMG,
+        imageUrl: process.env.REACT_APP_SHARE_IMG,
         link: {
           mobileWebUrl: "https://developers.kakao.com",
           webUrl: "https://developers.kakao.com",
@@ -145,7 +143,10 @@ export default function Share({
     {
       imgURL: twitterIcon,
       title: "twitter",
-      onClick: () => window.open("https://twitter.com/"),
+      onClick: () =>
+        window.open(
+          `https://twitter.com/intent/tweet?url=${shareLink}&text=${`저의 소망을 응원해주세요!`}&hashtags=벅윗리스트`
+        ),
     },
     {
       imgURL: linkIcon,
@@ -162,7 +163,7 @@ export default function Share({
       <ModalBlackWrapper onClick={modalClose} />
       <ShareInnerWarp>
         <Title>내 버킷 공유하기</Title>
-        <CloseButton onClick={modalClose}></CloseButton>
+        <CloseButton onClick={modalClose} />
         <FlexWrapper>
           {shareItems.map((item) => (
             <Items key={item.title}>
