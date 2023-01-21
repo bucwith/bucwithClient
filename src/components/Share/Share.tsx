@@ -101,26 +101,27 @@ export default function Share({
         description: `${userData?.name}님의 소망을 응원해주세요.`,
         imageUrl: process.env.REACT_APP_SHARE_IMG,
         link: {
-          mobileWebUrl: "https://developers.kakao.com",
-          webUrl: "https://developers.kakao.com",
+          mobileWebUrl: shareLink,
+          webUrl: shareLink,
         },
       },
-      buttons: [
-        {
-          title: "웹으로 이동",
-          link: {
-            mobileWebUrl: "https://developers.kakao.com",
-            webUrl: "https://developers.kakao.com",
-          },
-        },
-        {
-          title: "앱으로 이동",
-          link: {
-            mobileWebUrl: "https://developers.kakao.com",
-            webUrl: "https://developers.kakao.com",
-          },
-        },
-      ],
+      // 배포 후 플레이스토어 다운으로 연결
+      // buttons: [
+      //   {
+      //     title: "웹으로 이동",
+      //     link: {
+      //       mobileWebUrl: "https://developers.kakao.com",
+      //       webUrl: "https://developers.kakao.com",
+      //     },
+      //   },
+      //   {
+      //     title: "앱으로 이동",
+      //     link: {
+      //       mobileWebUrl: "https://developers.kakao.com",
+      //       webUrl: "https://developers.kakao.com",
+      //     },
+      //   },
+      // ],
     });
   };
 
