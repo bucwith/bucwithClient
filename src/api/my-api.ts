@@ -78,19 +78,22 @@ export const putNickName = async (name: string) => {
 
 export const putUserIcon = async (iconCode: string, bgColor: string) => {
   try {
-    const response = await axios.put("/user/icon", { iconCode: iconCode, bgColor: bgColor });
+    const response = await axios.put("/user/icon", {
+      iconCode: iconCode,
+      bgColor: bgColor,
+    });
     return response.data.data;
   } catch (err) {
     console.error(err);
   }
 };
 
-export const getCheerStar = async (bucketId: number) => {
+export const getCheerStar = async (bucketId: number, currentPage: number) => {
   try {
     const response = await axios.get("/star", {
       params: {
         bucketId,
-        currentPage: 0,
+        currentPage,
         starCnt: 7,
         isDesc: false,
       },

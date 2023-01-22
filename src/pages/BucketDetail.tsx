@@ -49,16 +49,54 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   const [starData, setStarData] = React.useState<StarDataType | undefined>();
   const userData = useRecoilValue(userDataAtom);
   const locationData = location.state?.data;
+  const [starsData, setStarsData] = React.useState<[StarDataType][]>([]);
 
+  //
+  //
+  // 데이터 fetching
+  // bucket
   const { data: bucket, isFetching } = useQuery(["getBucketData"], () =>
     bucketId ? getBucketData(Number(bucketId)) : null
   );
+  // star
+  // 페이지 관련 변수
+  const [page, setPage] = useState(0);
+  const [totalPage, setTotalPage] = React.useState(0);
 
-  const { data: stars, isFetching: isStarFetching } = useQuery(
+  // 첫번째 페이지 데이터
+  const { isFetching: isFirstStarFetching } = useQuery(
     ["getCheerStar", isRemoveModalShow],
-    () => (bucketId ? getCheerStar(Number(bucketId)) : null)
+    () => (bucketId ? getCheerStar(Number(bucketId), 0) : null),
+    {
+      onSuccess(data) {
+        setStarsData([data.stars.content]);
+        setTotalPage(Math.floor(data.totalCnt / 7) + 1);
+      },
+    }
   );
 
+  // 현재 페이지의 다음 페이지 데이터
+  const { isFetching: nextPageStarsFetching } = useQuery(
+    ["getCheerStar", isRemoveModalShow, page],
+    () =>
+      Boolean(bucketId) && totalPage > 1 && page < totalPage - 1
+        ? getCheerStar(Number(bucketId), page + 1)
+        : null,
+    {
+      onSuccess(data) {
+        return data?.stars?.content
+          ? setStarsData((prev) => {
+              const arr = prev;
+              arr[page + 1] = data.stars.content;
+              return arr;
+            })
+          : null;
+      },
+      enabled: !isFirstStarFetching,
+    }
+  );
+
+  const viewWidth = window.innerWidth;
   useEffect(() => {
     setData(locationData ?? bucket?.bucket);
   }, [locationData, bucket]);
@@ -82,7 +120,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   };
 
   const handleStarClick = (index: number) => {
-    setStarData(stars.stars.content[index]);
+    setStarData(starsData[page][index]);
     setIsCheerStartDetailShow(true);
   };
 
@@ -101,9 +139,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
 
   // 페이지 관련
   // 서버에서 페이지를 0부터 받아서 0부터 시작.
-  const totalPage = Math.floor(stars?.totalCnt / 7) + 1;
-  const viewWidth = window.innerWidth;
-  const [page, setPage] = useState(1);
+
   const cheerContainerRef = React.useRef<HTMLDivElement>();
 
   const getPagination = () => {
@@ -118,9 +154,9 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
     const halfWidth = viewWidth / 2;
 
     const scrollLeft = cheerContainerRef.current.scrollLeft;
-    const page = Math.floor((scrollLeft + halfWidth) / viewWidth);
+    const newPage = Math.floor((scrollLeft + halfWidth) / viewWidth);
 
-    setPage(page);
+    setPage(newPage);
     cheerContainerRef.current.scrollTo({
       left: page * viewWidth,
       behavior: "smooth",
@@ -175,6 +211,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
           </AnimationBox>
           <AnimationContexts animation={isAnimationNeed}>
             <FlexBox gap="30px">
+              {/* 페이지네이션 */}
               <FlexBox direction="row" gap="9px">
                 {totalPage > 1 &&
                   getPagination().map((_, index) => {
@@ -210,6 +247,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
           </AnimationContexts>
         </>
       </MainWrap>
+      {/* 응원별 내용 확인 모달 */}
       {isCheerStarDetailShow && starData && (
         <CheerStarDetailModal
           starData={starData}
@@ -217,6 +255,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
           setIsRemoveModalShow={setIsRemoveModalShow}
         />
       )}
+      {/* 응원별 삭제 모달 */}
       {starData && isRemoveModalShow && (
         <CheerStarRemove
           setIsRemoveModalShow={setIsRemoveModalShow}
@@ -224,14 +263,15 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
         />
       )}
       <AnimationBlackWrapper animation={isAnimationNeed} />
-      {/* 응원별 */}
 
+      {/* 응원별 */}
       <CheerShowView ref={cheerContainerRef}>
-        <CheerStarContainer onTouchEnd={autoSwipe}>
-          {!isStarFetching &&
-            stars &&
-            stars.stars.content?.map((star: StarDataType, index: number) => {
-              return (
+        {!isFirstStarFetching &&
+          !nextPageStarsFetching &&
+          starsData &&
+          starsData?.map((stars: StarDataType[], index: number) => (
+            <CheerStarContainer key={index} onTouchEnd={autoSwipe}>
+              {stars?.map((star, index) => (
                 <img
                   key={index}
                   src={getIconSrc(star.iconCode)}
@@ -242,27 +282,9 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
                   }}
                   onClick={() => handleStarClick(index)}
                 />
-              );
-            })}
-        </CheerStarContainer>
-        <CheerStarContainer onTouchEnd={autoSwipe}>
-          {!isStarFetching &&
-            stars &&
-            stars.stars.content?.map((star: StarDataType, index: number) => {
-              return (
-                <img
-                  key={index}
-                  src={getIconSrc(star.iconCode)}
-                  style={{
-                    width: "13%",
-                    position: "absolute",
-                    ...CHEER_STAR_LOCATION[index],
-                  }}
-                  onClick={() => handleStarClick(index)}
-                />
-              );
-            })}
-        </CheerStarContainer>
+              ))}
+            </CheerStarContainer>
+          ))}
       </CheerShowView>
     </>
   );
@@ -316,7 +338,7 @@ const AnimationBlackWrapper = styled(ModalBlackWrapper)<{ animation: boolean }>`
   ${(props) => (props.animation ? animationBlack : null)};
 `;
 
-const CheerShowView = styled.div`
+export const CheerShowView = styled.div`
   position: absolute;
   top: 50%;
   left: 0;
@@ -328,9 +350,12 @@ const CheerShowView = styled.div`
   white-space: nowrap;
   z-index: 1100;
   animation: linear 0.2s;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
-const CheerStarContainer = styled.div`
+export const CheerStarContainer = styled.div`
   position: relative;
   width: 100vw;
   display: inline-block;
