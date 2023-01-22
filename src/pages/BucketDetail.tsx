@@ -8,7 +8,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Share from "../components/Share/Share";
 import { useQuery } from "react-query";
 import { getBucketData, getCheerStar } from "../api/my-api";
-import arrow from "../assets/icon_arrow-right.png";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isDarkWrapper, userDataAtom } from "../store/atoms";
 import getIconSrc from "../utils/getIconSrc";
@@ -115,15 +114,17 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
     return arr;
   };
 
-  const autoSwipe = (event: React.TouchEvent<HTMLDivElement>) => {
-    const autoStandard = viewWidth / 2;
-    const swipeLeft = event.currentTarget.getBoundingClientRect().left;
-    const addPageCount =
-      Math.floor((swipeLeft + autoStandard) / viewWidth) * -1;
+  const autoSwipe = () => {
+    const halfWidth = viewWidth / 2;
 
-    setPage((prev) => prev + addPageCount);
+    const scrollLeft = cheerContainerRef.current.scrollLeft;
+    const page = Math.floor((scrollLeft + halfWidth) / viewWidth);
 
-    cheerContainerRef.current.scrollLeft = page * viewWidth;
+    setPage(page);
+    cheerContainerRef.current.scrollTo({
+      left: page * viewWidth,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -226,7 +227,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
       {/* 응원별 */}
 
       <CheerShowView ref={cheerContainerRef}>
-        <CheerStarContainer onTouchEnd={(event) => autoSwipe(event)}>
+        <CheerStarContainer onTouchEnd={autoSwipe}>
           {!isStarFetching &&
             stars &&
             stars.stars.content?.map((star: StarDataType, index: number) => {
@@ -244,7 +245,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
               );
             })}
         </CheerStarContainer>
-        <CheerStarContainer onTouchEnd={(event) => autoSwipe(event)}>
+        <CheerStarContainer onTouchEnd={autoSwipe}>
           {!isStarFetching &&
             stars &&
             stars.stars.content?.map((star: StarDataType, index: number) => {
