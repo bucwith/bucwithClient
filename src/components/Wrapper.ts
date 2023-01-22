@@ -18,7 +18,7 @@ export const VerticalCentered = styled.div<WrapperProps>`
   flex-direction: column;
   gap: ${(props) => props.gap};
   padding: ${(props) => props.padding};
-  z-index: 9999;
+  /* z-index: 1000; */
 `;
 
 const img = css`
@@ -82,13 +82,13 @@ export const ModalWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1200;
+  z-index: 1300;
 `;
 
 export const ModalBlackWrapper = styled(ModalWrapper)`
   opacity: 0.4;
   background-color: black;
-  z-index: 1200;
+  z-index: 900;
 `;
 
 export const CategoryWrapper = styled.div<WrapperProps>`

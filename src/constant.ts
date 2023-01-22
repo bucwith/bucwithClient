@@ -18,14 +18,15 @@ export const BASE_URL = "https://bucwiths.shop:8443";
 export const TOKEN =
   "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWQiOjMsIm5hbWUiOiLquYDrr7zsobAiLCJpYXQiOjE2NzEwMzQ2MjksImV4cCI6MTY3MTAzNTIyOX0.eN3_0GvQwaMwJ8kxl3Jnmk6S8s-kUDH8qlGr-bXKJJ4";
 
+// 열두시부터 시계 방향으로
 export const CHEER_STAR_LOCATION = [
-  { top: 217, left: 172 },
-  { top: 277, right: 32 },
-  { top: 420, right: 22 },
-  { top: 527, right: 61 },
-  { top: 552, left: 138 },
-  { top: 465, left: 35 },
-  { top: 290, left: 35 },
+  { top: 0, left: "50%", transform: "translateX(-50%)" },
+  { top: "15%", right: "8%" },
+  { top: "45%", right: "5%" },
+  { bottom: "10%", right: "15%" },
+  { bottom: "5%", left: "35%" },
+  { bottom: "28%", left: "8%" },
+  { top: "20%", left: "10%" },
 ];
 
 export const TEXTAREA_HEIGHT = 164;
@@ -62,11 +63,27 @@ export const CATEGORY_CHIP = [
 
 export const ICON_COLOR = {
   icon_color: ["#FF68DE", "#F5E148", "#007BED"],
-  bg_color: {"BG001": "#88BF9E","BG002": "#E06C6C","BG003": "#175F5A", "BG004": "#172C5F", "BG005": "#000000", "BG006": "#602E9E"}
-}
+  bg_color: {
+    BG001: "#88BF9E",
+    BG002: "#E06C6C",
+    BG003: "#175F5A",
+    BG004: "#172C5F",
+    BG005: "#000000",
+    BG006: "#602E9E",
+  },
+};
 
 export const ICON_CODE = {
-  "CS004P": pink_comet, "CS001P": pink_star, "CS003P": pink_planet, "CS002P": pink_rocket,
-  "CS004Y": yellow_comet, "CS001Y": yellow_star, "CS003Y": yellow_planet, "CS002Y": yellow_rocket,
-  "CS004B": blue_comet, "CS001B": blue_star, "CS003B": blue_planet, "CS002B": blue_rocket
+  CS004P: pink_comet,
+  CS001P: pink_star,
+  CS003P: pink_planet,
+  CS002P: pink_rocket,
+  CS004Y: yellow_comet,
+  CS001Y: yellow_star,
+  CS003Y: yellow_planet,
+  CS002Y: yellow_rocket,
+  CS004B: blue_comet,
+  CS001B: blue_star,
+  CS003B: blue_planet,
+  CS002B: blue_rocket,
 };

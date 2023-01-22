@@ -31,7 +31,7 @@ export const Modalon = keyframes`
   100%{
     transform: translateY(0);
   }
-`
+`;
 
 export const Modaloff = keyframes`
   0%{
@@ -40,9 +40,9 @@ export const Modaloff = keyframes`
   100%{
     transform: translateY(100%);
   }
-`
+`;
 
-const constentsCss = css`
+const contentCSS = css`
   /* easeOutCubic */
   opacity: 0;
   animation: ${contentsAnimation} 0.3s cubic-bezier(0.33, 1, 0.68, 1);
@@ -65,5 +65,5 @@ export const AnimationBox = styled.div<{ animation: boolean }>`
 
 export const AnimationContexts = styled.div<{ animation: boolean }>`
   width: 100%;
-  ${(props) => (props.animation ? constentsCss : null)};
+  ${(props) => (props.animation ? contentCSS : null)};
 `;

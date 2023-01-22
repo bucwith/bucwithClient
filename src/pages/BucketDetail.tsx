@@ -49,13 +49,6 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   const [isRemoveModalShow, setIsRemoveModalShow] = React.useState(false);
   const [starData, setStarData] = React.useState<StarDataType | undefined>();
   const userData = useRecoilValue(userDataAtom);
-  const [page, setPage] = useState(0);
-
-  const modalClose = (e: any) => {
-    if (e.target !== e.currentTarget) return;
-    setIsShare(false);
-  };
-
   const locationData = location.state?.data;
 
   const { data: bucket, isFetching } = useQuery(["getBucketData"], () =>
@@ -77,7 +70,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   }, []);
 
   const handleMeListClick = () => {
-    return navigate("/me/list");
+    return navigate("/");
   };
 
   const isAnimationNeed = path.includes("completion");
@@ -102,7 +95,17 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
     }
   }, [isSnackBarShow]);
 
+  const modalClose = (e: any) => {
+    if (e.target !== e.currentTarget) return;
+    setIsShare(false);
+  };
+
+  // 페이지 관련
+  // 서버에서 페이지를 0부터 받아서 0부터 시작.
   const totalPage = Math.floor(stars?.totalCnt / 7) + 1;
+  const viewWidth = window.innerWidth;
+  const [page, setPage] = useState(1);
+  const cheerContainerRef = React.useRef<HTMLDivElement>();
 
   const getPagination = () => {
     const arr = [];
@@ -110,6 +113,17 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
       arr.push(i);
     }
     return arr;
+  };
+
+  const autoSwipe = (event: React.TouchEvent<HTMLDivElement>) => {
+    const autoStandard = viewWidth / 2;
+    const swipeLeft = event.currentTarget.getBoundingClientRect().left;
+    const addPageCount =
+      Math.floor((swipeLeft + autoStandard) / viewWidth) * -1;
+
+    setPage((prev) => prev + addPageCount);
+
+    cheerContainerRef.current.scrollLeft = page * viewWidth;
   };
 
   return (
@@ -208,23 +222,11 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
           starId={starData?.starId}
         />
       )}
-
       <AnimationBlackWrapper animation={isAnimationNeed} />
-
       {/* 응원별 */}
-      <FlexBox
-        direction="row"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 1000,
-          flexWrap: "nowrap",
-        }}
-      >
-        <div>
+
+      <CheerShowView ref={cheerContainerRef}>
+        <CheerStarContainer onTouchEnd={(event) => autoSwipe(event)}>
           {!isStarFetching &&
             stars &&
             stars.stars.content?.map((star: StarDataType, index: number) => {
@@ -233,7 +235,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
                   key={index}
                   src={getIconSrc(star.iconCode)}
                   style={{
-                    width: "55px",
+                    width: "13%",
                     position: "absolute",
                     ...CHEER_STAR_LOCATION[index],
                   }}
@@ -241,8 +243,8 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
                 />
               );
             })}
-        </div>
-        <div>
+        </CheerStarContainer>
+        <CheerStarContainer onTouchEnd={(event) => autoSwipe(event)}>
           {!isStarFetching &&
             stars &&
             stars.stars.content?.map((star: StarDataType, index: number) => {
@@ -251,7 +253,7 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
                   key={index}
                   src={getIconSrc(star.iconCode)}
                   style={{
-                    width: "55px",
+                    width: "13%",
                     position: "absolute",
                     ...CHEER_STAR_LOCATION[index],
                   }}
@@ -259,8 +261,8 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
                 />
               );
             })}
-        </div>
-      </FlexBox>
+        </CheerStarContainer>
+      </CheerShowView>
     </>
   );
 };
@@ -311,4 +313,25 @@ const AnimationBlackWrapper = styled(ModalBlackWrapper)<{ animation: boolean }>`
   opacity: 0;
   z-index: -1;
   ${(props) => (props.animation ? animationBlack : null)};
+`;
+
+const CheerShowView = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 50%;
+  white-space: nowrap;
+  z-index: 1100;
+  animation: linear 0.2s;
+`;
+
+const CheerStarContainer = styled.div`
+  position: relative;
+  width: 100vw;
+  display: inline-block;
+  height: 100%;
 `;

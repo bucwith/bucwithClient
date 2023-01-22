@@ -127,8 +127,9 @@ export const MainWrap = styled(FlexBox)`
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 20px;
-  padding-top: 60px;
+  padding: 8%;
+  padding-top: 11%;
+
   height: 100%;
   z-index: 999;
 `;

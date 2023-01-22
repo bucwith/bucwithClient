@@ -23,5 +23,5 @@ const Arrow = styled.img`
   top: 28px;
   left: 20px;
   transform: rotate(180deg);
-  z-index: 1000;
+  z-index: 1;
 `;

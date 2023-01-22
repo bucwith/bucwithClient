@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import { Wrap } from "../main/InputBox";
 import { FlexBox } from "../Wrapper";
-interface Colorprops {
+interface ColorProps {
   color: string;
 }
 export const ModalBox = styled(Wrap)`
   width: 100%;
   background-color: #24252c;
   position: relative;
-  z-index: 9999;
+  z-index: 1000;
 `;
 
-export const Color = styled.div<Colorprops>`
+export const Color = styled.div<ColorProps>`
   width: 26px;
   height: 26px;
   border-radius: 50%;
