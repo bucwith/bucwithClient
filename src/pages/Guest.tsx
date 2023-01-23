@@ -89,17 +89,27 @@ const Guest = () => {
   const cheerContainerRef = React.useRef<HTMLDivElement>();
 
   const autoSwipe = () => {
-    const halfWidth = viewWidth / 2;
+    const direction =
+      cheerContainerRef.current.scrollLeft - viewWidth * page > 0
+        ? "next"
+        : "prev";
 
-    const scrollLeft = cheerContainerRef.current.scrollLeft;
-    const newPage = Math.floor((scrollLeft + halfWidth) / viewWidth);
+    if (
+      !(page === 0 && direction === "prev") &&
+      !(page === totalPage - 1 && direction === "next")
+    ) {
+      const newPage = direction === "prev" ? page - 1 : page + 1;
+      setPage(newPage);
+    }
 
-    setPage(newPage);
     cheerContainerRef.current.scrollTo({
       left: page * viewWidth,
       behavior: "smooth",
     });
+
+    console.log(cheerContainerRef.current.scrollLeft);
   };
+
   return (
     <>
       <MainWrap justify="space-between">
@@ -148,7 +158,11 @@ const Guest = () => {
           !nextPageStarsFetching &&
           starsData &&
           starsData?.map((stars: StarDataType[], index: number) => (
-            <CheerStarContainer key={index} onTouchEnd={autoSwipe}>
+            <CheerStarContainer
+              key={index}
+              onTouchEnd={autoSwipe}
+              onMouseUp={autoSwipe}
+            >
               {stars?.map((star, index) => (
                 <img
                   key={index}

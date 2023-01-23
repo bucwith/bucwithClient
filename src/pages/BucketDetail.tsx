@@ -151,14 +151,16 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
   };
 
   const autoSwipe = () => {
-    const halfWidth = viewWidth / 2;
-
     const scrollLeft = cheerContainerRef.current.scrollLeft;
-    const newPage = Math.floor((scrollLeft + halfWidth) / viewWidth);
+
+    const isNext = scrollLeft - 390 * page > 50;
+    const isPrev = scrollLeft - 390 * page < -50;
+    const newPage = isPrev ? page - 1 : isNext ? page + 1 : page;
 
     setPage(newPage);
+
     cheerContainerRef.current.scrollTo({
-      left: page * viewWidth,
+      left: newPage * viewWidth,
       behavior: "smooth",
     });
   };
@@ -343,6 +345,8 @@ export const CheerShowView = styled.div`
   top: 50%;
   left: 0;
   right: 0;
+  transition-property: transform;
+  transition-duration: 0ms;
   transform: translateY(-50%);
   overflow-x: scroll;
   overflow-y: hidden;

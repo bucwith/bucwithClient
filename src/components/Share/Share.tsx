@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useEffect, useState } from "react";
+import React, { ChangeEventHandler } from "react";
 import styled from "styled-components";
 import linkIcon from "../../assets/icon_link.png";
 import kakaoIcon from "../../assets/icon_kakao.png";
