@@ -3,18 +3,18 @@ import { useMutation } from "react-query";
 import styled from "styled-components";
 import { bucketType } from "../../@types/enums";
 import { checkBucket } from "../../api/my-api";
-import lightIcon from "../../assets/icon_lantern.png";
+import lightIcon from "../../assets/images/icon_lantern.png";
 import { BucketListType } from "../../pages/List";
 import theme from "../../styles/theme";
 import { FlexBox } from "../Wrapper";
-import arrowIcon from "../../assets/icon_arrow-right.png";
-import editIcon from "../../assets/icon-pencil.png";
+import arrowIcon from "../../assets/images/icon_arrow-right.png";
+import editIcon from "../../assets/images/icon-pencil.png";
 import { useNavigate } from "react-router-dom";
 interface BucketItemProps {
   data: BucketListType;
   setCongratModal: React.Dispatch<React.SetStateAction<boolean>>;
   setIsEditBucketShow: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedBuckeData: React.Dispatch<React.SetStateAction<BucketListType>>;
+  setSelectedBucketData: React.Dispatch<React.SetStateAction<BucketListType>>;
 }
 
 type ChipDataType = {
@@ -26,9 +26,11 @@ const BucketItem = ({
   data,
   setCongratModal,
   setIsEditBucketShow,
-  setSelectedBuckeData,
+  setSelectedBucketData,
 }: BucketItemProps) => {
   const navigate = useNavigate();
+
+  const [isChecked, setIsChecked] = React.useState(data?.isFinished);
 
   const renderChip = () => {
     if (data.isFinished === undefined) {
@@ -47,8 +49,6 @@ const BucketItem = ({
       checkboxMutation.mutate();
       setIsChecked((prev) => !prev);
     };
-
-    const [isChecked, setIsChecked] = React.useState(data?.isFinished);
 
     const getData = () => {
       switch (data.type) {
@@ -85,7 +85,7 @@ const BucketItem = ({
   };
 
   const handleEditClick = () => {
-    setSelectedBuckeData(data && data);
+    setSelectedBucketData(data && data);
     setIsEditBucketShow(true);
   };
   const cutContents = (contents: string) => {

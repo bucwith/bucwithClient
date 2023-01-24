@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import spaceBgImg from "../assets/space_bg.png";
+import spaceBgImg from "../assets/images/space_bg.png";
 interface WrapperProps {
   gap?: string;
   padding?: string;

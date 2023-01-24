@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import communityIcon from "../../assets/icon_community.png";
-import groupIcon from "../../assets/icon_group.png";
-import lightIcon from "../../assets/icon_light.png";
-import listIcon from "../../assets/icon_list.png";
-import notiIcon from "../../assets/icon_noti.png";
+import communityIcon from "../../assets/images/icon_community.png";
+import groupIcon from "../../assets/images/icon_group.png";
+import lightIcon from "../../assets/images/icon_light.png";
+import listIcon from "../../assets/images/icon_list.png";
+import notiIcon from "../../assets/images/icon_noti.png";
 
 const NaviWarp = styled.div`
   position: absolute;

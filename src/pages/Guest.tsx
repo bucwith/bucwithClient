@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import MainLightImg from "../assets/lantern.png";
+import MainLightImg from "../assets/images/lantern.png";
 import theme from "../styles/theme";
 import { FlexBox } from "../components/Wrapper";
 import Button from "../components/Button";
@@ -46,6 +46,7 @@ const Guest = () => {
   const { data: bucket, isFetching } = useQuery(["getBucketData"], () =>
     bucketId ? getBucketData(Number(bucketId)) : null
   );
+
   // star
   // 페이지 관련 변수
   const [page, setPage] = useState(0);

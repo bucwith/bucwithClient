@@ -4,7 +4,7 @@ import { CATEGORY_CHIP } from "../../constant";
 import { PrimaryButton } from "../Button";
 import { CloseIcon } from "../Star/style";
 import { FlexBox, ModalBlackWrapper } from "../Wrapper";
-import closeIcon from "../../assets/icon_close.png";
+import closeIcon from "../../assets/images/icon_close.png";
 
 interface CategoryDrawerProps {
   setOpenCategoryDrawer: React.Dispatch<React.SetStateAction<boolean>>;

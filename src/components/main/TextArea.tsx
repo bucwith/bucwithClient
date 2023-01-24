@@ -1,6 +1,6 @@
 import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import iconPencil from "../../assets/icon-pencil.png";
+import iconPencil from "../../assets/images/icon-pencil.png";
 import { TEXTAREA_HEIGHT } from "../../constant";
 
 export const inputCss = `

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import arrow from "../assets/icon_arrow-right.png";
+import arrow from "../assets/images/icon_arrow-right.png";
 
 const BackArrow = () => {
   const navigate = useNavigate();

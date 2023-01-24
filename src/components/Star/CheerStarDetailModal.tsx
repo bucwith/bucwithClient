@@ -4,7 +4,7 @@ import getIconSrc from "../../utils/getIconSrc";
 import { PrimaryBlackButton, PrimaryButton } from "../Button";
 import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
 import { ModalBox } from "./style";
-import glow from "../../assets/detail_glow.png";
+import glow from "../../assets/images/detail_glow.png";
 type StarDataType = {
   bucketId: number;
   contents: string;

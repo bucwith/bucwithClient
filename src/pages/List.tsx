@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FlexBox, HorizonCentered } from "../components/Wrapper";
 import { getBucketList } from "../api/my-api";
 import theme from "../styles/theme";
-import mainImage from "../assets/list_image.png";
+import mainImage from "../assets/images/list_image.png";
 import BucketItem from "../components/list/BucketItem";
 import { useQuery } from "react-query";
 import CongratModal from "../components/list/CongratModal";
@@ -25,7 +25,8 @@ export interface BucketListType {
 const List = () => {
   const [congratModal, setCongratModal] = React.useState(false);
   const setIsDark = useSetRecoilState(isDarkWrapper);
-  const [selectedBucketData, setSelectedBuckeData] = useState<BucketListType>();
+  const [selectedBucketData, setSelectedBucketData] =
+    useState<BucketListType>();
 
   const [isEditBucketShow, setIsEditBucketShow] = React.useState(false);
   const [isRemoveBucketShow, setIsRemoveBucketShow] = React.useState(false);
@@ -55,7 +56,7 @@ const List = () => {
                 data={bucket}
                 setCongratModal={setCongratModal}
                 setIsEditBucketShow={setIsEditBucketShow}
-                setSelectedBuckeData={setSelectedBuckeData}
+                setSelectedBucketData={setSelectedBucketData}
               />
             ))}
           </FlexBox>

@@ -13,7 +13,7 @@ import {
   ModalWrapper,
   VerticalCentered,
 } from "../Wrapper";
-import CloseIcon from "../../assets/icon_close.png";
+import CloseIcon from "../../assets/images/icon_close.png";
 interface BucketDetailEditProps {
   contents: string;
   setIsEditBucketShow: React.Dispatch<React.SetStateAction<boolean>>;

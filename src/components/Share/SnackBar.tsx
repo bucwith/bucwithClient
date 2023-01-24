@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
-import check from "../../assets/icon_checkmark.png";
+import check from "../../assets/images/icon_checkmark.png";
 import { FlexBox } from "../Wrapper";
 const SnackBar = ({ text }: { text: string }) => {
   return (

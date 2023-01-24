@@ -15,9 +15,9 @@ import {
 } from "../components/MyPage/MypageStyledComponent";
 import { ToggleBtnWrapper, ToggleBtn } from "../components/Button";
 import { getUserData } from "../api/my-api";
-import heart from "../assets/icon_heart.png";
-import post from "../assets/icon_post.png";
-import bell from "../assets/icon_bell.png";
+import heart from "../assets/images/icon_heart.png";
+import post from "../assets/images/icon_post.png";
+import bell from "../assets/images/icon_bell.png";
 import IconSelectModal from "../components/MyPage/IconSelectModal";
 import SetNicknameModal from "../components/MyPage/SetNicknameModal";
 import SelectCategoryModal from "../components/MyPage/SelectCategoryModal";

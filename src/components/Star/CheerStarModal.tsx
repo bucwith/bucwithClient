@@ -4,12 +4,12 @@ import Button from "../Button";
 import SubTitle from "../main/SubTitle";
 import TextArea from "../main/TextArea";
 import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
-import { pinkIcons, yellowIcons, blueIcons } from "../../assets/icons";
+import { pinkIcons, yellowIcons, blueIcons } from "../../assets/images/icons";
 
 import { useMutation } from "react-query";
 import { putCheerStar } from "../../api/my-api";
-import warningIcon from "../../assets/icon_warning.png";
-import closeIcon from "../../assets/icon_close.png";
+import warningIcon from "../../assets/images/icon_warning.png";
+import closeIcon from "../../assets/images/icon_close.png";
 import { useParams } from "react-router-dom";
 import {
   ActiveStar,
@@ -24,7 +24,7 @@ import {
   WarningMsg,
 } from "./style";
 import styled from "styled-components";
-import glow from "../../assets/list_glow.png";
+import glow from "../../assets/images/list_glow.png";
 
 const Colors = [
   { color: "#FF6BDE", icons: pinkIcons, code: "P" },

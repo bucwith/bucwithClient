@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
-import fanfare from "../../assets/fanfare.png";
+import fanfare from "../../assets/images/fanfare.png";
 import Button from "../Button";
 import { ButtonColor } from "../../@types/enums";
 interface CongratModalProps {

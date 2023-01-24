@@ -1,11 +1,11 @@
 import React, { ChangeEventHandler } from "react";
 import styled from "styled-components";
-import linkIcon from "../../assets/icon_link.png";
-import kakaoIcon from "../../assets/icon_kakao.png";
-import fbIcon from "../../assets/icon_fb.png";
-import twitterIcon from "../../assets/icon_twitter.png";
-import closeIcon from "../../assets/icon_close.png";
-import downloadIcon from "../../assets/icon_download.png";
+import linkIcon from "../../assets/images/icon_link.png";
+import kakaoIcon from "../../assets/images/icon_kakao.png";
+import fbIcon from "../../assets/images/icon_fb.png";
+import twitterIcon from "../../assets/images/icon_twitter.png";
+import closeIcon from "../../assets/images/icon_close.png";
+import downloadIcon from "../../assets/images/icon_download.png";
 import { ModalBlackWrapper } from "../Wrapper";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";

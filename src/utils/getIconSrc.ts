@@ -1,4 +1,4 @@
-import { pinkIcons, yellowIcons, blueIcons } from "../assets/icons";
+import { pinkIcons, yellowIcons, blueIcons } from "../assets/images/icons";
 
 const getIconSrc = (iconCode: string) => {
   const color = iconCode.slice(-1);

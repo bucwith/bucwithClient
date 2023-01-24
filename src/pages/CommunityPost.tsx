@@ -7,7 +7,7 @@ import PostChip, { PostType } from "../components/community/PostChip";
 import { FlexBox } from "../components/Wrapper";
 import { isDarkWrapper, userDataAtom } from "../store/atoms";
 import { PageTitle } from "./List";
-import rightArrow from "../assets/icon_arrow-right.png";
+import rightArrow from "../assets/images/icon_arrow-right.png";
 import { PrimaryButton } from "../components/Button";
 import CategoryDrawer from "../components/community/CategoryDrawer";
 import { useMutation } from "react-query";
