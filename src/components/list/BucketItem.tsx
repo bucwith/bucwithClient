@@ -3,13 +3,16 @@ import { useMutation } from "react-query";
 import styled from "styled-components";
 import { bucketType } from "../../@types/enums";
 import { checkBucket } from "../../api/my-api";
-import lightIcon from "../../assets/images/icon_lantern.png";
 import { BucketListType } from "../../pages/List";
 import theme from "../../styles/theme";
 import { FlexBox } from "../Wrapper";
+import { useNavigate } from "react-router-dom";
+
+// images
+import lightIcon from "../../assets/images/icon_lantern.png";
 import arrowIcon from "../../assets/images/icon_arrow-right.png";
 import editIcon from "../../assets/images/icon-pencil.png";
-import { useNavigate } from "react-router-dom";
+import starIcon from "../../assets/images/list_star.png";
 interface BucketItemProps {
   data: BucketListType;
   setCongratModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -98,6 +101,18 @@ const BucketItem = ({
     return contents;
   };
 
+  const iconImage = isChecked ? (
+    <img
+      width="50px"
+      height="50px"
+      style={{ margin: "-5px 0 0 -5px" }}
+      src={starIcon}
+      alt="별모양 아이콘"
+    />
+  ) : (
+    <img src={lightIcon} alt="랜턴 아이콘" />
+  );
+
   return (
     <ItemBox>
       <EditButtonBox>
@@ -107,7 +122,7 @@ const BucketItem = ({
         </EditButton>
       </EditButtonBox>
       <FlexBox style={{ alignItems: "flex-start" }}>
-        <img src={lightIcon} />
+        {iconImage}
         {renderChip()}
         <ItemTitle>{cutContents(data?.contents)}</ItemTitle>
       </FlexBox>
