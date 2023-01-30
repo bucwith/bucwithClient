@@ -12,14 +12,14 @@ const Posting = () => {
   );
 };
 
-const Wrapper = styled.ul`
+const Wrapper = styled.article`
     width: 350px;
     background-color: #24252C;
     border-radius: 30px;
     padding: 20px;
 `
 
-const Topic = styled.li`
+const Topic = styled.h2`
     padding: 8px 10px;
     border-radius: 8px;
     background-color: #306A83;
@@ -28,6 +28,14 @@ const Topic = styled.li`
     font-weight: 700;
     font-size: 12px;
     line-height: 14px;
+`
+
+const CategoryWrapper = styled.ul`
+
+`
+
+const Category = styled.li`
+    
 `
 
 export default Posting;
