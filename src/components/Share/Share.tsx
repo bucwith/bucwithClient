@@ -152,10 +152,10 @@ export default function Share({
     {
       imgURL: linkIcon,
       title: "링크 복사",
-      onClick: () =>
-        navigator.clipboard.writeText(shareLink).then(() => {
-          setIsSnackBarShow(true);
-        }),
+      onClick: () => {
+        window.NativeAndroid.copyToClipboard(shareLink);
+        setIsSnackBarShow(true);
+      },
     },
   ];
 
