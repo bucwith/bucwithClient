@@ -13,6 +13,7 @@ import lightIcon from "../../assets/images/icon_lantern.png";
 import arrowIcon from "../../assets/images/icon_arrow-right.png";
 import editIcon from "../../assets/images/icon-pencil.png";
 import starIcon from "../../assets/images/list_star.png";
+import { MODAL_BGCOLOR } from "../../constant";
 interface BucketItemProps {
   data: BucketListType;
   setCongratModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -158,7 +159,7 @@ const EditButton = styled(FlexBox)`
 
 const ItemBox = styled(FlexBox)`
   padding: 30px 20px;
-  background-color: #24252c;
+  background-color: ${MODAL_BGCOLOR};
   border-radius: 30px;
   flex-direction: row;
   position: relative;

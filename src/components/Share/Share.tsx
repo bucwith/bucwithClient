@@ -10,13 +10,14 @@ import { ModalBlackWrapper } from "../Wrapper";
 import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../../store/atoms";
+import { MODAL_BGCOLOR } from "../../constant";
 
 const ShareInnerWarp = styled.div`
   width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
-  background-color: #24252c;
+  background-color: ${MODAL_BGCOLOR};
   border-radius: 3rem 3rem 0 0;
   padding: 3rem 2rem;
   text-align: center;
@@ -66,7 +67,7 @@ const CloseButton = styled.button`
   position: absolute;
   top: 32px;
   right: 26px;
-  background-color: #24252c;
+  background-color: ${MODAL_BGCOLOR};
 `;
 
 export interface TextAreaProps {

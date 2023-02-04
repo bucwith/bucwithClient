@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { MODAL_BGCOLOR } from "../../constant";
 import { Wrap } from "../main/InputBox";
 import { FlexBox } from "../Wrapper";
 interface ColorProps {
@@ -6,7 +7,7 @@ interface ColorProps {
 }
 export const ModalBox = styled(Wrap)`
   width: 100%;
-  background-color: #24252c;
+  background-color: ${MODAL_BGCOLOR};
   position: relative;
   z-index: 1000;
 `;

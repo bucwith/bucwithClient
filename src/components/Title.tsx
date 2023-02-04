@@ -9,11 +9,11 @@ const TitleWrapper = styled.div`
 `;
 
 export const PrimaryText = styled.h1<PrimaryTextProps>`
-  font-weight: ${(props) => props.fontWeight ? props.fontWeight : "700"};
-  font-size: ${(props) => props.fontSize ? props.fontSize : "26px"};
+  font-weight: ${(props) => (props.fontWeight ? props.fontWeight : "700")};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "2.6rem")};
   white-space: pre-wrap;
   color: ${theme.colors.whiteColor};
-  line-height: ${(props) => props.lineHeight ? props.lineHeight : "30px"};
+  line-height: ${(props) => (props.lineHeight ? props.lineHeight : "3rem")};
   padding: ${(props) => props.padding};
   text-align: ${(props) => props.textAlign};
   font-family: ${(props) => props.fontFamily};
@@ -21,7 +21,7 @@ export const PrimaryText = styled.h1<PrimaryTextProps>`
 
 const SecondaryText = styled.h2`
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1.6rem;
   white-space: pre-wrap;
   color: ${theme.colors.whiteColor};
 `;
@@ -35,9 +35,9 @@ interface PrimaryTextProps {
   fontSize?: string;
   lineHeight?: string;
   fontWeight?: string;
-  padding? : string;
-  textAlign? : string;
-  fontFamily? : string;
+  padding?: string;
+  textAlign?: string;
+  fontFamily?: string;
 }
 
 /**

@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import React, { ChangeEventHandler, useEffect, useRef } from "react";
 import styled from "styled-components";
 import iconPencil from "../../assets/images/icon-pencil.png";
 import { TEXTAREA_HEIGHT } from "../../constant";
@@ -12,7 +12,9 @@ export const inputCss = `
   color: white;
   font-weight: 500;
   font-size: 16px;
+  outline: none;
   &::placeholder {
+    color: rgba(255, 255, 255, 0.8);
     padding: 0 0 0 30px;
     line-height: top;
     background-repeat: no-repeat;

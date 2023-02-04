@@ -5,6 +5,7 @@ import TextArea, { TextAreaProps } from "./TextArea";
 import Button from "../Button";
 import Chip from "../Chip";
 import { bucketType, ButtonColor } from "../../@types/enums";
+import { MODAL_BGCOLOR } from "../../constant";
 
 interface InputBoxProps extends TextAreaProps {
   title?: string;
@@ -73,7 +74,7 @@ interface WrapProps {
 }
 export const Wrap = styled.div<WrapProps>`
   padding: 30px 20px;
-  background: #24252c;
+  background: ${MODAL_BGCOLOR};
   backdrop-filter: blur(15px);
   border-radius: 30px;
   display: flex;

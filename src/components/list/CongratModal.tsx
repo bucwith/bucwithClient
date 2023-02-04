@@ -4,6 +4,7 @@ import { FlexBox, ModalBlackWrapper, ModalWrapper } from "../Wrapper";
 import fanfare from "../../assets/images/fanfare.png";
 import Button from "../Button";
 import { ButtonColor } from "../../@types/enums";
+import { MODAL_BGCOLOR } from "../../constant";
 interface CongratModalProps {
   setCongratModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -49,7 +50,7 @@ const CongratModal = ({ setCongratModal }: CongratModalProps) => {
 export default CongratModal;
 
 const Container = styled(FlexBox)`
-  background-color: #24252c;
+  background-color: ${MODAL_BGCOLOR};
   border-radius: 30px;
   padding: 250px 20px 30px;
   gap: 20px;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CATEGORY_CHIP } from "../../constant";
+import { CATEGORY_CHIP, MODAL_BGCOLOR } from "../../constant";
 import { PrimaryButton } from "../Button";
 import { CloseIcon } from "../Star/style";
 import { FlexBox, ModalBlackWrapper } from "../Wrapper";
@@ -80,7 +80,7 @@ const DrawerContainer = styled(FlexBox)`
   right: 0;
   bottom: 0;
   padding: 30px 20px;
-  background-color: #24252c;
+  background-color: ${MODAL_BGCOLOR};
   z-index: 9999;
   border-radius: 30px 30px 0px 0px;
 `;

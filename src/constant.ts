@@ -87,3 +87,5 @@ export const ICON_CODE = {
   CS003B: blue_planet,
   CS002B: blue_rocket,
 };
+
+export const MODAL_BGCOLOR = "#24252C";

@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
 import check from "../../assets/images/icon_checkmark.png";
+import { MODAL_BGCOLOR } from "../../constant";
 import { FlexBox } from "../Wrapper";
 const SnackBar = ({ text }: { text: string }) => {
   return (
@@ -31,7 +32,7 @@ const SnackBox = styled.div`
   left: 50%;
   transform: translateX(-50%);
   padding: 17px 30px;
-  background: #24252c;
+  background: ${MODAL_BGCOLOR};
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
   border-radius: 34.5px;
   font-weight: 400;

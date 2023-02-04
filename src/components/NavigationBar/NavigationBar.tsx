@@ -6,10 +6,11 @@ import groupIcon from "../../assets/images/icon_group.png";
 import lightIcon from "../../assets/images/icon_light.png";
 import listIcon from "../../assets/images/icon_list.png";
 import notiIcon from "../../assets/images/icon_noti.png";
+import { MODAL_BGCOLOR } from "../../constant";
 
 const NaviWarp = styled.div`
   position: absolute;
-  background-color: #24252c;
+  background-color: ${MODAL_BGCOLOR};
   border-radius: 30px 30px 0 0;
   border: 0.1px solid white;
   bottom: 0;
