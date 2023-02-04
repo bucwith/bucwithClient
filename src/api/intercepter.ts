@@ -45,6 +45,7 @@ axios.interceptors.response.use(
     ) {
       originalRequest.retry = true;
       const preRefreshToken = localStorage.getItem("refreshToken");
+
       if (preRefreshToken) {
         // refresh token을 이용하여 access token 재발행 받기
         return axios
@@ -81,9 +82,9 @@ axios.interceptors.response.use(
 
             return false;
           });
+      } else {
+        return (window.location.href = "/login");
       }
-      // 오류 발생 시 오류 내용 출력 후 요청 거절
-      return Promise.reject(error);
     }
     // 오류 발생 시 오류 내용 출력 후 요청 거절
     return Promise.reject(error);
