@@ -78,7 +78,10 @@ const BucketItem = ({
         <ChipCheckBox
           color={chipData.color}
           isFinished={isChecked}
-          onClick={() => handleCheckClick()}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleCheckClick();
+          }}
         >
           {isChecked && "✔"}
         </ChipCheckBox>
@@ -114,7 +117,7 @@ const BucketItem = ({
   );
 
   return (
-    <ItemBox>
+    <ItemBox onClick={() => navigate(`/me/bucket/${data?.bucketId}`)}>
       <EditButtonBox>
         <EditButton as={"button"} onClick={() => handleEditClick()}>
           <img width="14px" src={editIcon} />
@@ -126,10 +129,7 @@ const BucketItem = ({
         {renderChip()}
         <ItemTitle>{cutContents(data?.contents)}</ItemTitle>
       </FlexBox>
-      <img
-        src={arrowIcon}
-        onClick={() => navigate(`/me/bucket/${data?.bucketId}`)}
-      />
+      <img src={arrowIcon} />
     </ItemBox>
   );
 };
