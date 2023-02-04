@@ -17,16 +17,17 @@ const ShareInnerWarp = styled.div`
   bottom: 0;
   left: 0;
   background-color: #24252c;
-  border-radius: 30px 30px 0 0;
-  padding: 30px 20px;
+  border-radius: 3rem 3rem 0 0;
+  padding: 3rem 2rem;
   text-align: center;
   z-index: 9999;
 `;
 
 const FlexWrapper = styled.ul`
   display: flex;
-  justify-content: space-evenly;
-  margin: 30px 0;
+  justify-content: space-between;
+  align-items: center;
+  margin: 3rem 0;
 `;
 
 const Items = styled.li``;
@@ -36,12 +37,12 @@ const Click = styled.button`
 `;
 
 const Sub = styled.p`
-  padding: 6px;
+  padding: 0.6rem;
   color: white;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 400;
-  line-height: 14px;
-  letter-spacing: 0px;
+  line-height: 1.4rem;
+  letter-spacing: 0;
 `;
 
 const SaveButton = styled.button`
@@ -153,7 +154,7 @@ export default function Share({
       imgURL: linkIcon,
       title: "링크 복사",
       onClick: () => {
-        if(/ANDROID_APP/i.test(navigator.userAgent)) {
+        if (/ANDROID_APP/i.test(navigator.userAgent)) {
           window.NativeAndroid.copyToClipboard(shareLink);
           setIsSnackBarShow(true);
           return;
@@ -162,7 +163,7 @@ export default function Share({
         //일반적인 브라우저 환경이라면, 카카오 Javascript SDK 를 이용한 카카오로그인을 시도한다.
         navigator.clipboard.writeText(shareLink).then(() => {
           setIsSnackBarShow(true);
-        })
+        });
       },
     },
   ];
@@ -177,7 +178,7 @@ export default function Share({
           {shareItems.map((item) => (
             <Items key={item.title}>
               <Click onClick={item.onClick}>
-                <img src={item.imgURL} />
+                <img src={item.imgURL} width="50px" height="50px" />
                 <Sub>{item.title}</Sub>
               </Click>
             </Items>
