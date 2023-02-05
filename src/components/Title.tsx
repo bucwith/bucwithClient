@@ -17,6 +17,9 @@ export const PrimaryText = styled.h1<PrimaryTextProps>`
   padding: ${(props) => props.padding};
   text-align: ${(props) => props.textAlign};
   font-family: ${(props) => props.fontFamily};
+  @media (max-width: 344px) {
+    font-size: 2rem;
+  }
 `;
 
 const SecondaryText = styled.h2`

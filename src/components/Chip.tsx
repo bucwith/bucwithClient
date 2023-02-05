@@ -31,6 +31,10 @@ const chipStype = css`
   border: 1px solid white;
   font-size: 1.4rem;
   font-weight: 700;
+  @media (max-width: 344px) {
+    font-size: 1.1rem;
+    padding: 0.5rem 1.3rem;
+  }
 `;
 
 const ChipButton = styled.button`

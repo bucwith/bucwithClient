@@ -21,6 +21,14 @@ export const inputCss = `
     background-image: url(${iconPencil});
   color: rgba(255, 255, 255, 0.8);
   }
+  @media (max-width: 344px) {
+     &::placeholder {
+      font-size: 1.3rem;
+       background-size:1.3rem;
+     }
+     padding: 1.5rem;
+     
+  }
 `;
 
 const Input = styled.input`

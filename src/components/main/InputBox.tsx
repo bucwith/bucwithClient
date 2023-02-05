@@ -80,6 +80,9 @@ export const Wrap = styled.div<WrapProps>`
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.gap};
+  @media (max-width: 344px) {
+    padding: 2.5rem 1.6rem;
+  }
 `;
 export const ChipWrap = styled.ul`
   display: flex;
