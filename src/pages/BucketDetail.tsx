@@ -199,14 +199,15 @@ const BucketDetail = ({ exportElementAsPNG }: BucketDetailProps) => {
               {isAnimationNeed ? (
                 <img
                   style={{
-                    width: "325px",
+                    width: "auto",
+                    height: "100%",
                   }}
                   src={lanternRising}
                 />
               ) : (
                 <img
                   src={lanternsStopped}
-                  style={{ width: "100%", height: "100%" }}
+                  style={{ width: "auto", height: "100%" }}
                 />
               )}
             </div>
