@@ -8,17 +8,23 @@ const TitleWrapper = styled.div`
   gap: 8px;
 `;
 
-const PrimaryText = styled.h1`
-  font-weight: 700;
-  font-size: 26px;
+export const PrimaryText = styled.h1<PrimaryTextProps>`
+  font-weight: ${(props) => (props.fontWeight ? props.fontWeight : "700")};
+  font-size: ${(props) => (props.fontSize ? props.fontSize : "2.6rem")};
   white-space: pre-wrap;
   color: ${theme.colors.whiteColor};
-  line-height: 30px;
+  line-height: ${(props) => (props.lineHeight ? props.lineHeight : "3rem")};
+  padding: ${(props) => props.padding};
+  text-align: ${(props) => props.textAlign};
+  font-family: ${(props) => props.fontFamily};
+  @media (max-width: 344px) {
+    font-size: 2rem;
+  }
 `;
 
 const SecondaryText = styled.h2`
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1.6rem;
   white-space: pre-wrap;
   color: ${theme.colors.whiteColor};
 `;
@@ -26,6 +32,15 @@ const SecondaryText = styled.h2`
 interface TitleProps {
   primary: string;
   secondary?: string;
+}
+
+interface PrimaryTextProps {
+  fontSize?: string;
+  lineHeight?: string;
+  fontWeight?: string;
+  padding?: string;
+  textAlign?: string;
+  fontFamily?: string;
 }
 
 /**

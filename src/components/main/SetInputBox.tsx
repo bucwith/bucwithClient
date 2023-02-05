@@ -4,6 +4,7 @@ import SubTitle from "./SubTitle";
 import TextArea, { TextAreaProps } from "./TextArea";
 import Button from "../Button";
 import { ButtonColor } from "../../@types/enums";
+import { MODAL_BGCOLOR } from "../../constant";
 
 interface InputBoxProps extends TextAreaProps {
   title?: string;
@@ -11,6 +12,7 @@ interface InputBoxProps extends TextAreaProps {
   buttonText: string;
   onClickButton?: () => void;
   textarea?: boolean;
+  buttonDisabled: boolean;
 }
 
 export default function InputBox({
@@ -19,8 +21,8 @@ export default function InputBox({
   buttonText,
   onClickButton,
   textarea,
-  onInputChange,
-  onTextAreaChange,
+  onChange,
+  buttonDisabled,
 }: InputBoxProps) {
   return (
     <Wrap gap="20px">
@@ -28,12 +30,11 @@ export default function InputBox({
       <TextArea
         placeholder={placeholder}
         textarea={textarea}
-        onInputChange={onInputChange}
-        onTextAreaChange={onTextAreaChange}
+        onChange={onChange}
       />
       <Button
         onClick={onClickButton}
-        disabled={false}
+        disabled={buttonDisabled}
         text={buttonText}
         color={ButtonColor.Primary}
       />
@@ -46,7 +47,7 @@ interface WrapProps {
 }
 export const Wrap = styled.div<WrapProps>`
   padding: 30px 20px;
-  background: rgba(52, 55, 68, 0.5);
+  background-color: ${MODAL_BGCOLOR};
   backdrop-filter: blur(15px);
   border-radius: 30px;
   display: flex;

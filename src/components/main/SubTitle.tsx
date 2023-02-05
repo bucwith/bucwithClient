@@ -16,6 +16,9 @@ const SubTitleText = styled.h2<SubtitleProps>`
   line-height: 23px;
   color: white;
   text-align: ${(props) => (props.isCentered ? "center" : "left")};
+  @media (max-width: 344px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export default function SubTitle({ text, isCentered }: Props) {

@@ -3,3 +3,9 @@ export enum ButtonColor {
   Kakao,
   Black,
 }
+
+export const bucketType = {
+  BT001: "BT001",
+  BT002: "BT002",
+  BT003: "BT003",
+} as const;
