@@ -6,7 +6,7 @@ import SetNickname from "./pages/SetNickname";
 import List from "./pages/List";
 import Me from "./pages/Me";
 import MyPage from "./pages/MyPage";
-import MyPosting from "./pages/MyPosting";
+import MyPostingBox from "./pages/MyPostingBox";
 import AddList from "./pages/AddList";
 import Guest from "./pages/Guest";
 import BucketDetail from "./pages/BucketDetail";
@@ -18,6 +18,7 @@ import { toPng } from "html-to-image";
 import CommunityPost from "./pages/CommunityPost";
 import CommunityMain from "./pages/CommunityMain";
 import Practice from "./pages/Practice";
+import MyPostingEdit from "./pages/MyPostingEdit";
 
 function App() {
   const location = window.location;
@@ -106,7 +107,8 @@ function App() {
             />
             <Route path="/me" element={<Me />} />
             <Route path="/me/mypage" element={<MyPage />} />
-            <Route path="/me/myposting" element={<MyPosting />} />
+            <Route path="/me/myposting" element={<MyPostingBox />} />
+            <Route path="/me/myposting/edit" element={<MyPostingEdit />} />
             <Route path="/guest/:bucketId" element={<Guest />} />
             <Route path="/community" element={<CommunityMain />} />
             <Route path="/community/addPost" element={<CommunityPost />} />
